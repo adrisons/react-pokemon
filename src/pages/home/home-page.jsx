@@ -11,6 +11,7 @@ function HomePage() {
   const [nextPageUrl, setNextPageUrl] = useState();
   const [prevPageUrl, setPrevPageUrl] = useState();
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -37,7 +38,20 @@ function HomePage() {
   return (
     <>
       <div className="pokemon-list">
-        <PokemonList pokemons={pokemon} />
+        <div className="filter">
+          <input
+            className="filter-input"
+            id="filter"
+            name="filter"
+            type="text"
+            placeholder="Filter by name"
+            value={filter}
+            onChange={(event) => setFilter(event.target.value)}
+          />
+        </div>
+        <PokemonList
+          pokemons={pokemon.filter((p) => p.name.includes(filter))}
+        />
         <Pagination
           gotoNextPage={nextPageUrl ? gotoNextPage : null}
           gotoPrevPage={prevPageUrl ? gotoPrevPage : null}

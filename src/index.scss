@@ -12,6 +12,19 @@ code {
     monospace;
 }
 
+
+input {
+  background-color: #fff;
+  color: #333;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  font: 0.9rem / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 0.5rem 1rem;
+  &:focus{
+    outline: 0;
+    border-color: #3B4CCA;
+  }
+}
 button {
   background-color: #fff;
   color: #333;
