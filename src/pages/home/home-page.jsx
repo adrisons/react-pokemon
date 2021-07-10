@@ -20,7 +20,7 @@ function HomePage() {
         setLoading(false);
         setNextPageUrl(data.next);
         setPrevPageUrl(data.previous);
-        setPokemon(data.results.map((p) => p.name));
+        setPokemon(data.results);
       });
   }, [currentPageUrl]);
 
@@ -37,7 +37,7 @@ function HomePage() {
   return (
     <>
       <div className="pokemon-list">
-        <PokemonList pokemon={pokemon} />
+        <PokemonList pokemons={pokemon} />
         <Pagination
           gotoNextPage={nextPageUrl ? gotoNextPage : null}
           gotoPrevPage={prevPageUrl ? gotoPrevPage : null}

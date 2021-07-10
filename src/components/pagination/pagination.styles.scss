@@ -1,6 +1,12 @@
 .buttons {
-  margin-top: 1rem;
-  & > *:not(:first-child) {
-    margin-left: 10px;
+  margin-top: 2rem;
+  width: 100%;
+  & > *:first-child {
+    position: relative;
+    float: left;
+  }
+  & > *:last-child {
+    position: relative;
+    float: right;
   }
 }
