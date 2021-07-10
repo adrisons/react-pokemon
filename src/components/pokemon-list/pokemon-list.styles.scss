@@ -4,18 +4,33 @@
   padding: 0;
   border: 1px solid #ccc;
   border-radius: 0.5em;
-  width: 20em;
-}
-
-.list-group li {
-  border-top: 1px solid #ccc;
-  padding: 0.5em;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  &:hover {
-    background-color: #ffde00;
+  width: 100%;
+  li {
+    border-top: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+      background-color: #ffde00;
+    }
+    a {
+      width: 100%;
+      height: 100%;
+      text-decoration: inherit;
+      color: inherit;
+      display: flex;
+      & > * {
+        padding: 0.5em;
+      }
+      .id {
+        border-right: 1px solid #ccc;
+      }
+      .name {
+        flex: 1;
+        text-transform: capitalize;
+      }
+    }
   }
 }
 

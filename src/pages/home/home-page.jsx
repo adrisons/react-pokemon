@@ -14,14 +14,13 @@ function HomePage() {
   const [filter, setFilter] = useState("");
 
   useEffect(() => {
-    setLoading(true);
     fetch(currentPageUrl)
       .then((res) => res.json())
       .then((data) => {
-        setLoading(false);
         setNextPageUrl(data.next);
         setPrevPageUrl(data.previous);
         setPokemon(data.results);
+        setLoading(false);
       });
   }, [currentPageUrl]);
 
