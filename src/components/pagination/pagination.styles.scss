@@ -1,0 +1,6 @@
+.buttons {
+  margin-top: 1rem;
+  & > *:not(:first-child) {
+    margin-left: 10px;
+  }
+}
