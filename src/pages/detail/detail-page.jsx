@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Badge from "../../components/badge/badge";
+import Picture from "../../components/pokemon-picture/pokemon-picture";
 import "./detail-page.styles.scss";
 function DetailPage() {
   const { id } = useParams();
@@ -30,6 +31,8 @@ function DetailPage() {
             <Badge name={e.type.name} />
           ))}
         </div>
+        <div className="moves">{pokemon.moves.length} moves</div>
+        <Picture id={id} />
       </div>
     </>
   );
