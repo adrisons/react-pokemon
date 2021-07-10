@@ -25,6 +25,9 @@
       }
       .id {
         border-right: 1px solid #ccc;
+        min-width: 3rem;
+        display: flex;
+        justify-content: center;
       }
       .name {
         flex: 1;

@@ -9,7 +9,7 @@ function PokemonList({ pokemons }) {
         pokemons.map(({ name, url }) => {
           const id = getPokemonIdFromUrl(url);
           return !!name ? (
-            <li key={name}>
+            <li key={id}>
               <Link to={`/detail/${id}`} className="option">
                 <div className="id">#{id}</div>
                 <div className="name">{name}</div>
