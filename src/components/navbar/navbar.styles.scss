@@ -1,28 +1,26 @@
-.header {
+.navbar {
   height: 70px;
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 25px;
-
-  
+  justify-content: center;
+  margin-bottom: 5rem;
 }
 
-.header .logo-container {
-  height: 100%;
-  width: 70px;
-  padding: 25px;
+.navbar .logo-container {
+  max-height: 100%;
+  img {
+    height: 100%;
+  }
 }
 
-.header .options {
+.navbar .options {
   width: 50%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-
 }
-.header .options .option {
+.navbar .options .option {
   padding: 10px 15px;
   cursor: pointer;
 }
