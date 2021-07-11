@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WHEN: PokemonList with no pokemons THEN: should match snapshot 1`] = `
+exports[`GIVEN: PokemonList WHEN: PokemonList with no pokemons THEN: should match snapshot 1`] = `
 <ul
   className="list-group"
 >
@@ -12,7 +12,7 @@ exports[`WHEN: PokemonList with no pokemons THEN: should match snapshot 1`] = `
 </ul>
 `;
 
-exports[`WHEN: PokemonList with pokemons THEN: should match snapshot 1`] = `
+exports[`GIVEN: PokemonList WHEN: PokemonList with pokemons THEN: should match snapshot 1`] = `
 <ul
   className="list-group"
 >
