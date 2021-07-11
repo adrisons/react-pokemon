@@ -1,6 +1,8 @@
+@import "./styles/_colors";
+
 body {
-  background-color: #fff;
-  color: #333;
+  background-color: $white;
+  color: $gray-500;
   font: 1.2rem / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding: 0;
   margin: 0;
@@ -12,28 +14,30 @@ code {
     monospace;
 }
 
-
 input {
-  background-color: #fff;
-  color: #333;
+  background-color: $white;
+  color: $gray-500;
   border: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid $gray-100;
   font: 0.9rem / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding: 0.5rem 1rem;
-  &:focus{
+  &:hover,
+  &:focus {
     outline: 0;
-    border-color: #3B4CCA;
+    border-color: $blue;
   }
 }
 button {
-  background-color: #fff;
-  color: #333;
-  border: 1px solid #ccc;
+  background-color: $white;
+  color: $gray-500;
+  border: 1px solid $gray-100;
   font: 0.9rem / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
   border-radius: 0.25rem;
   padding: 0.5rem 1rem;
   cursor: pointer;
   &:hover {
-    background-color: #ffde00;
+    background-color: $blue;
+    color: $white;
+    border-color: $blue;
   }
 }

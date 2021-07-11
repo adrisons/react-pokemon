@@ -5,6 +5,14 @@
   margin: auto;
 }
 
+.center {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+
 .filter {
   display: flex;
   align-items: baseline;

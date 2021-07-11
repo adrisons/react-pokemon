@@ -12,6 +12,7 @@ function HomePage() {
   const [nextPageUrl, setNextPageUrl] = useState();
   const [prevPageUrl, setPrevPageUrl] = useState();
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [filter, setFilter] = useState("");
 
   useEffect(() => {
@@ -22,6 +23,10 @@ function HomePage() {
         setPrevPageUrl(data.previous);
         setPokemon(data.results);
         setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+        setError(true);
       });
   }, [currentPageUrl]);
 
@@ -34,10 +39,19 @@ function HomePage() {
   }
 
   if (loading) return <Loading />;
+  if (error)
+    return (
+      <div className="pokemon-list">
+        <div className="center">Couldn't find pokemons.</div>
+        <div className="center">
+          You can use candy to attract them or check your internet connection.
+        </div>
+      </div>
+    );
 
   return (
     <div className="pokemon-list">
-      <div className="filter">
+      <div className="center">
         <input
           className="filter-input"
           id="filter"
