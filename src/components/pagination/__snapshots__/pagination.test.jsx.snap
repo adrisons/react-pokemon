@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WHEN: Pagination with no prev page link THEN: should match snapshot 1`] = `
+<div
+  className="buttons"
+>
+  <button
+    onClick="next-page"
+  >
+    Next
+  </button>
+</div>
+`;
+
+exports[`WHEN: Pagination with prev page link THEN: should match snapshot 1`] = `
+<div
+  className="buttons"
+>
+  <button
+    onClick="prev-page"
+  >
+    Previous
+  </button>
+  <button
+    onClick="next-page"
+  >
+    Next
+  </button>
+</div>
+`;
