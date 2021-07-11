@@ -1,8 +1,15 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { BrowserRouter as Router } from "react-router-dom";
+import renderer from "react-test-renderer";
+import App from "./App";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe("WHEN: PokemonList with no pokemons", () => {
+  const component = renderer.create(
+    <Router>
+      <App />
+    </Router>
+  );
+  const tree = component.toJSON();
+  it("THEN: should match snapshot", () => {
+    expect(tree).toMatchSnapshot();
+  });
 });
