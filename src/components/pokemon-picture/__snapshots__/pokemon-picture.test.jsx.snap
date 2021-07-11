@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WHEN: Picture THEN: should match snapshot 1`] = `
+<div
+  className="picture-container"
+>
+  <div
+    className="loading"
+  >
+    <img
+      alt="loading"
+      src="pokeball.png"
+    />
+  </div>
+  <img
+    alt="Pokemon"
+    className="pokemon-picture"
+    onLoad={[Function]}
+    src="https://pokeres.bastionbot.org/images/pokemon/1.png"
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+  />
+</div>
+`;
