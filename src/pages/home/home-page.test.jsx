@@ -1,11 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import renderer from "react-test-renderer";
-import DetailPage from "./detail-page";
-describe("GIVEN: DetailPage", () => {
+import HomePage from "./home-page";
+
+describe("GIVEN: HomePage", () => {
   const component = renderer.create(
     <Router>
-      <DetailPage />
+      <HomePage />
     </Router>
   );
   const tree = component.toJSON();
