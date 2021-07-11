@@ -49,10 +49,12 @@ function HomePage() {
         />
       </div>
       <PokemonList pokemons={pokemon.filter((p) => p.name.includes(filter))} />
-      <Pagination
-        gotoNextPage={nextPageUrl ? gotoNextPage : null}
-        gotoPrevPage={prevPageUrl ? gotoPrevPage : null}
-      />
+      {!filter && (
+        <Pagination
+          gotoNextPage={nextPageUrl ? gotoNextPage : null}
+          gotoPrevPage={prevPageUrl ? gotoPrevPage : null}
+        />
+      )}
     </div>
   );
 }

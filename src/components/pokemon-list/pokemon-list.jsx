@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function PokemonList({ pokemons }) {
   return (
     <ul className="list-group">
-      {pokemons &&
+      {pokemons && !!pokemons.length ? (
         pokemons.map(({ name, url }) => {
           const id = getPokemonIdFromUrl(url);
           return !!name ? (
@@ -16,7 +16,10 @@ function PokemonList({ pokemons }) {
               </Link>
             </li>
           ) : null;
-        })}
+        })
+      ) : (
+        <div className="not-found">No pokemons found</div>
+      )}
     </ul>
   );
 }
