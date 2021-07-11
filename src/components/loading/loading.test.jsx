@@ -13,8 +13,8 @@ describe("WHEN: Loading", () => {
 
   it("THEN: img must have src = pokeball.png and alt = loading", () => {
     render(<Loading />);
-    const logo = screen.getByRole("img");
-    expect(logo).toHaveAttribute("src", pokeball);
-    expect(logo).toHaveAttribute("alt", "loading");
+    const img = screen.getByRole("img");
+    expect(img).toHaveAttribute("src", pokeball);
+    expect(img).toHaveAttribute("alt", "loading");
   });
 });
