@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WHEN: PokemonList with no pokemons THEN: should match snapshot 1`] = `
+<ul
+  className="list-group"
+>
+  <div
+    className="not-found"
+  >
+    No pokemons found
+  </div>
+</ul>
+`;
+
+exports[`WHEN: PokemonList with pokemons THEN: should match snapshot 1`] = `
+<ul
+  className="list-group"
+>
+  <li>
+    <a
+      className="option"
+      href="/detail/1"
+      onClick={[Function]}
+    >
+      <div
+        className="id"
+      >
+        #
+        1
+      </div>
+      <div
+        className="name"
+      >
+        bulbasaur
+      </div>
+    </a>
+  </li>
+  <li>
+    <a
+      className="option"
+      href="/detail/2"
+      onClick={[Function]}
+    >
+      <div
+        className="id"
+      >
+        #
+        2
+      </div>
+      <div
+        className="name"
+      >
+        ivysaur
+      </div>
+    </a>
+  </li>
+  <li>
+    <a
+      className="option"
+      href="/detail/3"
+      onClick={[Function]}
+    >
+      <div
+        className="id"
+      >
+        #
+        3
+      </div>
+      <div
+        className="name"
+      >
+        venusaur
+      </div>
+    </a>
+  </li>
+</ul>
+`;
