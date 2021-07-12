@@ -11,7 +11,8 @@
 ---
 
 <div align="center">
-<strong>Pokemon React App</strong> is a web app developed with React which uses [pokeapi.co](https://pokeapi.co/api API to display pokemon list and [pokeres.bastionbot.org](https://pokeres.bastionbot.org) to find pokemon pictures.
+<strong>Pokemon React App</strong> is a web app developed with React which uses 
+<a href="https://pokeapi.co">pokeapi.co</a> API to display pokemon list and <a href="https://pokeres.bastionbot.org">pokeres.bastionbot.org</a> to find pokemon pictures.
 </div>
 
 ---
