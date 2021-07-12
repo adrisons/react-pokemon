@@ -1,10 +1,30 @@
-# Getting Started with Create React App
+<div align="center">
+<h1>Pokemon React App</h1>
+</div>
+
+<div align="center">
+	<a href="#scripts">Scripts</a>&nbsp;&nbsp;&nbsp;
+	<a href="#technical-details">Technical details</a>&nbsp;&nbsp;&nbsp;
+	<a href="#learn-more">Learn more</a>&nbsp;&nbsp;&nbsp;
+</div>
+
+---
+
+<div align="center">
+<strong>Pokemon React App</strong> is a web app developed with React which uses [pokeapi.co](https://pokeapi.co/api API to display pokemon list and [pokeres.bastionbot.org](https://pokeres.bastionbot.org) to find pokemon pictures.
+</div>
+
+---
+
+## Scripts
+
+We will use [`yarn`](https://yarnpkg.com/) as package manager.
+
+Before running any script run `yarn install` to download dependencies.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
-
-In the project directory, you can run:
+In the project directory, you can run:Technical details
 
 ### `yarn start`
 
@@ -38,6 +58,17 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Technical Details
+
+Two APIs are used:
+
+- To fetch pokemon data: https://pokeapi.co/api/v2/pokemon/
+- To fetch pokemon pictures: https://pokeres.bastionbot.org/images/pokemon/:id.png
+
+Tests are implemented with [jest](https://jestjs.io/).
+
+TODO: `pages` tests are not complete because there was no official enzyme adapter for React v17 when this project was made.
 
 ## Learn More
 
