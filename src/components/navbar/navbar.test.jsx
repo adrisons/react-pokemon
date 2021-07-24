@@ -3,7 +3,7 @@ import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import renderer from "react-test-renderer";
 import logo from "../../assets/pokemon-logo.png";
-import Navbar from "./navbar.component";
+import Navbar from "./navbar";
 
 describe("WHEN: Navbar", () => {
   const component = renderer.create(

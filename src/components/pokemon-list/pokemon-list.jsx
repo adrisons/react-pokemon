@@ -10,7 +10,7 @@ function PokemonList({ pokemons }) {
           const id = getPokemonIdFromUrl(url);
           return !!name ? (
             <li key={id}>
-              <Link to={`/detail/${id}`} className="option">
+              <Link to={`/react-pokemon/detail/${id}`} className="option">
                 <div className="id">#{id}</div>
                 <div className="name">{name}</div>
               </Link>

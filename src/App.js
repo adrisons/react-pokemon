@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Navbar from "./components/navbar/navbar.component";
+import Navbar from "./components/navbar/navbar";
 import HomePage from "./pages/home/home-page";
 import DetailPage from "./pages/detail/detail-page";
 
@@ -9,10 +9,10 @@ function App() {
     <>
       <Navbar />
       <Switch>
-        <Route exact path="/">
+        <Route exact path="/react-pokemon/">
           <HomePage />
         </Route>
-        <Route path="/detail/:id">
+        <Route path="/react-pokemon/detail/:id">
           <DetailPage />
         </Route>
       </Switch>
