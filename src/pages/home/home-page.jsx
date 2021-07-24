@@ -49,6 +49,9 @@ function HomePage() {
       </div>
     );
 
+  function updateFilter(event) {
+    setFilter(event.target.value);
+  }
   return (
     <div className="pokemon-list">
       <div className="center">
@@ -59,7 +62,7 @@ function HomePage() {
           type="text"
           placeholder="Filter by name"
           value={filter}
-          onChange={(event) => setFilter(event.target.value)}
+          onChange={updateFilter}
         />
       </div>
       <PokemonList pokemons={pokemon.filter((p) => p.name.includes(filter))} />
