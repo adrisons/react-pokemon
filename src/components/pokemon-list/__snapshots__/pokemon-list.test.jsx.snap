@@ -19,7 +19,7 @@ exports[`GIVEN: PokemonList WHEN: PokemonList with pokemons THEN: should match s
   <li>
     <a
       className="option"
-      href="/detail/1"
+      href="/react-pokemon/detail/1"
       onClick={[Function]}
     >
       <div
@@ -38,7 +38,7 @@ exports[`GIVEN: PokemonList WHEN: PokemonList with pokemons THEN: should match s
   <li>
     <a
       className="option"
-      href="/detail/2"
+      href="/react-pokemon/detail/2"
       onClick={[Function]}
     >
       <div
@@ -57,7 +57,7 @@ exports[`GIVEN: PokemonList WHEN: PokemonList with pokemons THEN: should match s
   <li>
     <a
       className="option"
-      href="/detail/3"
+      href="/react-pokemon/detail/3"
       onClick={[Function]}
     >
       <div

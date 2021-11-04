@@ -45,9 +45,9 @@ describe("GIVEN: PokemonList", () => {
       expect(tree.children.length).toEqual(3);
     });
     it("THEN: each element should have a link with its ID", () => {
-      expect(tree.children[0].children[0].props.href).toEqual("/detail/1");
-      expect(tree.children[1].children[0].props.href).toEqual("/detail/2");
-      expect(tree.children[2].children[0].props.href).toEqual("/detail/3");
+      expect(tree.children[0].children[0].props.href).toEqual("/react-pokemon/detail/1");
+      expect(tree.children[1].children[0].props.href).toEqual("/react-pokemon/detail/2");
+      expect(tree.children[2].children[0].props.href).toEqual("/react-pokemon/detail/3");
     });
     it("THEN: each element should display pokemon name and ID", () => {
       const linkObj = tree.children[0].children[0];

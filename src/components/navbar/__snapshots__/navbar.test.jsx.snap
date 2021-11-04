@@ -6,7 +6,7 @@ exports[`WHEN: Navbar THEN: should match snapshot 1`] = `
 >
   <a
     className="logo-container"
-    href="/"
+    href="/react-pokemon/"
     onClick={[Function]}
   >
     <img
