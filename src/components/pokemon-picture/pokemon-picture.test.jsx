@@ -7,7 +7,7 @@ import Picture from "./pokemon-picture";
 describe("WHEN: Picture", () => {
   const component = renderer.create(
     <Router>
-      <Picture id={1} />
+      <Picture imageUrl={"imageUrl"} />
     </Router>
   );
   const tree = component.toJSON();
@@ -18,14 +18,11 @@ describe("WHEN: Picture", () => {
   it("THEN: img must have src with pokemon id url and alt = Pokemon", () => {
     render(
       <Router>
-        <Picture id={1} />
+        <Picture imageUrl={"imageUrl"} />
       </Router>
     );
     const img = screen.getByAltText("Pokemon");
-    expect(img).toHaveAttribute(
-      "src",
-      "https://pokeres.bastionbot.org/images/pokemon/1.png"
-    );
+    expect(img).toHaveAttribute("src", "imageUrl");
     expect(img).toHaveAttribute("alt", "Pokemon");
   });
 });

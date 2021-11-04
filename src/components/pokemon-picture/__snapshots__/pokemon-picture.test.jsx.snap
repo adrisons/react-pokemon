@@ -16,7 +16,7 @@ exports[`WHEN: Picture THEN: should match snapshot 1`] = `
     alt="Pokemon"
     className="pokemon-picture"
     onLoad={[Function]}
-    src="https://pokeres.bastionbot.org/images/pokemon/1.png"
+    src="imageUrl"
     style={
       Object {
         "display": "none",

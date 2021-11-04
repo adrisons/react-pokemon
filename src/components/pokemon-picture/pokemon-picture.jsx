@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Loading from "../loading/loading";
 import "./pokemon-picture.styles.scss";
 
-function Picture({ id }) {
+function Picture({ imageUrl }) {
   const [loaded, setLoaded] = useState(false);
 
   return (
@@ -11,7 +11,7 @@ function Picture({ id }) {
       <img
         className="pokemon-picture"
         alt="Pokemon"
-        src={`https://pokeres.bastionbot.org/images/pokemon/${id}.png`}
+        src={imageUrl}
         onLoad={handleImageLoaded}
         style={!loaded ? { display: "none" } : {}}
       ></img>

@@ -20,6 +20,18 @@ function DetailPage() {
 
   if (loading) return <Loading />;
 
+  function getPokemonImageUrl(pokemon) {
+    if (
+      !!pokemon.sprites &&
+      !!pokemon.sprites.other &&
+      !!pokemon.sprites.other["dream_world"]
+    ) {
+      return pokemon.sprites.other["dream_world"]["front_default"];
+    } else {
+      return pokemon.sprites["front_default"];
+    }
+  }
+
   return (
     <div className="pokemon-detail">
       <h1 className="title">
@@ -32,7 +44,7 @@ function DetailPage() {
         ))}
       </div>
       <div className="moves">{pokemon.moves.length} moves</div>
-      <Picture id={id} />
+      <Picture imageUrl={getPokemonImageUrl(pokemon)} />
     </div>
   );
 }

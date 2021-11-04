@@ -5,7 +5,7 @@ import PokemonList from "../../components/pokemon-list/pokemon-list";
 import "./home.styles.scss";
 
 function HomePage() {
-  const [pokemon, setPokemon] = useState([]);
+  const [pokemons, setPokemons] = useState([]);
   const [currentPageUrl, setCurrentPageUrl] = useState(
     "https://pokeapi.co/api/v2/pokemon"
   );
@@ -21,7 +21,7 @@ function HomePage() {
       .then((data) => {
         setNextPageUrl(data.next);
         setPrevPageUrl(data.previous);
-        setPokemon(data.results);
+        setPokemons(data.results);
         setLoading(false);
       })
       .catch(() => {
@@ -65,7 +65,7 @@ function HomePage() {
           onChange={updateFilter}
         />
       </div>
-      <PokemonList pokemons={pokemon.filter((p) => p.name.includes(filter))} />
+      <PokemonList pokemons={pokemons.filter((p) => p.name.includes(filter))} />
       {!filter && (
         <Pagination
           gotoNextPage={nextPageUrl ? gotoNextPage : null}
