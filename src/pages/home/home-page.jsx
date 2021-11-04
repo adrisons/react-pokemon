@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
+import { connect, useSelector } from "react-redux";
 import Loading from "../../components/loading/loading";
 import Pagination from "../../components/pagination/pagination";
 import PokemonList from "../../components/pokemon-list/pokemon-list";
+import {
+  setCurrentPageUrl,
+  setSearchResult,
+} from "../../redux/pokemons/pokemons.actions";
+import {
+  selectCurrentPageUrl,
+  selectNextPageUrl,
+  selectPreviousPageUrl,
+} from "../../redux/pokemons/pokemons.selector";
 import "./home.styles.scss";
 
-function HomePage() {
+function HomePage({ setCurrentPageUrl, setSearchResult }) {
+  const currentPageUrl = useSelector(selectCurrentPageUrl);
+  const nextPageUrl = useSelector(selectNextPageUrl);
+  const prevPageUrl = useSelector(selectPreviousPageUrl);
   const [pokemons, setPokemons] = useState([]);
-  const [currentPageUrl, setCurrentPageUrl] = useState(
-    "https://pokeapi.co/api/v2/pokemon"
-  );
-  const [nextPageUrl, setNextPageUrl] = useState();
-  const [prevPageUrl, setPrevPageUrl] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [filter, setFilter] = useState("");
@@ -19,8 +27,10 @@ function HomePage() {
     fetch(currentPageUrl)
       .then((res) => res.json())
       .then((data) => {
-        setNextPageUrl(data.next);
-        setPrevPageUrl(data.previous);
+        setSearchResult({
+          nextPageUrl: data.next,
+          previousPageUrl: data.previous,
+        });
         setPokemons(data.results);
         setLoading(false);
       })
@@ -28,7 +38,7 @@ function HomePage() {
         setLoading(false);
         setError(true);
       });
-  }, [currentPageUrl]);
+  }, [currentPageUrl, setSearchResult]);
 
   function gotoNextPage() {
     setCurrentPageUrl(nextPageUrl);
@@ -76,4 +86,9 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentPageUrl: (result) => dispatch(setCurrentPageUrl(result)),
+  setSearchResult: (result) => dispatch(setSearchResult(result)),
+});
+
+export default connect(null, mapDispatchToProps)(HomePage);
