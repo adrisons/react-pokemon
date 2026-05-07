@@ -12,7 +12,7 @@ import {
   selectNextPageUrl,
   selectPreviousPageUrl,
 } from "../../redux/pokemons/pokemons.selector";
-import "./home.styles.scss";
+import "./home.styles.css";
 
 function HomePage({ setCurrentPageUrl, setSearchResult }) {
   const currentPageUrl = useSelector(selectCurrentPageUrl);

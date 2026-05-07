@@ -1,0 +1,67 @@
+@import "../../styles/colors.css";
+
+.list-group {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.list-group .not-found {
+  padding: 0.5rem;
+}
+
+.list-group li {
+  border: 1px solid var(--gray-100);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.list-group li:hover {
+  background-color: var(--yellow);
+}
+
+.list-group li a {
+  width: 100%;
+  height: 100%;
+  text-decoration: inherit;
+  color: inherit;
+  display: flex;
+}
+
+.list-group li a > * {
+  padding: 0.5em;
+}
+
+.list-group li a .id {
+  border-right: 1px solid var(--gray-100);
+  min-width: 3rem;
+  display: flex;
+  justify-content: center;
+}
+
+.list-group li a .name {
+  flex: 1;
+  text-transform: capitalize;
+}
+
+.list-group li:not(:first-child) {
+  border-top: none;
+}
+
+.list-group li:first-child,
+.list-group li:first-child:hover {
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.list-group li:last-child,
+.list-group li:last-child:hover {
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.list-group li:only-child,
+.list-group li:only-child:hover {
+  border-radius: 0.5rem;
+}

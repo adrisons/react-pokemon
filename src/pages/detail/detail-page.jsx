@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Badge from "../../components/badge/badge";
 import Loading from "../../components/loading/loading";
 import Picture from "../../components/pokemon-picture/pokemon-picture";
-import "./detail-page.styles.scss";
+import "./detail-page.styles.css";
 function DetailPage() {
   const { id } = useParams();
   const [pokemon, setPokemon] = useState(null);

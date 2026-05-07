@@ -1,0 +1,10 @@
+.picture-container {
+  display: flex;
+  justify-content: center;
+}
+
+.picture-container .pokemon-picture {
+  width: 100%;
+  height: auto;
+  max-width: 20rem;
+}

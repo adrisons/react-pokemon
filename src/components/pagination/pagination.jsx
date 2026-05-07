@@ -1,5 +1,5 @@
 import React from "react";
-import "./pagination.styles.scss";
+import "./pagination.styles.css";
 
 function Pagination({ gotoNextPage, gotoPrevPage }) {
   return (

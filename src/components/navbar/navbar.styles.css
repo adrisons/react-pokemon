@@ -9,9 +9,10 @@
 
 .navbar .logo-container {
   height: 100%;
-  .logo {
-    height: 100%;
-  }
+}
+
+.navbar .logo-container .logo {
+  height: 100%;
 }
 
 .navbar .options {
@@ -21,6 +22,7 @@
   align-items: center;
   justify-content: flex-end;
 }
+
 .navbar .options .option {
   padding: 10px 15px;
   cursor: pointer;

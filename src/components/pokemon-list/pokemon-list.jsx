@@ -1,5 +1,5 @@
 import React from "react";
-import "./pokemon-list.styles.scss";
+import "./pokemon-list.styles.css";
 import { Link } from "react-router-dom";
 
 function PokemonList({ pokemons }) {

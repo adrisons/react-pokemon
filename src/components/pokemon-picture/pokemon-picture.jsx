@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Loading from "../loading/loading";
-import "./pokemon-picture.styles.scss";
+import "./pokemon-picture.styles.css";
 
 function Picture({ imageUrl }) {
   const [loaded, setLoaded] = useState(false);

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./navbar.styles.scss";
+import "./navbar.styles.css";
 import logo from "../../assets/pokemon-logo.png";
 
 const Navbar = () => (

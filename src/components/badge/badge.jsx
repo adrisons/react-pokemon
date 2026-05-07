@@ -1,6 +1,6 @@
 import React from "react";
 import typeColors from "../../helpers/type-colors";
-import "./badge.styles.scss";
+import "./badge.styles.css";
 
 function Badge({ name }) {
   return (

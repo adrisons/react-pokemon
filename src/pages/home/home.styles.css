@@ -18,8 +18,9 @@
   align-items: baseline;
   justify-content: center;
   width: 100%;
-  &-input {
-    margin-bottom: 2rem;
-    flex: 1;
-  }
+}
+
+.filter-input {
+  margin-bottom: 2rem;
+  flex: 1;
 }
