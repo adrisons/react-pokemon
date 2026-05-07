@@ -1,7 +1,0 @@
-allowBuilds:
-  core-js: set this to true or false
-  core-js-pure: set this to true or false
-  ejs: set this to true or false
-  es5-ext: set this to true or false
-  fsevents: set this to true or false
-  node-sass: set this to true or false
