@@ -31,7 +31,8 @@ Run `pnpm install` before running any script.
 | `pnpm build` | Builds for production into `dist/` |
 | `pnpm test` | Runs all tests with Vitest |
 | `pnpm preview` | Previews the production build locally |
-| `pnpm deploy` | Deploys to GitHub Pages |
+
+Deploy happens automatically via GitHub Actions on every push to `master`.
 
 ---
 
