@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`WHEN: Picture THEN: should match snapshot 1`] = `
+exports[`WHEN: Picture > THEN: should match snapshot 1`] = `
 <div
   className="picture-container"
 >
@@ -9,7 +9,7 @@ exports[`WHEN: Picture THEN: should match snapshot 1`] = `
   >
     <img
       alt="loading"
-      src="pokeball.png"
+      src="/react-pokemon/src/assets/pokeball.png"
     />
   </div>
   <img
@@ -18,7 +18,7 @@ exports[`WHEN: Picture THEN: should match snapshot 1`] = `
     onLoad={[Function]}
     src="imageUrl"
     style={
-      Object {
+      {
         "display": "none",
       }
     }

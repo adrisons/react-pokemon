@@ -1,4 +1,3 @@
-import React from "react";
 import typeColors from "../../helpers/type-colors";
 import "./badge.styles.css";
 

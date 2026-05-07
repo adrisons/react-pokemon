@@ -1,12 +1,18 @@
-import React from "react";
+import { act } from "react";
+import { render, screen } from "@testing-library/react";
 import renderer from "react-test-renderer";
 import pokeball from "../../assets/pokeball.png";
 import Loading from "./loading";
-import { render, screen } from "@testing-library/react";
 
 describe("WHEN: Loading", () => {
-  const component = renderer.create(<Loading />);
-  const tree = component.toJSON();
+  let tree;
+  beforeEach(() => {
+    let component;
+    act(() => {
+      component = renderer.create(<Loading />);
+    });
+    tree = component.toJSON();
+  });
   it("THEN: should match snapshot", () => {
     expect(tree).toMatchSnapshot();
   });

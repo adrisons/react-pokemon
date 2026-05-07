@@ -1,6 +1,6 @@
-import React from "react";
+import { act } from "react";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom";
+import { MemoryRouter as Router } from "react-router-dom";
 import renderer from "react-test-renderer";
 import { combineReducers, createStore } from "redux";
 import pokemonsReducer from "../../redux/pokemons/pokemons.reducer";
@@ -10,17 +10,18 @@ describe("GIVEN: HomePage", () => {
   let tree;
   beforeEach(() => {
     const store = createStore(
-      combineReducers({
-        pokemons: pokemonsReducer,
-      })
+      combineReducers({ pokemons: pokemonsReducer })
     );
-    const component = renderer.create(
-      <Provider store={store}>
-        <Router>
-          <HomePage />
-        </Router>
-      </Provider>
-    );
+    let component;
+    act(() => {
+      component = renderer.create(
+        <Provider store={store}>
+          <Router>
+            <HomePage />
+          </Router>
+        </Provider>
+      );
+    });
     tree = component.toJSON();
   });
   it("THEN: should match snapshot", () => {
@@ -28,14 +29,6 @@ describe("GIVEN: HomePage", () => {
   });
 
   describe("WHEN: data not loaded", () => {
-    beforeEach(() => {
-      jest.spyOn(window, "fetch").getMockImplementation(
-        () =>
-          new Promise((resolve, reject) => {
-            resolve();
-          })
-      );
-    });
     it("THEN: should display loading", () => {
       expect(tree.props.className).toEqual("loading");
     });

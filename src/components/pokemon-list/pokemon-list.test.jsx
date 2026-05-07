@@ -1,11 +1,18 @@
-import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { act } from "react";
+import { MemoryRouter as Router } from "react-router-dom";
 import renderer from "react-test-renderer";
 import PokemonList from "./pokemon-list";
+
 describe("GIVEN: PokemonList", () => {
   describe("WHEN: PokemonList with no pokemons", () => {
-    const component = renderer.create(<PokemonList />);
-    const tree = component.toJSON();
+    let tree;
+    beforeEach(() => {
+      let component;
+      act(() => {
+        component = renderer.create(<PokemonList />);
+      });
+      tree = component.toJSON();
+    });
     it("THEN: should match snapshot", () => {
       expect(tree).toMatchSnapshot();
     });
@@ -18,25 +25,22 @@ describe("GIVEN: PokemonList", () => {
 
   describe("WHEN: PokemonList with pokemons", () => {
     const pokemonsMock = [
-      {
-        name: "bulbasaur",
-        url: "https://pokeapi.co/api/v2/pokemon/1/",
-      },
-      {
-        name: "ivysaur",
-        url: "https://pokeapi.co/api/v2/pokemon/2/",
-      },
-      {
-        name: "venusaur",
-        url: "https://pokeapi.co/api/v2/pokemon/3/",
-      },
+      { name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/" },
+      { name: "ivysaur", url: "https://pokeapi.co/api/v2/pokemon/2/" },
+      { name: "venusaur", url: "https://pokeapi.co/api/v2/pokemon/3/" },
     ];
-    const component = renderer.create(
-      <Router>
-        <PokemonList pokemons={pokemonsMock} />
-      </Router>
-    );
-    const tree = component.toJSON();
+    let tree;
+    beforeEach(() => {
+      let component;
+      act(() => {
+        component = renderer.create(
+          <Router>
+            <PokemonList pokemons={pokemonsMock} />
+          </Router>
+        );
+      });
+      tree = component.toJSON();
+    });
     it("THEN: should match snapshot", () => {
       expect(tree).toMatchSnapshot();
     });

@@ -1,16 +1,22 @@
+import { act } from "react";
 import { render, screen } from "@testing-library/react";
-import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { MemoryRouter as Router } from "react-router-dom";
 import renderer from "react-test-renderer";
 import Picture from "./pokemon-picture";
 
 describe("WHEN: Picture", () => {
-  const component = renderer.create(
-    <Router>
-      <Picture imageUrl={"imageUrl"} />
-    </Router>
-  );
-  const tree = component.toJSON();
+  let tree;
+  beforeEach(() => {
+    let component;
+    act(() => {
+      component = renderer.create(
+        <Router>
+          <Picture imageUrl={"imageUrl"} />
+        </Router>
+      );
+    });
+    tree = component.toJSON();
+  });
   it("THEN: should match snapshot", () => {
     expect(tree).toMatchSnapshot();
   });

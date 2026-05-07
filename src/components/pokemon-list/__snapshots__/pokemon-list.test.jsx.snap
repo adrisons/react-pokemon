@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`GIVEN: PokemonList WHEN: PokemonList with no pokemons THEN: should match snapshot 1`] = `
+exports[`GIVEN: PokemonList > WHEN: PokemonList with no pokemons > THEN: should match snapshot 1`] = `
 <ul
   className="list-group"
 >
@@ -12,7 +12,7 @@ exports[`GIVEN: PokemonList WHEN: PokemonList with no pokemons THEN: should matc
 </ul>
 `;
 
-exports[`GIVEN: PokemonList WHEN: PokemonList with pokemons THEN: should match snapshot 1`] = `
+exports[`GIVEN: PokemonList > WHEN: PokemonList with pokemons > THEN: should match snapshot 1`] = `
 <ul
   className="list-group"
 >
@@ -21,6 +21,7 @@ exports[`GIVEN: PokemonList WHEN: PokemonList with pokemons THEN: should match s
       className="option"
       href="/react-pokemon/detail/1"
       onClick={[Function]}
+      ref={null}
     >
       <div
         className="id"
@@ -40,6 +41,7 @@ exports[`GIVEN: PokemonList WHEN: PokemonList with pokemons THEN: should match s
       className="option"
       href="/react-pokemon/detail/2"
       onClick={[Function]}
+      ref={null}
     >
       <div
         className="id"
@@ -59,6 +61,7 @@ exports[`GIVEN: PokemonList WHEN: PokemonList with pokemons THEN: should match s
       className="option"
       href="/react-pokemon/detail/3"
       onClick={[Function]}
+      ref={null}
     >
       <div
         className="id"

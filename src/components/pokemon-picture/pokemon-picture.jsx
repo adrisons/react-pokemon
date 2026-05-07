@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Loading from "../loading/loading";
 import "./pokemon-picture.styles.css";
 
