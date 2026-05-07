@@ -1,0 +1,19 @@
+.pokemon-list {
+  display: flex;
+  flex-direction: column;
+  width: 20em;
+  margin: auto;
+}
+
+.center {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+
+.filter-input {
+  margin-bottom: 2rem;
+  flex: 1;
+}

@@ -1,4 +1,4 @@
-@import "./styles/colors.css";
+@import "./shared/styles/colors.css";
 
 body {
   background-color: var(--white);

@@ -1,104 +1,139 @@
-<a href="https://adrisons.github.io/react-pokemon/" target="_blank">:rocket: Deploy</a>
+<a href="https://adrisons.github.io/react-pokemon/" target="_blank">🚀 Deploy</a>
 
 <div align="center">
 <h1>Pokemon React App</h1>
 </div>
 
 <div align="center">
-	<a href="#scripts">Scripts</a>&nbsp;&nbsp;&nbsp;
-	<a href="#technical-details">Technical details</a>&nbsp;&nbsp;&nbsp;
-	<a href="#learn-more">Learn more</a>&nbsp;&nbsp;&nbsp;
+  <a href="#scripts">Scripts</a>&nbsp;&nbsp;&nbsp;
+  <a href="#architecture">Architecture</a>&nbsp;&nbsp;&nbsp;
+  <a href="#technical-details">Technical Details</a>&nbsp;&nbsp;&nbsp;
 </div>
 
 ---
 
 <div align="center">
-<strong>Pokemon React App</strong> is a web app developed with React which uses 
-<a href="https://pokeapi.co">pokeapi.co</a> API to display pokemon list and <a href="https://pokeres.bastionbot.org">pokeres.bastionbot.org</a> to find pokemon pictures.
+<strong>Pokemon React App</strong> is a web app built with React that uses
+<a href="https://pokeapi.co">pokeapi.co</a> to display a Pokémon list and detail pages.
 </div>
 
 ---
 
 ## Scripts
 
-We will use [`yarn`](https://yarnpkg.com/) as package manager.
+Uses [`pnpm`](https://pnpm.io/) as the package manager.
 
-Before running any script run `yarn install` to download dependencies.
+Run `pnpm install` before running any script.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+| Command | Description |
+|---|---|
+| `pnpm start` | Runs the dev server at `http://localhost:5173` |
+| `pnpm build` | Builds for production into `dist/` |
+| `pnpm test` | Runs all tests with Vitest |
+| `pnpm preview` | Previews the production build locally |
+| `pnpm deploy` | Deploys to GitHub Pages |
 
-In the project directory, you can run:Technical details
+---
 
-### `yarn start`
+## Architecture
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This project follows a **Hybrid Architecture** (Feature-based + Layered), which balances feature autonomy with shared infrastructure.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Folder Structure
 
-### `yarn test`
+```
+src/
+├── app/                          # Global app config
+│   ├── App.jsx                   # Root component
+│   ├── router.jsx                # All routes
+│   ├── store.js                  # Redux store (global)
+│   ├── providers.jsx             # Global providers (Redux, Router)
+│   └── index.js
+│
+├── shared/                       # 100% reusable, business-agnostic code
+│   ├── ui/
+│   │   └── components/
+│   │       ├── Badge/            # Type badge component
+│   │       ├── Loading/          # Spinning pokeball loader
+│   │       └── Pagination/       # Previous / Next buttons
+│   ├── constants/
+│   │   └── typeColors.js         # Pokémon type → color map
+│   ├── hooks/                    # Generic reusable hooks
+│   ├── utils/                    # Pure utility functions
+│   ├── styles/
+│   │   └── colors.css            # CSS custom properties
+│   └── assets/                   # Images (pokeball, logo)
+│
+├── core/                         # Shared business logic, React-agnostic
+│   ├── api/
+│   │   └── httpClient.js         # Centralized fetch wrapper
+│   └── domain/
+│       ├── models/               # JSDoc type definitions
+│       ├── adapters/             # Data transformers (API → Domain)
+│       │   └── pokemonAdapter.js # getPokemonImageUrl, getPokemonIdFromUrl
+│       └── validators/           # Data validation functions
+│
+├── features/
+│   └── pokemon/                  # Self-contained Pokémon feature
+│       ├── api/
+│       │   └── pokemonApi.js     # getPokemonList, getPokemonDetail
+│       ├── store/                # Redux slice (actions, reducer, selectors)
+│       ├── hooks/
+│       │   ├── usePokemonList.js # Fetch list + pagination logic
+│       │   └── usePokemonDetail.js
+│       ├── pages/
+│       │   ├── PokemonListPage.jsx
+│       │   └── PokemonDetailPage.jsx
+│       ├── components/
+│       │   ├── Navbar/
+│       │   ├── PokemonList/
+│       │   └── PokemonPicture/
+│       ├── constants/
+│       └── index.js              # Barrel export
+│
+├── layouts/
+│   └── MainLayout.jsx            # Shared page layout shell
+│
+├── index.jsx                     # Entry point
+└── index.css                     # Global styles
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Layer Definitions
 
-### `yarn build`
+| Layer | What it is | Import rule |
+|---|---|---|
+| `shared/` | Generic UI components, hooks, utils and constants with zero business logic | No external imports |
+| `core/` | Business-agnostic logic: HTTP client, domain models, adapters, validators | Can import `shared/` only |
+| `features/` | Domain-specific modules (each is self-contained) | Can import `core/` and `shared/` |
+| `app/` | App wiring: router, global store, providers | Imports from `features/`, `shared/`, `core/` |
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Import Flow (Golden Rule)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+app/  →  features/  →  core/  →  shared/
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Each layer only imports **downward** — never upward, never sideways between sibling features.
 
-### `yarn eject`
+### Path Aliases
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Configured in `vite.config.js` for clean imports:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```js
+import { Badge } from '@shared/ui';
+import { getPokemonImageUrl } from '@core/domain/adapters';
+import { usePokemonList } from '@features/pokemon/hooks';
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+---
 
 ## Technical Details
 
-Two APIs are used:
-
-- To fetch pokemon data: https://pokeapi.co/api/v2/pokemon/
-- To fetch pokemon pictures: https://pokeres.bastionbot.org/images/pokemon/:id.png
-
-Tests are implemented with [jest](https://jestjs.io/).
-
-TODO: `pages` tests are not complete because there was no official enzyme adapter for React v17 when this project was made.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **Framework:** React 19
+- **Build tool:** Vite 6
+- **Routing:** React Router v6
+- **State management:** Redux (actions/reducer/selectors) + `reselect`
+- **API:** [PokeAPI v2](https://pokeapi.co/api/v2/pokemon/)
+- **Testing:** Vitest + React Testing Library + react-test-renderer (snapshots)
+- **Styling:** Plain CSS with CSS custom properties (no preprocessor)
+- **Package manager:** pnpm

@@ -1,0 +1,12 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`WHEN: Loading > THEN: should match snapshot 1`] = `
+<div
+  className="loading"
+>
+  <img
+    alt="loading"
+    src="/react-pokemon/src/shared/assets/pokeball.png"
+  />
+</div>
+`;
