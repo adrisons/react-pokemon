@@ -9,6 +9,17 @@ export interface RawPokemonSummary {
   url: string;
 }
 
+export interface RawPokemonStat {
+  base_stat: number;
+  stat: { name: string };
+}
+
+export interface RawPokemonAbility {
+  ability: { name: string; url: string };
+  is_hidden: boolean;
+  slot: number;
+}
+
 export interface RawPokemonDetail {
   id: number;
   name: string;
@@ -22,6 +33,8 @@ export interface RawPokemonDetail {
   };
   types: RawPokemonType[];
   moves: unknown[];
+  stats: RawPokemonStat[];
+  abilities: RawPokemonAbility[];
 }
 
 export interface RawPokemonType {

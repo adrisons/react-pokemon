@@ -28,10 +28,23 @@ export interface PokemonType {
   typeName: PokemonTypeName;
 }
 
+export interface PokemonStat {
+  name: string;
+  value: number;
+}
+
+export interface PokemonAbility {
+  name: string;
+  isHidden: boolean;
+  description: string;
+}
+
 export interface PokemonDetail {
   id: number;
   name: string;
   types: PokemonType[];
   movesCount: number;
   imageUrl: string | null;
+  stats: PokemonStat[];
+  abilities: PokemonAbility[];
 }

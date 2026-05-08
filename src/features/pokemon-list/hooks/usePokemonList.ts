@@ -1,52 +1,50 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 import { getPokemonList } from "@features/pokemon-list/api/pokemonListApi";
 import type { PokemonSummary } from "@core/domain/pokemon";
-import type { RootState } from "@features/pokemon-list/store";
-import {
-  selectCurrentPageUrl,
-  selectNextPageUrl,
-  selectPreviousPageUrl,
-  setCurrentPageUrl,
-  setSearchResult,
-} from "@features/pokemon-list/store";
+
+const BASE_URL = "https://pokeapi.co/api/v2/pokemon";
 
 export function usePokemonList() {
-  const dispatch = useDispatch();
-  const currentPageUrl = useSelector((state: RootState) => selectCurrentPageUrl(state));
-  const nextPageUrl = useSelector((state: RootState) => selectNextPageUrl(state));
-  const prevPageUrl = useSelector((state: RootState) => selectPreviousPageUrl(state));
+  const [searchParams, setSearchParams] = useSearchParams();
+  const offset = searchParams.get("offset") ?? "0";
+  const limit = searchParams.get("limit") ?? "20";
+  const url = `${BASE_URL}?offset=${offset}&limit=${limit}`;
+
   const [pokemons, setPokemons] = useState<PokemonSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [hasNext, setHasNext] = useState(false);
+  const [hasPrev, setHasPrev] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    getPokemonList(currentPageUrl)
+    getPokemonList(url)
       .then((data) => {
-        dispatch(setSearchResult({ nextPageUrl: data.next, previousPageUrl: data.previous }));
         setPokemons(data.results);
+        setHasNext(!!data.next);
+        setHasPrev(!!data.previous);
         setLoading(false);
       })
       .catch(() => {
         setLoading(false);
         setError(true);
       });
-  }, [currentPageUrl, dispatch]);
+  }, [url]);
 
   function gotoNextPage() {
-    dispatch(setCurrentPageUrl(nextPageUrl!));
+    setSearchParams({ offset: String(Number(offset) + Number(limit)), limit });
   }
 
   function gotoPrevPage() {
-    dispatch(setCurrentPageUrl(prevPageUrl!));
+    setSearchParams({ offset: String(Math.max(0, Number(offset) - Number(limit))), limit });
   }
 
   return {
     pokemons,
     loading,
     error,
-    gotoNextPage: nextPageUrl ? gotoNextPage : null,
-    gotoPrevPage: prevPageUrl ? gotoPrevPage : null,
+    gotoNextPage: hasNext ? gotoNextPage : null,
+    gotoPrevPage: hasPrev ? gotoPrevPage : null,
   };
 }
