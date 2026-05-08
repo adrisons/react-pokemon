@@ -1,5 +1,7 @@
+import { useEffect, useRef } from "react";
 import { Loading, Pagination } from "@shared/ui";
 import PokemonList from "@features/pokemon-list/components/PokemonList/PokemonList";
+import PokemonCardGrid from "@features/pokemon-list/components/PokemonCardGrid/PokemonCardGrid";
 import type { PokemonSummary } from "@core/domain/pokemon";
 
 interface Props {
@@ -27,17 +29,27 @@ function PokemonListPageView({
   searching,
   notFound,
 }: Props) {
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   if (loading) return <Loading />;
 
   if (error) {
     return (
-      <div className="flex flex-col w-80 mx-auto">
-        <div className="flex items-baseline justify-center w-full text-center">
-          Couldn't find pokemons.
-        </div>
-        <div className="flex items-baseline justify-center w-full text-center">
-          You can use candy to attract them or check your internet connection.
-        </div>
+      <div className="flex flex-col items-center justify-center gap-2 py-20 text-text-muted">
+        <p>Couldn't find pokemons.</p>
+        <p>You can use candy to attract them or check your internet connection.</p>
       </div>
     );
   }
@@ -45,17 +57,21 @@ function PokemonListPageView({
   const isSearching = query.trim().length > 0;
 
   return (
-    <div className="flex flex-col w-80 mx-auto">
-      <div className="flex items-baseline justify-center w-full mb-8">
-        <input
-          className="pokemon-search-input w-full"
-          id="search"
-          name="search"
-          type="text"
-          placeholder="Search by name…"
-          value={query}
-          onChange={(e) => onQueryChange(e.target.value)}
-        />
+    <div className="max-w-6xl mx-auto px-6">
+      <div className="flex items-baseline justify-center w-full mb-10">
+        <div className="w-full max-w-sm relative search-input-container">
+          <input
+            ref={searchInputRef}
+            className="pokemon-search-input w-full"
+            id="search"
+            name="search"
+            type="text"
+            placeholder="Search Pokémon…"
+            value={query}
+            onChange={(e) => onQueryChange(e.target.value)}
+          />
+          <kbd className="search-kbd">⌘K</kbd>
+        </div>
       </div>
 
       {isSearching ? (
@@ -63,18 +79,24 @@ function PokemonListPageView({
           {searching && <Loading />}
           {notFound && (
             <div
-              className="p-2 text-center text-poke-gray-500 cursor-default"
+              className="p-2 text-center text-text-muted cursor-default"
               title="No pokemon found"
             >
               Not even a nibble...
             </div>
           )}
-          {!searching && !notFound && <PokemonList pokemons={searchResults} />}
+          {!searching && !notFound && (
+            <div className="max-w-sm mx-auto">
+              <PokemonList pokemons={searchResults} />
+            </div>
+          )}
         </>
       ) : (
         <>
-          <PokemonList pokemons={pokemons} />
-          <Pagination gotoNextPage={gotoNextPage} gotoPrevPage={gotoPrevPage} />
+          <PokemonCardGrid pokemons={pokemons} />
+          <div className="mt-8">
+            <Pagination gotoNextPage={gotoNextPage} gotoPrevPage={gotoPrevPage} />
+          </div>
         </>
       )}
     </div>

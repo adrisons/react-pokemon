@@ -8,6 +8,7 @@ const mockSearch = vi.hoisted(() => vi.fn());
 const mockClear = vi.hoisted(() => vi.fn());
 const mockUsePokemonSearch = vi.hoisted(() => vi.fn());
 const mockUsePokemonList = vi.hoisted(() => vi.fn());
+const mockUsePokemonDetail = vi.hoisted(() => vi.fn());
 
 vi.mock("@features/pokemon-list/hooks/usePokemonSearch", () => ({
   usePokemonSearch: mockUsePokemonSearch,
@@ -15,6 +16,10 @@ vi.mock("@features/pokemon-list/hooks/usePokemonSearch", () => ({
 
 vi.mock("@features/pokemon-list/hooks/usePokemonList", () => ({
   usePokemonList: mockUsePokemonList,
+}));
+
+vi.mock("@features/pokemon-detail/hooks/usePokemonDetail", () => ({
+  usePokemonDetail: mockUsePokemonDetail,
 }));
 
 const defaultListState = {
@@ -27,6 +32,23 @@ const defaultListState = {
   gotoNextPage: vi.fn(),
   gotoPrevPage: null,
 };
+
+const makePokemonDetail = (id: number, name: string) => ({
+  id,
+  name,
+  types: [{ slot: 1, typeName: "normal" as const }],
+  movesCount: 10,
+  imageUrl: null,
+  stats: [
+    { name: "hp", value: 45 },
+    { name: "attack", value: 49 },
+    { name: "defense", value: 49 },
+    { name: "special-attack", value: 65 },
+    { name: "special-defense", value: 65 },
+    { name: "speed", value: 45 },
+  ],
+  abilities: [],
+});
 
 const defaultSearchState = {
   search: mockSearch,
@@ -50,6 +72,16 @@ describe("GIVEN: PokemonListPage", () => {
     mockClear.mockReset();
     mockUsePokemonList.mockReturnValue(defaultListState);
     mockUsePokemonSearch.mockReturnValue(defaultSearchState);
+    mockUsePokemonDetail.mockImplementation((id: string) => {
+      const map: Record<string, { id: number; name: string }> = {
+        "1": { id: 1, name: "bulbasaur" },
+        "4": { id: 4, name: "charmander" },
+      };
+      const entry = map[id];
+      return entry
+        ? { pokemon: makePokemonDetail(entry.id, entry.name), loading: false }
+        : { pokemon: null, loading: false };
+    });
   });
 
   describe("WHEN: data is loading", () => {
@@ -71,8 +103,8 @@ describe("GIVEN: PokemonListPage", () => {
   describe("WHEN: no search query", () => {
     it("THEN: should display the full pokemon list", () => {
       renderPage();
-      expect(screen.getByText("bulbasaur")).toBeInTheDocument();
-      expect(screen.getByText("charmander")).toBeInTheDocument();
+      expect(screen.getAllByText("bulbasaur").length).toBeGreaterThan(0);
+      expect(screen.getAllByText("charmander").length).toBeGreaterThan(0);
     });
 
     it("THEN: should display pagination", () => {
@@ -90,7 +122,7 @@ describe("GIVEN: PokemonListPage", () => {
     it("THEN: should call search() automatically without submitting a form", async () => {
       const user = userEvent.setup();
       renderPage();
-      const input = screen.getByPlaceholderText("Search by name");
+      const input = screen.getByPlaceholderText("Search Pokémon…");
       await user.type(input, "pik");
       expect(mockSearch).toHaveBeenCalledWith("pik");
     });
@@ -107,7 +139,7 @@ describe("GIVEN: PokemonListPage", () => {
         searching: true,
       });
       renderPage();
-      const input = screen.getByPlaceholderText("Search by name");
+      const input = screen.getByPlaceholderText("Search Pokémon…");
       await user.type(input, "pik");
       expect(screen.queryByText("Next")).not.toBeInTheDocument();
     });
@@ -117,7 +149,7 @@ describe("GIVEN: PokemonListPage", () => {
     it("THEN: should call clear()", async () => {
       const user = userEvent.setup();
       renderPage();
-      const input = screen.getByPlaceholderText("Search by name");
+      const input = screen.getByPlaceholderText("Search Pokémon…");
       await user.type(input, "pik");
       await user.clear(input);
       expect(mockClear).toHaveBeenCalled();
@@ -148,7 +180,7 @@ describe("GIVEN: PokemonListPage", () => {
         notFound: false,
       });
       renderPage();
-      const input = screen.getByPlaceholderText("Search by name");
+      const input = screen.getByPlaceholderText("Search Pokémon…");
       await user.type(input, "pik");
       expect(screen.getByText("pikachu")).toBeInTheDocument();
       expect(screen.getByText("pichu")).toBeInTheDocument();
@@ -161,7 +193,7 @@ describe("GIVEN: PokemonListPage", () => {
         results: [{ name: "pikachu", url: "https://pokeapi.co/api/v2/pokemon/25/" }],
       });
       renderPage();
-      const input = screen.getByPlaceholderText("Search by name");
+      const input = screen.getByPlaceholderText("Search Pokémon…");
       await user.type(input, "pik");
       expect(screen.queryByText("Not even a nibble...")).not.toBeInTheDocument();
     });
@@ -175,7 +207,7 @@ describe("GIVEN: PokemonListPage", () => {
         notFound: true,
       });
       renderPage();
-      const input = screen.getByPlaceholderText("Search by name");
+      const input = screen.getByPlaceholderText("Search Pokémon…");
       await user.type(input, "xyz");
       expect(screen.getByText("Not even a nibble...")).toBeInTheDocument();
     });
@@ -187,7 +219,7 @@ describe("GIVEN: PokemonListPage", () => {
         notFound: true,
       });
       renderPage();
-      const input = screen.getByPlaceholderText("Search by name");
+      const input = screen.getByPlaceholderText("Search Pokémon…");
       await user.type(input, "xyz");
       const message = screen.getByText("Not even a nibble...");
       expect(message).toHaveAttribute("title", "No pokemon found");
@@ -200,7 +232,7 @@ describe("GIVEN: PokemonListPage", () => {
         notFound: true,
       });
       renderPage();
-      const input = screen.getByPlaceholderText("Search by name");
+      const input = screen.getByPlaceholderText("Search Pokémon…");
       await user.type(input, "xyz");
       expect(screen.queryByText("bulbasaur")).not.toBeInTheDocument();
     });

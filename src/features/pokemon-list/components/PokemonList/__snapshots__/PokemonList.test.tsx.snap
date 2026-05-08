@@ -5,7 +5,8 @@ exports[`GIVEN: PokemonList > WHEN: PokemonList with no pokemons > THEN: should 
   class="list-none m-0 p-0 w-full"
 >
   <div
-    class="p-2"
+    class="p-2 text-sm"
+    style="font-family: var(--font-elegant);"
   >
     No pokemons found
   </div>
@@ -17,69 +18,72 @@ exports[`GIVEN: PokemonList > WHEN: PokemonList with pokemons > THEN: should mat
   class="list-none m-0 p-0 w-full"
 >
   <li
-    class="border border-poke-gray-100 flex justify-between items-center cursor-pointer
-                hover:bg-poke-yellow
+    class="pokemon-list-item border border-dark-600 flex justify-between items-center cursor-pointer
+                hover:bg-dark-700
                 first:rounded-t-lg last:rounded-b-lg only:rounded-lg
                 not-first:border-t-0"
+    style="animation-delay: 0ms;"
   >
     <a
-      class="w-full h-full no-underline text-inherit flex"
+      class="w-full h-full no-underline text-inherit flex items-center"
       href="/react-pokemon/detail/1"
     >
       <div
-        class="border-r border-poke-gray-100 min-w-12 flex justify-center p-2"
+        class="pokemon-id border-r border-dark-600 flex items-center justify-end px-3 py-2.5"
       >
         #
         1
       </div>
       <div
-        class="flex-1 capitalize p-2"
+        class="pokemon-name flex-1 capitalize px-3 py-2.5"
       >
         bulbasaur
       </div>
     </a>
   </li>
   <li
-    class="border border-poke-gray-100 flex justify-between items-center cursor-pointer
-                hover:bg-poke-yellow
+    class="pokemon-list-item border border-dark-600 flex justify-between items-center cursor-pointer
+                hover:bg-dark-700
                 first:rounded-t-lg last:rounded-b-lg only:rounded-lg
                 not-first:border-t-0"
+    style="animation-delay: 35ms;"
   >
     <a
-      class="w-full h-full no-underline text-inherit flex"
+      class="w-full h-full no-underline text-inherit flex items-center"
       href="/react-pokemon/detail/2"
     >
       <div
-        class="border-r border-poke-gray-100 min-w-12 flex justify-center p-2"
+        class="pokemon-id border-r border-dark-600 flex items-center justify-end px-3 py-2.5"
       >
         #
         2
       </div>
       <div
-        class="flex-1 capitalize p-2"
+        class="pokemon-name flex-1 capitalize px-3 py-2.5"
       >
         ivysaur
       </div>
     </a>
   </li>
   <li
-    class="border border-poke-gray-100 flex justify-between items-center cursor-pointer
-                hover:bg-poke-yellow
+    class="pokemon-list-item border border-dark-600 flex justify-between items-center cursor-pointer
+                hover:bg-dark-700
                 first:rounded-t-lg last:rounded-b-lg only:rounded-lg
                 not-first:border-t-0"
+    style="animation-delay: 70ms;"
   >
     <a
-      class="w-full h-full no-underline text-inherit flex"
+      class="w-full h-full no-underline text-inherit flex items-center"
       href="/react-pokemon/detail/3"
     >
       <div
-        class="border-r border-poke-gray-100 min-w-12 flex justify-center p-2"
+        class="pokemon-id border-r border-dark-600 flex items-center justify-end px-3 py-2.5"
       >
         #
         3
       </div>
       <div
-        class="flex-1 capitalize p-2"
+        class="pokemon-name flex-1 capitalize px-3 py-2.5"
       >
         venusaur
       </div>

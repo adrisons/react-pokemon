@@ -15,8 +15,8 @@ function PokemonList({ pokemons }: Props) {
           return !!name ? (
             <li
               key={id}
-              className="pokemon-list-item border border-poke-gray-100 flex justify-between items-center cursor-pointer
-                hover:bg-poke-yellow
+              className="pokemon-list-item border border-dark-600 flex justify-between items-center cursor-pointer
+                hover:bg-dark-700
                 first:rounded-t-lg last:rounded-b-lg only:rounded-lg
                 not-first:border-t-0"
               style={{ animationDelay: `${index * 35}ms` }}
@@ -25,7 +25,7 @@ function PokemonList({ pokemons }: Props) {
                 to={`/react-pokemon/detail/${id}`}
                 className="w-full h-full no-underline text-inherit flex items-center"
               >
-                <div className="pokemon-id border-r border-poke-gray-100 flex items-center justify-end px-3 py-2.5">
+                <div className="pokemon-id border-r border-dark-600 flex items-center justify-end px-3 py-2.5">
                   #{id}
                 </div>
                 <div className="pokemon-name flex-1 capitalize px-3 py-2.5">{name}</div>

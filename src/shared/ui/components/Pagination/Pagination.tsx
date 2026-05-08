@@ -1,5 +1,3 @@
-import { Button } from "@shared/ui/components/ui/button";
-
 interface Props {
   gotoNextPage?: (() => void) | null;
   gotoPrevPage?: (() => void) | null;
@@ -7,14 +5,26 @@ interface Props {
 
 function Pagination({ gotoNextPage, gotoPrevPage }: Props) {
   return (
-    <div className="mt-8 w-full flex justify-between">
+    <div className="mt-12 w-full flex justify-between items-center gap-4">
       {gotoPrevPage ? (
-        <Button variant="outline" onClick={gotoPrevPage}>Previous</Button>
+        <button
+          onClick={gotoPrevPage}
+          className="pokemon-pagination-btn pokemon-pagination-prev"
+        >
+          <span className="pagination-arrow">←</span>
+          <span>Previous</span>
+        </button>
       ) : (
-        <span />
+        <div />
       )}
       {gotoNextPage && (
-        <Button variant="outline" onClick={gotoNextPage}>Next</Button>
+        <button
+          onClick={gotoNextPage}
+          className="pokemon-pagination-btn pokemon-pagination-next"
+        >
+          <span>Next</span>
+          <span className="pagination-arrow">→</span>
+        </button>
       )}
     </div>
   );
