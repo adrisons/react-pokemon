@@ -10,30 +10,33 @@ function PokemonList({ pokemons }: Props) {
   return (
     <ul className="list-none m-0 p-0 w-full">
       {pokemons && !!pokemons.length ? (
-        pokemons.map(({ name, url }) => {
+        pokemons.map(({ name, url }, index) => {
           const id = getPokemonIdFromUrl(url);
           return !!name ? (
             <li
               key={id}
-              className="border border-poke-gray-100 flex justify-between items-center cursor-pointer
+              className="pokemon-list-item border border-poke-gray-100 flex justify-between items-center cursor-pointer
                 hover:bg-poke-yellow
                 first:rounded-t-lg last:rounded-b-lg only:rounded-lg
                 not-first:border-t-0"
+              style={{ animationDelay: `${index * 35}ms` }}
             >
               <Link
                 to={`/react-pokemon/detail/${id}`}
-                className="w-full h-full no-underline text-inherit flex"
+                className="w-full h-full no-underline text-inherit flex items-center"
               >
-                <div className="border-r border-poke-gray-100 min-w-12 flex justify-center p-2">
+                <div className="pokemon-id border-r border-poke-gray-100 flex items-center justify-end px-3 py-2.5">
                   #{id}
                 </div>
-                <div className="flex-1 capitalize p-2">{name}</div>
+                <div className="pokemon-name flex-1 capitalize px-3 py-2.5">{name}</div>
               </Link>
             </li>
           ) : null;
         })
       ) : (
-        <div className="p-2">No pokemons found</div>
+        <div className="p-2 text-sm" style={{ fontFamily: "var(--font-elegant)" }}>
+          No pokemons found
+        </div>
       )}
     </ul>
   );

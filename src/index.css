@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Nunito:wght@300;400;500;600&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -6,6 +7,9 @@
   --color-poke-gray-500: #333333;
   --color-poke-yellow: #ffde00;
   --color-poke-blue: #3b4cca;
+
+  --font-pixel: "Space Mono", monospace;
+  --font-elegant: "Nunito", sans-serif;
 }
 
 :root {
@@ -16,10 +20,32 @@
   --blue: #3b4cca;
 }
 
+@keyframes pokemon-entry {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes search-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @layer base {
   body {
     @apply bg-poke-white text-poke-gray-500 mb-20;
-    font: 1.2rem / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font: 1rem / 1.5 var(--font-elegant);
   }
 
   code {
@@ -28,7 +54,7 @@
 
   input {
     @apply bg-poke-white text-poke-gray-500 border-0 border-b border-poke-gray-100 px-4 py-2;
-    font: 0.9rem / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font: 0.9rem / 1.5 var(--font-elegant);
   }
 
   input:hover,
@@ -38,10 +64,46 @@
 
   button {
     @apply bg-poke-white text-poke-gray-500 border border-poke-gray-100 rounded px-4 py-2 cursor-pointer;
-    font: 0.9rem / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font: 0.9rem / 1.5 var(--font-elegant);
   }
 
   button:hover {
     @apply bg-poke-blue text-poke-white border-poke-blue;
+  }
+}
+
+@layer components {
+  .pokemon-list-item {
+    animation: pokemon-entry 0.3s ease both;
+    transition: background-color 0.15s ease;
+  }
+
+  .pokemon-id {
+    font-family: var(--font-pixel);
+    font-size: 0.72rem;
+    line-height: 1;
+    width: 5.5rem;
+    min-width: 5.5rem;
+    text-align: right;
+    color: var(--color-poke-blue);
+    letter-spacing: 0.02em;
+    transition: color 0.15s ease;
+  }
+
+  .pokemon-list-item:hover .pokemon-id {
+    color: var(--color-poke-gray-500);
+  }
+
+  .pokemon-name {
+    font-family: var(--font-elegant);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  .pokemon-search-input {
+    animation: search-fade-in 0.4s ease both;
+    font-family: var(--font-elegant) !important;
+    font-size: 0.9rem !important;
   }
 }

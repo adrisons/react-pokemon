@@ -48,11 +48,11 @@ function PokemonListPageView({
     <div className="flex flex-col w-80 mx-auto">
       <div className="flex items-baseline justify-center w-full mb-8">
         <input
-          className="w-full"
+          className="pokemon-search-input w-full"
           id="search"
           name="search"
           type="text"
-          placeholder="Search by name"
+          placeholder="Search by name…"
           value={query}
           onChange={(e) => onQueryChange(e.target.value)}
         />
