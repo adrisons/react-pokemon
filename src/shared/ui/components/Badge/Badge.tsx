@@ -1,21 +1,26 @@
 import type { PokemonTypeName } from "@core/domain/pokemon";
 import typeColors from "@shared/constants/typeColors";
+import { Badge as ShadcnBadge } from "@shared/ui/components/ui/badge";
 
 interface Props {
   name: PokemonTypeName;
 }
 
 function Badge({ name }: Props) {
+  const color = typeColors[name];
   return (
-    <div
-      className="px-2 py-1 text-xs uppercase font-bold rounded-r-xl tracking-wider"
+    <ShadcnBadge
+      variant="outline"
+      className="uppercase font-bold tracking-wider rounded-r-xl rounded-l-none text-xs"
       style={{
-        border: `1px solid ${typeColors[name]}`,
-        borderLeft: `9px solid ${typeColors[name]}`,
+        borderColor: color,
+        borderLeftWidth: "9px",
+        borderLeftColor: color,
+        color: color,
       }}
     >
       {name}
-    </div>
+    </ShadcnBadge>
   );
 }
 

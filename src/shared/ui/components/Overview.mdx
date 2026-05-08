@@ -1,0 +1,48 @@
+{/* Overview.mdx */}
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Docs/Overview" />
+
+# React Pokemon — Component Library
+
+UI components for the React Pokemon app. Two layers:
+
+---
+
+## Shared
+
+Located in `src/shared/ui/components/`. Reusable across features.
+
+### Badge
+Pokemon type badge wrapping shadcn `Badge`. Each type gets a unique border color from the official Pokedex palette.
+- **Props:** `name: PokemonTypeName`
+- See the *All types* story for a complete reference
+
+### Loading
+Spinning Pokeball image used while async data is being fetched.
+- **Props:** none
+
+### Pagination
+Previous / Next controls wrapping shadcn `Button`. Buttons render conditionally — absent when the handler is `null`.
+- **Props:** `gotoNextPage?`, `gotoPrevPage?`
+
+---
+
+## Features
+
+### PokemonCard (`features/pokemon-list`)
+Card for a single Pokemon in a grid. Wraps shadcn `Card` + domain `Badge` + official artwork.
+- **Props:** `pokemon: PokemonDetail`
+- Links to the detail page via React Router
+- Handles missing `imageUrl` gracefully
+
+---
+
+## Conventions
+
+| Rule | Details |
+|---|---|
+| Path aliases | `@shared`, `@core`, `@features`, `@app`, `@layouts` |
+| Styling | Tailwind CSS v4 via `@tailwindcss/vite` |
+| Primitives | shadcn/ui (`base-nova` style, neutral base color) |
+| Story location | Co-located next to component (`Component.stories.tsx`) |
