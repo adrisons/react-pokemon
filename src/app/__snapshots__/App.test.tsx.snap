@@ -1,0 +1,18 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`WHEN: PokemonList with no pokemons > THEN: should match snapshot 1`] = `
+<div
+  class="h-17.5 w-full flex justify-center mt-20 mb-20"
+>
+  <a
+    class="h-full"
+    href="/react-pokemon/"
+  >
+    <img
+      alt="logo"
+      class="h-full"
+      src="/react-pokemon/src/shared/assets/pokemon-logo.png"
+    />
+  </a>
+</div>
+`;

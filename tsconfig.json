@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2024",
+    "lib": ["ES2025", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "ignoreDeprecations": "6.0",
+    "types": ["vitest/globals", "node", "vite/client"],
+    "baseUrl": ".",
+    "paths": {
+      "@app":        ["src/app/index.ts"],
+      "@app/*":      ["src/app/*"],
+      "@shared/*":   ["src/shared/*"],
+      "@core/*":     ["src/core/*"],
+      "@features/*": ["src/features/*"],
+      "@layouts/*":  ["src/layouts/*"]
+    }
+  },
+  "include": ["src"]
+}

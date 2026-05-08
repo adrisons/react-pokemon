@@ -1,0 +1,89 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`GIVEN: PokemonList > WHEN: PokemonList with no pokemons > THEN: should match snapshot 1`] = `
+<ul
+  class="list-none m-0 p-0 w-full"
+>
+  <div
+    class="p-2"
+  >
+    No pokemons found
+  </div>
+</ul>
+`;
+
+exports[`GIVEN: PokemonList > WHEN: PokemonList with pokemons > THEN: should match snapshot 1`] = `
+<ul
+  class="list-none m-0 p-0 w-full"
+>
+  <li
+    class="border border-poke-gray-100 flex justify-between items-center cursor-pointer
+                hover:bg-poke-yellow
+                first:rounded-t-lg last:rounded-b-lg only:rounded-lg
+                not-first:border-t-0"
+  >
+    <a
+      class="w-full h-full no-underline text-inherit flex"
+      href="/react-pokemon/detail/1"
+    >
+      <div
+        class="border-r border-poke-gray-100 min-w-12 flex justify-center p-2"
+      >
+        #
+        1
+      </div>
+      <div
+        class="flex-1 capitalize p-2"
+      >
+        bulbasaur
+      </div>
+    </a>
+  </li>
+  <li
+    class="border border-poke-gray-100 flex justify-between items-center cursor-pointer
+                hover:bg-poke-yellow
+                first:rounded-t-lg last:rounded-b-lg only:rounded-lg
+                not-first:border-t-0"
+  >
+    <a
+      class="w-full h-full no-underline text-inherit flex"
+      href="/react-pokemon/detail/2"
+    >
+      <div
+        class="border-r border-poke-gray-100 min-w-12 flex justify-center p-2"
+      >
+        #
+        2
+      </div>
+      <div
+        class="flex-1 capitalize p-2"
+      >
+        ivysaur
+      </div>
+    </a>
+  </li>
+  <li
+    class="border border-poke-gray-100 flex justify-between items-center cursor-pointer
+                hover:bg-poke-yellow
+                first:rounded-t-lg last:rounded-b-lg only:rounded-lg
+                not-first:border-t-0"
+  >
+    <a
+      class="w-full h-full no-underline text-inherit flex"
+      href="/react-pokemon/detail/3"
+    >
+      <div
+        class="border-r border-poke-gray-100 min-w-12 flex justify-center p-2"
+      >
+        #
+        3
+      </div>
+      <div
+        class="flex-1 capitalize p-2"
+      >
+        venusaur
+      </div>
+    </a>
+  </li>
+</ul>
+`;

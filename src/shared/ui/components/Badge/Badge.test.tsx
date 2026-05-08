@@ -1,22 +1,18 @@
-import { act } from "react";
-import renderer from "react-test-renderer";
+import { render, screen } from "@testing-library/react";
 import typeColors from "@shared/constants/typeColors";
 import Badge from "./Badge";
 
 describe("WHEN: Badge", () => {
-  let tree: renderer.ReactTestRendererJSON | null;
-  beforeEach(() => {
-    let component: renderer.ReactTestRenderer;
-    act(() => {
-      component = renderer.create(<Badge name="bug" />);
-    });
-    tree = component!.toJSON() as renderer.ReactTestRendererJSON;
-  });
   it("THEN: should match snapshot", () => {
-    expect(tree).toMatchSnapshot();
+    const { container } = render(<Badge name="bug" />);
+    expect(container.firstChild).toMatchSnapshot();
   });
+
   it("THEN: should display correct border color", () => {
-    expect(tree!.props.style.border.includes(typeColors["bug"])).toBeTruthy();
-    expect(tree!.props.style.border.includes(typeColors["dragon"])).toBeFalsy();
+    render(<Badge name="bug" />);
+    const badge = screen.getByText("bug");
+    // jsdom normalizes hex colors to rgb in computed styles
+    expect(badge.style.borderLeftColor).toBe("rgb(114, 159, 63)");
+    expect(badge.style.borderLeftColor).not.toBe("rgb(83, 164, 207)");
   });
 });

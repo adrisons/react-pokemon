@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`WHEN: Badge > THEN: should match snapshot 1`] = `
+<div
+  class="px-2 py-1 text-xs uppercase font-bold rounded-r-xl tracking-wider"
+  style="border: 1px solid rgb(114, 159, 63); border-left: 9px solid rgb(114, 159, 63);"
+>
+  bug
+</div>
+`;

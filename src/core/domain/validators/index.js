@@ -1,1 +1,0 @@
-export { isValidPokemon } from "./pokemonValidator";

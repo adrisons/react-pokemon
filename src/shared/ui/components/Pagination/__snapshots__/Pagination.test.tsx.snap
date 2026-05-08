@@ -1,0 +1,30 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`WHEN: Pagination with no prev page link > THEN: should match snapshot 1`] = `
+<div
+  class="mt-8 w-full overflow-hidden"
+>
+  <button
+    class="float-right"
+  >
+    Next
+  </button>
+</div>
+`;
+
+exports[`WHEN: Pagination with prev page link > THEN: should match snapshot 1`] = `
+<div
+  class="mt-8 w-full overflow-hidden"
+>
+  <button
+    class="float-left"
+  >
+    Previous
+  </button>
+  <button
+    class="float-right"
+  >
+    Next
+  </button>
+</div>
+`;
