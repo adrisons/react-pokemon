@@ -1,46 +1,47 @@
-@import "./shared/styles/colors.css";
+@import "tailwindcss";
 
-body {
-  background-color: var(--white);
-  color: var(--gray-500);
-  font: 1.2rem / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
-  padding: 0;
-  margin: 0;
-  margin-bottom: 5rem;
+@theme {
+  --color-poke-white: #fff;
+  --color-poke-gray-100: #ccc;
+  --color-poke-gray-500: #333333;
+  --color-poke-yellow: #ffde00;
+  --color-poke-blue: #3b4cca;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+:root {
+  --white: #fff;
+  --gray-100: #ccc;
+  --gray-500: #333333;
+  --yellow: #ffde00;
+  --blue: #3b4cca;
 }
 
-input {
-  background-color: var(--white);
-  color: var(--gray-500);
-  border: none;
-  border-bottom: 1px solid var(--gray-100);
-  font: 0.9rem / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
-  padding: 0.5rem 1rem;
-}
+@layer base {
+  body {
+    @apply bg-poke-white text-poke-gray-500 mb-20;
+    font: 1.2rem / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
 
-input:hover,
-input:focus {
-  outline: 0;
-  border-color: var(--blue);
-}
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  }
 
-button {
-  background-color: var(--white);
-  color: var(--gray-500);
-  border: 1px solid var(--gray-100);
-  font: 0.9rem / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
-  border-radius: 0.25rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-}
+  input {
+    @apply bg-poke-white text-poke-gray-500 border-0 border-b border-poke-gray-100 px-4 py-2;
+    font: 0.9rem / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
 
-button:hover {
-  background-color: var(--blue);
-  color: var(--white);
-  border-color: var(--blue);
+  input:hover,
+  input:focus {
+    @apply outline-none border-poke-blue;
+  }
+
+  button {
+    @apply bg-poke-white text-poke-gray-500 border border-poke-gray-100 rounded px-4 py-2 cursor-pointer;
+    font: 0.9rem / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  button:hover {
+    @apply bg-poke-blue text-poke-white border-poke-blue;
+  }
 }

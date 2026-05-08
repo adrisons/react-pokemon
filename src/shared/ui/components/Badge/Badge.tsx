@@ -1,6 +1,11 @@
+import type { PokemonTypeName } from "@core/domain/pokemon";
 import typeColors from "@shared/constants/typeColors";
 
-function Badge({ name }) {
+interface Props {
+  name: PokemonTypeName;
+}
+
+function Badge({ name }: Props) {
   return (
     <div
       className="px-2 py-1 text-xs uppercase font-bold rounded-r-xl tracking-wider"
