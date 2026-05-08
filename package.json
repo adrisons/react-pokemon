@@ -23,6 +23,7 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
+    "analyze": "source-map-explorer 'dist/assets/*.js' --no-border-checks",
     "test": "vitest run --project=unit",
     "test:storybook": "vitest run --project=storybook",
     "coverage": "vitest run --project=unit --coverage",
@@ -64,6 +65,7 @@
     "jsdom": "^26.1.0",
     "playwright": "^1.59.1",
     "react-test-renderer": "^19.0.0",
+    "source-map-explorer": "^2.5.3",
     "storybook": "^10.3.6",
     "tailwindcss": "^4.2.4",
     "typescript": "^6.0.3",

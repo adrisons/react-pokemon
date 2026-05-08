@@ -7,6 +7,7 @@ exports[`GIVEN: PokemonDetailPage > THEN: should match snapshot 1`] = `
   <img
     alt="loading"
     class="w-full h-auto max-w-20 animate-spin"
+    decoding="async"
     src="/react-pokemon/src/shared/assets/pokeball.png"
     style="animation-duration: 4000ms; animation-timing-function: linear;"
   />

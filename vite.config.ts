@@ -11,6 +11,9 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: "/react-pokemon/",
+  build: {
+    sourcemap: true
+  },
   resolve: {
     alias: {
       "@app": path.resolve(dirname, "./src/app"),

@@ -1,3 +1,5 @@
+import { cachedFetch, type CachedFetchOptions } from "./httpCache";
+
 const BASE_URL = "https://pokeapi.co/api/v2";
 
 async function request<T>(url: string): Promise<T> {
@@ -8,7 +10,7 @@ async function request<T>(url: string): Promise<T> {
   return response.json() as Promise<T>;
 }
 
-export function get<T>(path: string): Promise<T> {
+export function get<T>(path: string, options?: CachedFetchOptions): Promise<T> {
   const url = path.startsWith("http") ? path : `${BASE_URL}${path}`;
-  return request<T>(url);
+  return cachedFetch<T>(url, () => request<T>(url), options);
 }

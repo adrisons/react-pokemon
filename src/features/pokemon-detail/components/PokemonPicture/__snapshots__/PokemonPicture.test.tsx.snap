@@ -10,6 +10,7 @@ exports[`WHEN: Picture > THEN: should match snapshot 1`] = `
     <img
       alt="loading"
       class="w-full h-auto max-w-20 animate-spin"
+      decoding="async"
       src="/react-pokemon/src/shared/assets/pokeball.png"
       style="animation-duration: 4000ms; animation-timing-function: linear;"
     />
@@ -17,6 +18,8 @@ exports[`WHEN: Picture > THEN: should match snapshot 1`] = `
   <img
     alt="Pokemon"
     class="w-full h-auto max-w-80"
+    decoding="async"
+    loading="lazy"
     src="imageUrl"
     style="display: none;"
   />

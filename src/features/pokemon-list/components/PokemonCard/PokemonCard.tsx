@@ -88,6 +88,8 @@ function PokemonCard({ pokemon }: Props) {
                   <img
                     src={pokemon.imageUrl}
                     alt={pokemon.name}
+                    loading="lazy"
+                    decoding="async"
                     style={{
                       width: '75%',
                       height: '75%',
