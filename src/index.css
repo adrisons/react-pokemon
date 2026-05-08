@@ -139,16 +139,21 @@
 
   .pokemon-search-input {
     animation: search-fade-in 0.4s ease both;
-    font-family: var(--font-elegant) !important;
-    font-size: 0.95rem !important;
-    @apply bg-dark-800 text-text-primary border-2 border-dark-600 px-4 py-3 rounded-xl !important;
-    transition: all 0.25s ease !important;
+    font-family: var(--font-elegant);
+    font-size: 0.95rem;
+    background: var(--color-dark-800);
+    color: var(--color-text-primary);
+    border: 2px solid var(--color-dark-600);
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    transition: all 0.25s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   }
 
   .pokemon-search-input:focus {
-    @apply border-accent-gold outline-none !important;
-    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.15), 0 8px 24px rgba(255, 215, 0, 0.2) !important;
+    border-color: var(--color-accent-gold);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.15), 0 8px 24px rgba(255, 215, 0, 0.2);
   }
 
   .pokemon-search-input::placeholder {
@@ -185,6 +190,33 @@
     border-color: var(--color-accent-gold);
     background: var(--color-dark-800);
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5), 0 0 8px rgba(255, 215, 0, 0.2);
+  }
+
+  .search-clear-btn {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--color-text-muted);
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .search-clear-btn:hover {
+    color: var(--color-accent-gold);
+    transform: translateY(-50%) scale(1.15);
+  }
+
+  .search-clear-btn:active {
+    transform: translateY(-50%) scale(0.95);
   }
 
   /* ── Card 3D scene ────────────────────────────────── */
@@ -349,5 +381,48 @@
   .pokemon-back-btn > span:first-child {
     font-size: 1.2em;
     font-weight: 900;
+  }
+
+  /* Detail button in card */
+  .pokemon-detail-btn {
+    @apply px-4 py-2.5 rounded-lg font-bold text-sm transition-all duration-300;
+    font-family: var(--font-elegant);
+    color: #13131f;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    border: 2px solid #ffed4e;
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .pokemon-detail-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+    z-index: 0;
+  }
+
+  .pokemon-detail-btn:hover::before {
+    left: 100%;
+  }
+
+  .pokemon-detail-btn:hover {
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transform: translateY(-1px);
+  }
+
+  .pokemon-detail-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .pokemon-detail-btn > * {
+    position: relative;
+    z-index: 1;
   }
 }

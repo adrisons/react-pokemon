@@ -2,29 +2,51 @@
 
 exports[`WHEN: Pagination with no prev page link > THEN: should match snapshot 1`] = `
 <div
-  class="mt-8 w-full overflow-hidden"
+  class="mt-12 w-full flex justify-between items-center gap-4"
 >
+  <div />
   <button
-    class="float-right"
+    class="pokemon-pagination-btn pokemon-pagination-next"
   >
-    Next
+    <span>
+      Next
+    </span>
+    <span
+      class="pagination-arrow"
+    >
+      →
+    </span>
   </button>
 </div>
 `;
 
 exports[`WHEN: Pagination with prev page link > THEN: should match snapshot 1`] = `
 <div
-  class="mt-8 w-full overflow-hidden"
+  class="mt-12 w-full flex justify-between items-center gap-4"
 >
   <button
-    class="float-left"
+    class="pokemon-pagination-btn pokemon-pagination-prev"
   >
-    Previous
+    <span
+      class="pagination-arrow"
+    >
+      ←
+    </span>
+    <span>
+      Previous
+    </span>
   </button>
   <button
-    class="float-right"
+    class="pokemon-pagination-btn pokemon-pagination-next"
   >
-    Next
+    <span>
+      Next
+    </span>
+    <span
+      class="pagination-arrow"
+    >
+      →
+    </span>
   </button>
 </div>
 `;

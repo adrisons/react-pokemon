@@ -21,6 +21,44 @@ export default defineConfig({
     }
   },
   test: {
+    coverage: {
+      provider: "v8",
+      include: ["src/**/*.{ts,tsx,js,jsx}"],
+      exclude: [
+        // Entry points
+        "src/index.{ts,tsx,js}",
+        "src/reportWebVitals.ts",
+        // Barrel files (re-exports only)
+        "src/**/index.{ts,tsx,js}",
+        // Pure type/interface files (no runtime code)
+        "src/**/*.d.ts",
+        "src/**/api.types.ts",
+        "src/**/models.ts",
+        // App wiring & infrastructure (not business logic)
+        "src/app/providers.tsx",
+        "src/app/router.tsx",
+        "src/layouts/MainLayout.tsx",
+        // shadcn auto-generated UI primitives
+        "src/shared/ui/components/ui/**",
+        // Legacy .jsx files being migrated to .tsx
+        "src/**/*.jsx",
+        // View layer: pages and display components (tested via snapshots only)
+        "src/app/App.tsx",
+        "src/**/pages/**",
+        "src/features/**/components/**",
+        "src/shared/ui/components/**",
+        // Test helpers
+        "src/**/test-utils/**",
+        // Test setup & stories
+        "src/setupTests.ts",
+        "src/**/*.stories.{ts,tsx,js,jsx}"
+      ],
+      thresholds: {
+        lines: 80,
+        functions: 80
+      },
+      reporter: ["text", "html", "lcov"]
+    },
     projects: [{
       extends: true,
       test: {

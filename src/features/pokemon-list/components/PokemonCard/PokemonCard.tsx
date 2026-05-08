@@ -52,7 +52,8 @@ function PokemonCard({ pokemon }: Props) {
   return (
     <div
       ref={cardRef}
-      className="card-scene h-72 cursor-pointer select-none"
+      className="card-scene cursor-pointer select-none"
+      style={{ height: '20rem' }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
@@ -212,14 +213,7 @@ function PokemonCard({ pokemon }: Props) {
             {/* Detail button */}
             <button
               onClick={handleDetailClick}
-              className="w-full py-2.5 px-3 mt-2 rounded-lg font-bold text-sm transition-all relative z-10"
-              style={{
-                background: `linear-gradient(135deg, ${typeColor}dd 0%, ${typeColor}aa 100%)`,
-                color: '#13131f',
-                boxShadow: `0 4px 12px ${typeColor}40`,
-                border: `1px solid ${typeColor}ff`,
-                fontFamily: "var(--font-elegant)"
-              }}
+              className="pokemon-detail-btn w-full mt-3 relative z-10"
             >
               View Full Detail →
             </button>

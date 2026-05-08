@@ -70,7 +70,16 @@ function PokemonListPageView({
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
           />
-          <kbd className="search-kbd">⌘K</kbd>
+          {isSearching && (
+            <button
+              onClick={() => onQueryChange('')}
+              className="search-clear-btn"
+              title="Clear search"
+            >
+              ✕
+            </button>
+          )}
+          {!isSearching && <kbd className="search-kbd">⌘K</kbd>}
         </div>
       </div>
 
@@ -86,9 +95,7 @@ function PokemonListPageView({
             </div>
           )}
           {!searching && !notFound && (
-            <div className="max-w-sm mx-auto">
-              <PokemonList pokemons={searchResults} />
-            </div>
+            <PokemonCardGrid pokemons={searchResults} />
           )}
         </>
       ) : (
