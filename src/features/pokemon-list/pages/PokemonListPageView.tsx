@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { Loading, Pagination } from "@shared/ui";
-import PokemonList from "@features/pokemon-list/components/PokemonList/PokemonList";
 import PokemonCardGrid from "@features/pokemon-list/components/PokemonCardGrid/PokemonCardGrid";
 import type { PokemonSummary } from "@core/domain/pokemon";
 
@@ -88,13 +87,14 @@ function PokemonListPageView({
           {searching && <Loading />}
           {notFound && (
             <div
-              className="p-2 text-center text-text-muted cursor-default"
+              className="p-8 text-center text-text-muted cursor-default"
               title="No pokemon found"
             >
-              Not even a nibble...
+              <p className="text-lg">Not even a nibble...</p>
+              <p className="text-sm mt-2">Try searching for something else</p>
             </div>
           )}
-          {!searching && !notFound && (
+          {!searching && !notFound && searchResults.length > 0 && (
             <PokemonCardGrid pokemons={searchResults} />
           )}
         </>

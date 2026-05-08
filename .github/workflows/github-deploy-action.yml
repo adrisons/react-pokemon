@@ -21,10 +21,14 @@ jobs:
           node-version: '22'
           cache: 'pnpm'
 
-      - name: Install and Build 🔧
-        run: |
-          pnpm install
-          pnpm build
+      - name: Install 🔧
+        run: pnpm install
+
+      - name: Test with coverage 🧪
+        run: pnpm coverage
+
+      - name: Build 🏗️
+        run: pnpm build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4

@@ -8,7 +8,7 @@ function CardLoader({ url }: PokemonSummary) {
   const { pokemon, loading } = usePokemonDetail(id);
 
   if (loading || !pokemon) {
-    return <div className="card-skeleton rounded-2xl" style={{ height: '20rem' }} />;
+    return <div className="card-skeleton rounded-2xl" style={{ height: '24rem' }} />;
   }
 
   return <PokemonCard pokemon={pokemon} />;

@@ -231,6 +231,7 @@
     transform-style: preserve-3d;
     border-radius: 1.25rem;
     height: 100%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 
   .card-inner {
@@ -244,6 +245,7 @@
     transform: rotateY(180deg);
   }
 
+  /* Gradient border wrapper: the "face" IS the border layer */
   .card-face {
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
@@ -251,13 +253,42 @@
     inset: 0;
     border-radius: 1.25rem;
     overflow: hidden;
+    padding: 2px; /* this gap is the border */
+  }
+
+  /* Inner content fills the face minus the 2px border */
+  .card-border-wrap {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-border-inner {
+    flex: 1;
+    border-radius: calc(1.25rem - 2px);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
   }
 
   .card-face-back {
     transform: rotateY(180deg);
+    pointer-events: none;
   }
 
-  /* Holographic shimmer - much more subtle */
+  .card-inner.is-flipped .card-face:not(.card-face-back) {
+    pointer-events: none;
+  }
+
+  .card-inner.is-flipped .card-face-back {
+    pointer-events: auto;
+  }
+
+  .card-scene:hover .card-tilt {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), 0 6px 16px rgba(255, 215, 0, 0.1);
+  }
+
+  /* Holographic shimmer */
   .card-holo {
     background: conic-gradient(
       from var(--holo-angle, 0deg) at var(--mouse-x, 50%) var(--mouse-y, 50%),
@@ -295,8 +326,8 @@
     background-size: 400px 100%;
     animation: shimmer 1.4s ease infinite;
     border-radius: 1.25rem;
-    border: 2px solid transparent;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 215, 0, 0.1);
+    border: 1.5px solid rgba(255, 215, 0, 0.15);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 
   /* Pagination buttons */
