@@ -32,16 +32,17 @@ function PokemonCard({ pokemon }: Props) {
     card.style.setProperty("--holo-opacity", "0.15");
   }
 
+  function handleMouseEnter() {
+    setIsFlipped(true);
+  }
+
   function handleMouseLeave() {
     const card = cardRef.current;
     if (!card) return;
     card.style.setProperty("--rot-x", "0deg");
     card.style.setProperty("--rot-y", "0deg");
     card.style.setProperty("--holo-opacity", "0");
-  }
-
-  function handleClick() {
-    setIsFlipped(!isFlipped);
+    setIsFlipped(false);
   }
 
   function handleDetailClick(e: React.MouseEvent) {
@@ -63,9 +64,9 @@ function PokemonCard({ pokemon }: Props) {
       ref={cardRef}
       className="card-scene cursor-pointer select-none"
       style={{ height: '24rem' }}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      onClick={handleClick}
     >
       <div className="card-tilt">
         <div className={`card-inner${isFlipped ? " is-flipped" : ""}`}>
