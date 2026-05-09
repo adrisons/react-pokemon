@@ -456,4 +456,185 @@
     position: relative;
     z-index: 1;
   }
+
+  /* ── Detail page layout ───────────────────────────── */
+  .detail-page-root {
+    min-height: 100vh;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .detail-page-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* Hero: stacked on mobile, side-by-side on desktop */
+  .detail-hero {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background: var(--color-dark-800);
+    border: 1px solid var(--color-dark-600);
+    border-radius: 1.5rem;
+    padding: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .detail-hero {
+      flex-direction: row;
+      align-items: flex-start;
+      padding: 2.5rem 3rem;
+      gap: 3rem;
+    }
+  }
+
+  .detail-hero-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 768px) {
+    .detail-hero-left {
+      min-width: 220px;
+      max-width: 260px;
+    }
+  }
+
+  .detail-hero-image {
+    width: 100%;
+    max-width: 220px;
+    margin-top: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .detail-hero-image {
+      max-width: 200px;
+    }
+  }
+
+  .detail-hero-right {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Pokemon ID — large monospace accent */
+  .detail-pokemon-id {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-accent-gold);
+    letter-spacing: 0.08em;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    opacity: 0.85;
+  }
+
+  /* Pokemon name — big display heading */
+  .detail-pokemon-name {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--color-text-primary);
+    letter-spacing: -0.01em;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Section titles */
+  .detail-section-title {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+  }
+
+  /* Stat row label */
+  .detail-stat-label {
+    font-size: 0.8rem;
+    width: 8.5rem;
+    min-width: 8.5rem;
+  }
+
+  /* Stat value */
+  .detail-stat-value {
+    font-size: 0.8rem;
+    width: 2.25rem;
+    min-width: 2.25rem;
+  }
+
+  /* Ability card */
+  .detail-ability-card {
+    border: 1px solid var(--color-dark-600);
+    border-radius: 0.875rem;
+    padding: 0.875rem 1rem;
+    background: var(--color-dark-700);
+    transition: border-color 0.2s ease;
+  }
+
+  .detail-ability-card:hover {
+    border-color: var(--color-dark-500, #33335a);
+  }
+
+  /* Evolution section wrapper (full width below hero) */
+  .detail-evolution-section {
+    background: var(--color-dark-800);
+    border: 1px solid var(--color-dark-600);
+    border-radius: 1.5rem;
+    padding: 1.75rem 2rem;
+    margin-top: 1.25rem;
+  }
+
+  /* Evolution card */
+  .evolution-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 1rem 0.75rem 0.85rem;
+    border-radius: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    width: 7rem;
+  }
+
+  .evolution-card:not(:disabled):hover {
+    border-color: rgba(255, 215, 0, 0.5) !important;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.18), 0 4px 16px rgba(0,0,0,0.4) !important;
+    transform: translateY(-3px);
+  }
+
+  .evolution-card:not(:disabled):active {
+    transform: translateY(-1px);
+  }
+
+  .evolution-card-img-wrap {
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .evolution-card-img {
+    width: 5rem;
+    height: 5rem;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+    transition: transform 0.2s ease;
+  }
+
+  .evolution-card:not(:disabled):hover .evolution-card-img {
+    transform: scale(1.1);
+  }
+
+  .evolution-card-id {
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+  }
+
+  .evolution-card-name {
+    font-size: 0.8rem;
+    text-align: center;
+    line-height: 1.2;
+  }
 }

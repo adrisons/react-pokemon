@@ -16,10 +16,9 @@ function PokemonPicture({ imageUrl }: Props) {
           className="w-full h-auto max-w-80"
           alt="Pokemon"
           src={imageUrl}
-          loading="lazy"
           decoding="async"
           onLoad={() => setLoaded(true)}
-          style={!loaded ? { display: "none" } : {}}
+          style={{ opacity: loaded ? 1 : 0, transition: "opacity 0.3s ease" }}
         />
       )}
     </div>
