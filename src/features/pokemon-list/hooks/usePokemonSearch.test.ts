@@ -61,20 +61,20 @@ describe("GIVEN: usePokemonSearch", () => {
       expect(result.current.searching).toBe(true);
     });
 
-    it("THEN: should NOT call the API before 500ms (debounce)", () => {
+    it("THEN: should NOT call the API before 150ms (debounce)", () => {
       const { result } = renderHook(() => usePokemonSearch());
 
       act(() => result.current.search("pik"));
-      act(() => vi.advanceTimersByTime(499));
+      act(() => vi.advanceTimersByTime(149));
 
       expect(getPokemonList).not.toHaveBeenCalled();
     });
 
-    it("THEN: should call the API after 500ms", async () => {
+    it("THEN: should call the API after 150ms", async () => {
       const { result } = renderHook(() => usePokemonSearch());
 
       act(() => result.current.search("pik"));
-      await act(async () => { await vi.advanceTimersByTimeAsync(500); });
+      await act(async () => { await vi.advanceTimersByTimeAsync(150); });
 
       expect(getPokemonList).toHaveBeenCalledTimes(1);
       expect(result.current.searching).toBe(false);
@@ -86,7 +86,7 @@ describe("GIVEN: usePokemonSearch", () => {
       const { result } = renderHook(() => usePokemonSearch());
 
       act(() => result.current.search("pik"));
-      await act(async () => { await vi.advanceTimersByTimeAsync(500); });
+      await act(async () => { await vi.advanceTimersByTimeAsync(150); });
 
       const names = result.current.results.map((p) => p.name);
       expect(names).toEqual(expect.arrayContaining(["pikachu", "pikipek"]));
@@ -99,7 +99,7 @@ describe("GIVEN: usePokemonSearch", () => {
       const { result } = renderHook(() => usePokemonSearch());
 
       act(() => result.current.search("pic"));
-      await act(async () => { await vi.advanceTimersByTimeAsync(500); });
+      await act(async () => { await vi.advanceTimersByTimeAsync(150); });
 
       const names = result.current.results.map((p) => p.name);
       expect(names).toContain("pichu");
@@ -109,7 +109,7 @@ describe("GIVEN: usePokemonSearch", () => {
       const { result } = renderHook(() => usePokemonSearch());
 
       act(() => result.current.search("PIK"));
-      await act(async () => { await vi.advanceTimersByTimeAsync(500); });
+      await act(async () => { await vi.advanceTimersByTimeAsync(150); });
 
       expect(result.current.results).toHaveLength(2);
       expect(result.current.results.map((p) => p.name)).toEqual(
@@ -121,7 +121,7 @@ describe("GIVEN: usePokemonSearch", () => {
       const { result } = renderHook(() => usePokemonSearch());
 
       act(() => result.current.search("bulbasaur"));
-      await act(async () => { await vi.advanceTimersByTimeAsync(500); });
+      await act(async () => { await vi.advanceTimersByTimeAsync(150); });
 
       expect(result.current.results).toHaveLength(1);
       expect(result.current.results[0].name).toBe("bulbasaur");
@@ -133,7 +133,7 @@ describe("GIVEN: usePokemonSearch", () => {
       const { result } = renderHook(() => usePokemonSearch());
 
       act(() => result.current.search("zzznomatch"));
-      await act(async () => { await vi.advanceTimersByTimeAsync(500); });
+      await act(async () => { await vi.advanceTimersByTimeAsync(150); });
 
       expect(result.current.notFound).toBe(true);
       expect(result.current.results).toHaveLength(0);
@@ -143,14 +143,14 @@ describe("GIVEN: usePokemonSearch", () => {
       const { result } = renderHook(() => usePokemonSearch());
 
       act(() => result.current.search("zzznomatch"));
-      await act(async () => { await vi.advanceTimersByTimeAsync(500); });
+      await act(async () => { await vi.advanceTimersByTimeAsync(150); });
 
       expect(result.current.searching).toBe(false);
     });
   });
 
   describe("WHEN: user types rapidly (debounce cancellation)", () => {
-    it("THEN: should only execute the last search after 500ms", async () => {
+    it("THEN: should only execute the last search after 150ms", async () => {
       const { result } = renderHook(() => usePokemonSearch());
 
       act(() => result.current.search("p"));
@@ -159,7 +159,7 @@ describe("GIVEN: usePokemonSearch", () => {
       act(() => { vi.advanceTimersByTime(100); });
       act(() => result.current.search("pik"));
 
-      await act(async () => { await vi.advanceTimersByTimeAsync(500); });
+      await act(async () => { await vi.advanceTimersByTimeAsync(150); });
 
       // Only one API call total (last debounced query "pik")
       expect(getPokemonList).toHaveBeenCalledTimes(1);
@@ -174,7 +174,7 @@ describe("GIVEN: usePokemonSearch", () => {
       const { result } = renderHook(() => usePokemonSearch());
 
       act(() => result.current.search("pik"));
-      await act(async () => { await vi.advanceTimersByTimeAsync(500); });
+      await act(async () => { await vi.advanceTimersByTimeAsync(150); });
 
       act(() => result.current.clear());
 
@@ -189,7 +189,7 @@ describe("GIVEN: usePokemonSearch", () => {
       act(() => result.current.search("pik"));
       act(() => result.current.clear());
 
-      await act(async () => { await vi.advanceTimersByTimeAsync(500); });
+      await act(async () => { await vi.advanceTimersByTimeAsync(150); });
 
       expect(result.current.searching).toBe(false);
       expect(result.current.results).toHaveLength(0);
@@ -203,7 +203,7 @@ describe("GIVEN: usePokemonSearch", () => {
       const { result } = renderHook(() => usePokemonSearch());
 
       act(() => result.current.search("pik"));
-      await act(async () => { await vi.advanceTimersByTimeAsync(500); });
+      await act(async () => { await vi.advanceTimersByTimeAsync(150); });
 
       expect(result.current.notFound).toBe(true);
       expect(result.current.results).toHaveLength(0);

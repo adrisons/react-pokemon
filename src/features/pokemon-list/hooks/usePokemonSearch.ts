@@ -1,20 +1,11 @@
 import { useState, useRef } from "react";
-import { getPokemonList } from "@features/pokemon-list/api/pokemonListApi";
+import { usePokemonListStore } from "@features/pokemon-list/store";
 import type { PokemonSummary } from "@core/domain/pokemon";
 
-const ALL_POKEMON_URL = "https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0";
-
-let allPokemonsCache: PokemonSummary[] | null = null;
+const DEBOUNCE_MS = 150;
 
 export function _resetCacheForTesting() {
-  allPokemonsCache = null;
-}
-
-async function getAllPokemons(): Promise<PokemonSummary[]> {
-  if (allPokemonsCache) return allPokemonsCache;
-  const data = await getPokemonList(ALL_POKEMON_URL);
-  allPokemonsCache = data.results;
-  return allPokemonsCache;
+  usePokemonListStore.getState().resetAllPokemons();
 }
 
 export function usePokemonSearch() {
@@ -36,7 +27,7 @@ export function usePokemonSearch() {
     setSearching(true);
     debounceRef.current = setTimeout(async () => {
       try {
-        const all = await getAllPokemons();
+        const all = await usePokemonListStore.getState().loadAllPokemons();
         const filtered = all.filter((p) =>
           p.name.toLowerCase().includes(query.toLowerCase().trim())
         );
@@ -48,7 +39,7 @@ export function usePokemonSearch() {
       } finally {
         setSearching(false);
       }
-    }, 500);
+    }, DEBOUNCE_MS);
   }
 
   function clear() {
