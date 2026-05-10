@@ -56,7 +56,11 @@ export default defineConfig({
         "src/setupTests.ts",
         "src/**/*.stories.{ts,tsx,js,jsx}"
       ],
-      reporter: ["text", "html", "lcov"]
+      reporter: ["text", "html", "lcov"],
+      thresholds: {
+        lines: 80,
+        functions: 80
+      }
     },
     projects: [{
       extends: true,

@@ -104,4 +104,56 @@ describe("adaptEvolutionChain", () => {
       expect(stages[1].trigger).toBe("thunder stone");
     });
   });
+
+  describe("GIVEN an evolves_to with empty evolution_details", () => {
+    it("THEN trigger for that stage is null", () => {
+      const chain: RawChainLink = {
+        species: { name: "nincada", url: "https://pokeapi.co/api/v2/pokemon-species/290/" },
+        evolution_details: [],
+        evolves_to: [
+          {
+            species: { name: "ninjask", url: "https://pokeapi.co/api/v2/pokemon-species/291/" },
+            evolution_details: [],
+            evolves_to: [],
+          },
+        ],
+      };
+      const stages = adaptEvolutionChain(chain);
+      expect(stages[1].trigger).toBeNull();
+    });
+  });
+
+  describe("GIVEN an unknown / generic trigger name", () => {
+    it("THEN trigger is the trigger name with hyphens replaced by spaces", () => {
+      const chain: RawChainLink = {
+        species: { name: "feebas", url: "https://pokeapi.co/api/v2/pokemon-species/349/" },
+        evolution_details: [],
+        evolves_to: [
+          {
+            species: { name: "milotic", url: "https://pokeapi.co/api/v2/pokemon-species/350/" },
+            evolution_details: [{ min_level: null, item: null, trigger: { name: "beauty-condition" } }],
+            evolves_to: [],
+          },
+        ],
+      };
+      const stages = adaptEvolutionChain(chain);
+      expect(stages[1].trigger).toBe("beauty condition");
+    });
+
+    it("THEN level-up without min_level falls through to generic trigger name", () => {
+      const chain: RawChainLink = {
+        species: { name: "tyrogue", url: "https://pokeapi.co/api/v2/pokemon-species/236/" },
+        evolution_details: [],
+        evolves_to: [
+          {
+            species: { name: "hitmonchan", url: "https://pokeapi.co/api/v2/pokemon-species/107/" },
+            evolution_details: [{ min_level: null, item: null, trigger: { name: "level-up" } }],
+            evolves_to: [],
+          },
+        ],
+      };
+      const stages = adaptEvolutionChain(chain);
+      expect(stages[1].trigger).toBe("level up");
+    });
+  });
 });

@@ -10,23 +10,20 @@ vi.mock("@features/pokemon-detail/api/pokemonDetailApi", () => ({
   getPokemonDetail: vi.fn(),
 }));
 
-vi.mock("@features/pokemon-list/store", () => {
-  const allPokemons = [
-    { name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/" },
-    { name: "ivysaur", url: "https://pokeapi.co/api/v2/pokemon/2/" },
-  ];
-  const store = {
-    getState: () => ({
-      allPokemons,
-      loadAllPokemons: async () => allPokemons,
-    }),
-  };
-  return { usePokemonListStore: store };
-});
+const mockGetState = vi.fn();
+
+vi.mock("@features/pokemon-list/store", () => ({
+  usePokemonListStore: { getState: () => mockGetState() },
+}));
 
 import { useEvolutionChain } from "./useEvolutionChain";
 import { getPokemonSpecies, getEvolutionChain } from "@features/pokemon-detail/api/evolutionApi";
 import { getPokemonDetail } from "@features/pokemon-detail/api/pokemonDetailApi";
+
+const defaultAllPokemons = [
+  { name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/" },
+  { name: "ivysaur", url: "https://pokeapi.co/api/v2/pokemon/2/" },
+];
 
 const rawSpecies = {
   evolution_chain: { url: "https://pokeapi.co/api/v2/evolution-chain/1/" },
@@ -55,6 +52,10 @@ const makeRawDetail = (id: number, imageUrl: string) => ({
 });
 
 beforeEach(() => {
+  mockGetState.mockReturnValue({
+    allPokemons: defaultAllPokemons,
+    loadAllPokemons: vi.fn().mockResolvedValue(defaultAllPokemons),
+  });
   vi.mocked(getPokemonSpecies).mockResolvedValue(rawSpecies);
   vi.mocked(getEvolutionChain).mockResolvedValue(rawChain);
   vi.mocked(getPokemonDetail)
@@ -110,6 +111,64 @@ describe("GIVEN: useEvolutionChain", () => {
       expect(result.current.loading).toBe(true);
       expect(result.current.stages).toEqual([]);
       expect(getPokemonSpecies).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("WHEN: allPokemons is null in the store", () => {
+    it("THEN: calls loadAllPokemons to fetch the full list", async () => {
+      const loadAllPokemons = vi.fn().mockResolvedValue(defaultAllPokemons);
+      mockGetState.mockReturnValue({ allPokemons: null, loadAllPokemons });
+
+      vi.mocked(getPokemonDetail)
+        .mockReset()
+        .mockResolvedValueOnce(makeRawDetail(1, "bulbasaur.png") as never)
+        .mockResolvedValueOnce(makeRawDetail(2, "ivysaur.png") as never);
+
+      const { result } = renderHook(() => useEvolutionChain("1"));
+      await waitFor(() => expect(result.current.loading).toBe(false));
+
+      expect(loadAllPokemons).toHaveBeenCalledTimes(1);
+      expect(result.current.stages).toHaveLength(2);
+    });
+  });
+
+  describe("WHEN: a stage pokemon is not found in allPokemons", () => {
+    it("THEN: falls back to pokemonId extracted from the species URL", async () => {
+      mockGetState.mockReturnValue({
+        allPokemons: [],
+        loadAllPokemons: vi.fn().mockResolvedValue([]),
+      });
+
+      vi.mocked(getPokemonDetail)
+        .mockReset()
+        .mockResolvedValueOnce(makeRawDetail(1, "bulbasaur.png") as never)
+        .mockResolvedValueOnce(makeRawDetail(2, "ivysaur.png") as never);
+
+      const { result } = renderHook(() => useEvolutionChain("1"));
+      await waitFor(() => expect(result.current.loading).toBe(false));
+
+      // ids come from species URLs: /pokemon-species/1/ and /pokemon-species/2/
+      expect(vi.mocked(getPokemonDetail).mock.calls[0][0]).toBe(1);
+      expect(vi.mocked(getPokemonDetail).mock.calls[1][0]).toBe(2);
+    });
+  });
+
+  describe("WHEN: all sprite fields are null", () => {
+    it("THEN: imageUrl is null for that stage", async () => {
+      const nullSpritesDetail = {
+        id: 1,
+        sprites: { front_default: null, other: { dream_world: { front_default: null } } },
+      };
+
+      vi.mocked(getPokemonDetail)
+        .mockReset()
+        .mockResolvedValueOnce(nullSpritesDetail as never)
+        .mockResolvedValueOnce(nullSpritesDetail as never);
+
+      const { result } = renderHook(() => useEvolutionChain("1"));
+      await waitFor(() => expect(result.current.loading).toBe(false));
+
+      expect(result.current.stages[0].imageUrl).toBeNull();
     });
   });
 });

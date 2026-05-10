@@ -3,7 +3,7 @@ import { PokemonListPage } from "./pages/PokemonListPage";
 import { PokemonDetailPage } from "./pages/PokemonDetailPage";
 
 test.describe("Pokémon app", () => {
-  test("usuario ve lista de pokémon al abrir la app", async ({ page }) => {
+  test("user sees Pokémon list on app load", async ({ page }) => {
     const listPage = new PokemonListPage(page);
     await listPage.goto();
 
@@ -12,7 +12,7 @@ test.describe("Pokémon app", () => {
     await expect(listPage.searchInput).toBeVisible();
   });
 
-  test("usuario puede paginar entre resultados", async ({ page }) => {
+  test("user can paginate through results", async ({ page }) => {
     const listPage = new PokemonListPage(page);
     await listPage.goto();
 
@@ -29,7 +29,7 @@ test.describe("Pokémon app", () => {
     expect(firstNameAfterPrev).toBe(firstName);
   });
 
-  test("usuario puede hacer click en pokémon y ver el detalle", async ({
+  test("user can click a Pokémon and view its detail", async ({
     page,
   }) => {
     const listPage = new PokemonListPage(page);
@@ -46,7 +46,7 @@ test.describe("Pokémon app", () => {
     expect(src).toBeTruthy();
   });
 
-  test("usuario puede volver a la lista desde el detalle", async ({ page }) => {
+  test("user can navigate back to the list from the detail page", async ({ page }) => {
     const listPage = new PokemonListPage(page);
     const detailPage = new PokemonDetailPage(page);
 

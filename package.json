@@ -28,7 +28,7 @@
     "preview": "vite preview",
     "test": "vitest run --project=unit",
     "test:storybook": "vitest run --project=storybook",
-    "test:coverage": "vitest run --project=unit --coverage --coverage.thresholds.lines=80 --coverage.thresholds.functions=80",
+    "test:coverage": "vitest run --project=unit --coverage",
     "storybook": "NODE_OPTIONS='--import ./.storybook/patch-network.mjs' storybook dev -p 6006 --host 127.0.0.1",
     "storybook:build": "storybook build",
     "test:e2e": "playwright test",
