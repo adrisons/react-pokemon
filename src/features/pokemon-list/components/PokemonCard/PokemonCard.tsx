@@ -153,7 +153,7 @@ function PokemonCard({ pokemon }: Props) {
 
               {/* Stats */}
               <div className="flex flex-col gap-2 flex-1">
-                {pokemon.stats.slice(0, 3).map((stat) => (
+                {pokemon.stats?.slice(0, 3).map((stat) => (
                   <div key={stat.name} className="flex items-center gap-2">
                     <span
                       className="text-right capitalize shrink-0"

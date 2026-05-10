@@ -22,7 +22,7 @@ const meta: Meta<typeof PokemonListPageView> = {
   tags: ["autodocs"],
   decorators: [
     (Story) => (
-      <MemoryRouter initialEntries={["/react-pokemon/"]}>
+      <MemoryRouter initialEntries={["/react-pokemon/"]} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <div className="max-w-md mx-auto p-4">
           <Story />
         </div>

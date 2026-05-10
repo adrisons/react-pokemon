@@ -12,6 +12,18 @@ const bulbasaur: PokemonDetail = {
   ],
   movesCount: 82,
   imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+  stats: [
+    { name: "hp", value: 45 },
+    { name: "attack", value: 49 },
+    { name: "defense", value: 49 },
+    { name: "special-attack", value: 65 },
+    { name: "special-defense", value: 65 },
+    { name: "speed", value: 45 },
+  ],
+  abilities: [
+    { name: "overgrow", isHidden: false, description: "Powers up Grass-type moves when the Pokémon's HP is low." },
+    { name: "chlorophyll", isHidden: true, description: "Boosts the Pokémon's Speed stat in sunshine." },
+  ],
 };
 
 const charizard: PokemonDetail = {
@@ -23,6 +35,18 @@ const charizard: PokemonDetail = {
   ],
   movesCount: 114,
   imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png",
+  stats: [
+    { name: "hp", value: 78 },
+    { name: "attack", value: 84 },
+    { name: "defense", value: 78 },
+    { name: "special-attack", value: 109 },
+    { name: "special-defense", value: 85 },
+    { name: "speed", value: 100 },
+  ],
+  abilities: [
+    { name: "blaze", isHidden: false, description: "Powers up Fire-type moves when the Pokémon's HP is low." },
+    { name: "solar-power", isHidden: true, description: "Boosts the Sp. Atk stat in sunshine, but HP decreases every turn." },
+  ],
 };
 
 const mewtwo: PokemonDetail = {
@@ -31,6 +55,18 @@ const mewtwo: PokemonDetail = {
   types: [{ slot: 1, typeName: "psychic" }],
   movesCount: 99,
   imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png",
+  stats: [
+    { name: "hp", value: 106 },
+    { name: "attack", value: 110 },
+    { name: "defense", value: 90 },
+    { name: "special-attack", value: 154 },
+    { name: "special-defense", value: 90 },
+    { name: "speed", value: 130 },
+  ],
+  abilities: [
+    { name: "pressure", isHidden: false, description: "The Pokémon raises opposing Pokémon's PP usage." },
+    { name: "unnerve", isHidden: true, description: "Unnerves opposing Pokémon and makes them unable to eat Berries." },
+  ],
 };
 
 const noImage: PokemonDetail = {
@@ -39,6 +75,8 @@ const noImage: PokemonDetail = {
   types: [{ slot: 1, typeName: "normal" }],
   movesCount: 0,
   imageUrl: null,
+  stats: [],
+  abilities: [],
 };
 
 const meta: Meta<typeof PokemonCard> = {
@@ -47,7 +85,7 @@ const meta: Meta<typeof PokemonCard> = {
   tags: ["autodocs"],
   decorators: [
     (Story) => (
-      <MemoryRouter>
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <div className="w-48">
           <Story />
         </div>

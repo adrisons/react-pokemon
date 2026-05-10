@@ -8,7 +8,7 @@ const meta: Meta<typeof Navbar> = {
   tags: ["autodocs"],
   decorators: [
     (Story) => (
-      <MemoryRouter initialEntries={["/react-pokemon/"]}>
+      <MemoryRouter initialEntries={["/react-pokemon/"]} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <div className="min-h-80">
           <Story />
         </div>
