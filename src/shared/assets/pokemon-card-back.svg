@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 340" width="240" height="340">
+  <defs>
+    <!-- Background radial swirl gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="48%" r="62%">
+      <stop offset="0%" stop-color="#1a6fbf"/>
+      <stop offset="40%" stop-color="#0e4a8a"/>
+      <stop offset="100%" stop-color="#071e3d"/>
+    </radialGradient>
+
+    <!-- Swirl glow -->
+    <radialGradient id="swirlGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4db8ff" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#4db8ff" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Pokeball top gradient -->
+    <radialGradient id="pokeballTop" cx="38%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#ff6666"/>
+      <stop offset="100%" stop-color="#cc0000"/>
+    </radialGradient>
+
+    <!-- Pokeball bottom gradient -->
+    <radialGradient id="pokeballBottom" cx="38%" cy="20%" r="70%">
+      <stop offset="0%" stop-color="#eeeeee"/>
+      <stop offset="100%" stop-color="#aaaaaa"/>
+    </radialGradient>
+
+    <!-- Pokeball center button gradient -->
+    <radialGradient id="centerBtn" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="60%" stop-color="#dddddd"/>
+      <stop offset="100%" stop-color="#999999"/>
+    </radialGradient>
+
+    <!-- Inner highlight on center button -->
+    <radialGradient id="btnHighlight" cx="30%" cy="25%" r="55%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Card border gradient -->
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c8c8d4"/>
+      <stop offset="50%" stop-color="#e8e8f0"/>
+      <stop offset="100%" stop-color="#a0a0b0"/>
+    </linearGradient>
+
+    <!-- Star sparkle filter -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <filter id="pokeballShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+
+    <clipPath id="cardClip">
+      <rect x="4" y="4" width="232" height="332" rx="14" ry="14"/>
+    </clipPath>
+  </defs>
+
+  <!-- Card border -->
+  <rect x="0" y="0" width="240" height="340" rx="16" ry="16" fill="url(#borderGrad)"/>
+
+  <!-- Card background -->
+  <rect x="4" y="4" width="232" height="332" rx="14" ry="14" fill="url(#bgGrad)" clip-path="url(#cardClip)"/>
+
+  <!-- Swirl glow overlay -->
+  <ellipse cx="120" cy="170" rx="115" ry="160" fill="url(#swirlGlow)" clip-path="url(#cardClip)"/>
+
+  <!-- Spiral swirl lines (concentric arcs approximating the card back swirl) -->
+  <g clip-path="url(#cardClip)" opacity="0.5">
+    <!-- Outer swirl rings -->
+    <ellipse cx="120" cy="168" rx="108" ry="148" fill="none" stroke="#3ab0ff" stroke-width="1.5" opacity="0.25"/>
+    <ellipse cx="120" cy="168" rx="95"  ry="132" fill="none" stroke="#3ab0ff" stroke-width="1.2" opacity="0.3"/>
+    <ellipse cx="120" cy="168" rx="82"  ry="115" fill="none" stroke="#5cc8ff" stroke-width="1.2" opacity="0.35"/>
+    <ellipse cx="120" cy="168" rx="70"  ry="100" fill="none" stroke="#5cc8ff" stroke-width="1"   opacity="0.4"/>
+    <ellipse cx="120" cy="168" rx="58"  ry="84"  fill="none" stroke="#80d8ff" stroke-width="1"   opacity="0.35"/>
+    <ellipse cx="120" cy="168" rx="47"  ry="68"  fill="none" stroke="#80d8ff" stroke-width="0.8" opacity="0.3"/>
+
+    <!-- Diagonal swirl streaks -->
+    <path d="M30 40 Q120 168 210 296" stroke="#4dc8ff" stroke-width="1" fill="none" opacity="0.2"/>
+    <path d="M10 120 Q120 168 230 216" stroke="#4dc8ff" stroke-width="1" fill="none" opacity="0.2"/>
+    <path d="M50 10 Q120 168 190 326" stroke="#4dc8ff" stroke-width="1" fill="none" opacity="0.15"/>
+    <path d="M120 10 Q120 168 120 326" stroke="#4dc8ff" stroke-width="1" fill="none" opacity="0.15"/>
+    <path d="M10 168 Q120 168 230 168" stroke="#4dc8ff" stroke-width="1" fill="none" opacity="0.15"/>
+    <path d="M200 30 Q120 168 40 306" stroke="#4dc8ff" stroke-width="1" fill="none" opacity="0.15"/>
+    <path d="M230 100 Q120 168 10 236" stroke="#4dc8ff" stroke-width="1" fill="none" opacity="0.15"/>
+  </g>
+
+  <!-- Pokéball -->
+  <g transform="translate(120, 168)" filter="url(#pokeballShadow)">
+    <!-- Top half (red) -->
+    <path d="M-58,0 A58,58 0 0,1 58,0 Z" fill="url(#pokeballTop)"/>
+    <!-- Bottom half (white) -->
+    <path d="M-58,0 A58,58 0 0,0 58,0 Z" fill="url(#pokeballBottom)"/>
+    <!-- Horizontal band -->
+    <rect x="-58" y="-5" width="116" height="10" fill="#111111"/>
+    <!-- Outer center ring -->
+    <circle cx="0" cy="0" r="17" fill="#111111"/>
+    <!-- Center button -->
+    <circle cx="0" cy="0" r="12" fill="url(#centerBtn)"/>
+    <!-- Inner highlight -->
+    <circle cx="0" cy="0" r="12" fill="url(#btnHighlight)"/>
+    <!-- Tiny inner circle -->
+    <circle cx="0" cy="0" r="5" fill="#cccccc" opacity="0.6"/>
+    <!-- Highlight glint on top half -->
+    <ellipse cx="-18" cy="-28" rx="10" ry="6" fill="#ffffff" opacity="0.25" transform="rotate(-20,-18,-28)"/>
+  </g>
+
+  <!-- TOP Pokémon logo text -->
+  <g filter="url(#glow)">
+    <!-- Yellow fill letters, hand-drawn style approximation via text with stroke -->
+    <text
+      x="120" y="54"
+      text-anchor="middle"
+      font-family="'Arial Black', 'Impact', sans-serif"
+      font-size="38"
+      font-weight="900"
+      fill="#FFD700"
+      stroke="#2244AA"
+      stroke-width="4"
+      paint-order="stroke fill"
+      letter-spacing="1"
+      style="text-shadow: 0 0 8px #FFD700;"
+    >Pokémon</text>
+  </g>
+
+  <!-- BOTTOM Pokémon logo text (upside-down) -->
+  <g transform="translate(120,282) rotate(180)">
+    <g filter="url(#glow)">
+      <text
+        x="0" y="0"
+        text-anchor="middle"
+        font-family="'Arial Black', 'Impact', sans-serif"
+        font-size="38"
+        font-weight="900"
+        fill="#FFD700"
+        stroke="#2244AA"
+        stroke-width="4"
+        paint-order="stroke fill"
+        letter-spacing="1"
+      >Pokémon</text>
+    </g>
+  </g>
+
+  <!-- Sparkle stars -->
+  <g fill="#ffffff" filter="url(#glow)">
+    <!-- Top-left area -->
+    <polygon points="28,80  30,74  32,80  38,82  32,84  30,90  28,84  22,82" opacity="0.9"/>
+    <polygon points="48,115 49.5,111 51,115 55,116.5 51,118 49.5,122 48,118 44,116.5" opacity="0.7" transform="scale(0.7) translate(20,50)"/>
+    <!-- Top-right area -->
+    <polygon points="212,80 214,74 216,80 222,82 216,84 214,90 212,84 206,82" opacity="0.9"/>
+    <polygon points="192,110 193,106 194,110 198,111 194,112 193,116 192,112 188,111" opacity="0.6"/>
+    <!-- Bottom-left -->
+    <polygon points="28,256 30,250 32,256 38,258 32,260 30,266 28,260 22,258" opacity="0.85"/>
+    <!-- Bottom-right -->
+    <polygon points="212,256 214,250 216,256 222,258 216,260 214,266 212,260 206,258" opacity="0.85"/>
+    <!-- Small accent dots -->
+    <circle cx="60" cy="95"  r="2" opacity="0.6"/>
+    <circle cx="180" cy="95" r="2" opacity="0.6"/>
+    <circle cx="45" cy="240" r="2" opacity="0.6"/>
+    <circle cx="195" cy="240" r="2" opacity="0.6"/>
+    <!-- Extra small sparkles -->
+    <polygon points="75,130 76,127 77,130 80,131 77,132 76,135 75,132 72,131" opacity="0.5"/>
+    <polygon points="165,130 166,127 167,130 170,131 167,132 166,135 165,132 162,131" opacity="0.5"/>
+    <polygon points="75,210 76,207 77,210 80,211 77,212 76,215 75,212 72,211" opacity="0.5"/>
+    <polygon points="165,210 166,207 167,210 170,211 167,212 166,215 165,212 162,211" opacity="0.5"/>
+  </g>
+
+  <!-- Magenta/pink sparkle accents -->
+  <g fill="#ff88cc" filter="url(#glow)" opacity="0.8">
+    <polygon points="55,70 56.5,66 58,70 62,71.5 58,73 56.5,77 55,73 51,71.5"/>
+    <polygon points="185,70 186.5,66 188,70 192,71.5 188,73 186.5,77 185,73 181,71.5"/>
+    <polygon points="55,266 56.5,262 58,266 62,267.5 58,269 56.5,273 55,269 51,267.5"/>
+    <polygon points="185,266 186.5,262 188,266 192,267.5 188,269 186.5,273 185,269 181,267.5"/>
+  </g>
+</svg>

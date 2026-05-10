@@ -4,6 +4,7 @@ import type { PokemonDetail } from "@core/domain/pokemon";
 import Badge from "@shared/ui/components/Badge/Badge";
 import { STAT_COLORS } from "@shared/constants/statColors";
 import typeColors from "@shared/constants/typeColors";
+import cardBack from "@shared/assets/pokemon-card-back.svg";
 
 interface Props {
   pokemon: PokemonDetail;
@@ -85,22 +86,22 @@ function PokemonCard({ pokemon }: Props) {
                   background: `radial-gradient(ellipse at 50% 60%, ${typeColor}25 0%, transparent 70%)`
                 }}
               >
-                {pokemon.imageUrl ? (
-                  <img
-                    src={pokemon.imageUrl}
-                    alt={pokemon.name}
-                    loading="lazy"
-                    decoding="async"
-                    style={{
-                      width: '75%',
-                      height: '75%',
-                      objectFit: 'contain',
-                      filter: `drop-shadow(0 4px 12px ${typeColor}50)`,
-                    }}
-                  />
-                ) : (
-                  <div style={{ width: '7rem', height: '7rem', borderRadius: '50%', background: '#1a1a2e', opacity: 0.4 }} />
-                )}
+                <img
+                  src={pokemon.imageUrl ?? cardBack}
+                  alt={pokemon.name}
+                  loading="lazy"
+                  decoding="async"
+                  style={{
+                    width: '75%',
+                    height: '75%',
+                    objectFit: 'contain',
+                    filter: pokemon.imageUrl ? `drop-shadow(0 4px 12px ${typeColor}50)` : 'none',
+                  }}
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = cardBack;
+                    (e.currentTarget as HTMLImageElement).style.filter = 'none';
+                  }}
+                />
               </div>
 
               {/* Card info */}

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import type { EvolutionStage } from "@core/domain/evolution";
+import cardBack from "@shared/assets/pokemon-card-back.svg";
 
 interface Props {
   stages: EvolutionStage[];
@@ -62,20 +63,14 @@ function EvolutionChain({ stages, currentId }: Props) {
                 }}
               >
                 <div className="evolution-card-img-wrap">
-                  {stage.imageUrl ? (
-                    <img
-                      src={stage.imageUrl}
-                      alt={stage.name}
-                      loading="lazy"
-                      decoding="async"
-                      className="evolution-card-img"
-                    />
-                  ) : (
-                    <div
-                      className="evolution-card-img"
-                      style={{ background: "var(--color-dark-700)", borderRadius: "50%" }}
-                    />
-                  )}
+                  <img
+                    src={stage.imageUrl ?? cardBack}
+                    alt={stage.name}
+                    loading="lazy"
+                    decoding="async"
+                    className="evolution-card-img"
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = cardBack; }}
+                  />
                 </div>
                 <span
                   className="evolution-card-id"
