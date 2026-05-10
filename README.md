@@ -28,15 +28,15 @@ Run `pnpm install` before running any script.
 
 | Command | Description |
 |---|---|
-| `pnpm start` | Runs the dev server at `http://localhost:5173` |
+| `pnpm dev` | Runs the dev server at `http://localhost:5173` |
 | `pnpm build` | Builds for production into `dist/` |
+| `pnpm build:analyze` | Analyzes bundle size with source-map-explorer |
+| `pnpm preview` | Previews the production build locally |
 | `pnpm test` | Runs unit tests with Vitest |
 | `pnpm test:storybook` | Runs Storybook interaction tests with Playwright |
-| `pnpm coverage` | Runs unit tests with coverage report |
-| `pnpm preview` | Previews the production build locally |
+| `pnpm test:coverage` | Runs unit tests with coverage report |
 | `pnpm storybook` | Starts Storybook dev server |
-| `pnpm build-storybook` | Builds Storybook for static deployment |
-| `pnpm analyze` | Analyzes bundle size with source-map-explorer |
+| `pnpm storybook:build` | Builds Storybook for static deployment |
 
 Deploy happens automatically via GitHub Actions on every push to `master`.
 
