@@ -29,3 +29,4 @@ Each ADR file is named `NNN-short-title.md` and contains:
 | [ADR-009](009-code-splitting-react-lazy.md) | Code Splitting with React.lazy and Suspense | 2026-05-08 | Accepted |
 | [ADR-010](010-in-memory-http-cache.md) | In-memory HTTP Cache with Deduplication | 2026-05-08 | Accepted |
 | [ADR-011](011-zustand-domain-cache.md) | Zustand as Domain-layer Cache for Quasi-static Data | 2026-05-09 | Accepted |
+| [ADR-012](012-playwright-e2e-testing.md) | Playwright for End-to-End Testing with Page Object Model | 2026-05-10 | Accepted |
