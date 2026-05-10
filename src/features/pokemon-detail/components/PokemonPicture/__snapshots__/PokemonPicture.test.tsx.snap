@@ -19,9 +19,8 @@ exports[`WHEN: Picture > THEN: should match snapshot 1`] = `
     alt="Pokemon"
     class="w-full h-auto max-w-80"
     decoding="async"
-    loading="lazy"
     src="imageUrl"
-    style="display: none;"
+    style="opacity: 0; transition: opacity 0.3s ease;"
   />
 </div>
 `;

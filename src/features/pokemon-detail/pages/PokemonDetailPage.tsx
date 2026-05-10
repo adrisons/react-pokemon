@@ -23,6 +23,7 @@ function PokemonDetailPage() {
         <button
           onClick={() => navigate("/react-pokemon/")}
           className="pokemon-back-btn mb-8"
+          data-testid="back-to-list-btn"
         >
           <span>←</span>
           <span>Back to Collection</span>
@@ -35,7 +36,7 @@ function PokemonDetailPage() {
             <div className="detail-pokemon-id" style={{ fontFamily: "var(--font-pixel)" }}>
               #{String(pokemon.id).padStart(3, "0")}
             </div>
-            <h1 className="detail-pokemon-name capitalize" style={{ fontFamily: "var(--font-elegant)" }}>
+            <h1 className="detail-pokemon-name capitalize" style={{ fontFamily: "var(--font-elegant)" }} data-testid="detail-pokemon-name">
               {pokemon.name}
             </h1>
             <div className="flex items-center flex-wrap gap-2.5 mb-3">
@@ -49,7 +50,7 @@ function PokemonDetailPage() {
             >
               {pokemon.movesCount} moves
             </div>
-            <div className="detail-hero-image">
+            <div className="detail-hero-image" data-testid="detail-hero-image">
               <PokemonPicture imageUrl={pokemon.imageUrl} />
             </div>
           </div>

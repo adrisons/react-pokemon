@@ -28,9 +28,12 @@
     "preview": "vite preview",
     "test": "vitest run --project=unit",
     "test:storybook": "vitest run --project=storybook",
-    "test:coverage": "vitest run --project=unit --coverage",
-    "storybook": "storybook dev -p 6006 --host 127.0.0.1",
-    "storybook:build": "storybook build"
+    "test:coverage": "vitest run --project=unit --coverage --coverage.thresholds.lines=80 --coverage.thresholds.functions=80",
+    "storybook": "NODE_OPTIONS='--import ./.storybook/patch-network.mjs' storybook dev -p 6006 --host 127.0.0.1",
+    "storybook:build": "storybook build",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:clean": "rm -rf playwright-report test-results"
   },
   "browserslist": {
     "production": [
@@ -46,6 +49,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.1.2",
+    "@playwright/test": "^1.59.1",
     "@storybook/addon-a11y": "^10.3.6",
     "@storybook/addon-docs": "^10.3.6",
     "@storybook/addon-onboarding": "^10.3.6",

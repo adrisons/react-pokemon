@@ -7,6 +7,7 @@ exports[`WHEN: Pagination with no prev page link > THEN: should match snapshot 1
   <div />
   <button
     class="pokemon-pagination-btn pokemon-pagination-next"
+    data-testid="pagination-next-btn"
   >
     <span>
       Next
@@ -26,6 +27,7 @@ exports[`WHEN: Pagination with prev page link > THEN: should match snapshot 1`] 
 >
   <button
     class="pokemon-pagination-btn pokemon-pagination-prev"
+    data-testid="pagination-prev-btn"
   >
     <span
       class="pagination-arrow"
@@ -38,6 +40,7 @@ exports[`WHEN: Pagination with prev page link > THEN: should match snapshot 1`] 
   </button>
   <button
     class="pokemon-pagination-btn pokemon-pagination-next"
+    data-testid="pagination-next-btn"
   >
     <span>
       Next

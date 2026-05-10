@@ -68,6 +68,8 @@ function PokemonCard({ pokemon }: Props) {
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      data-testid="pokemon-card"
+      data-pokemon-name={pokemon.name}
     >
       <div className="card-tilt">
         <div className={`card-inner${isFlipped ? " is-flipped" : ""}`}>
@@ -194,6 +196,7 @@ function PokemonCard({ pokemon }: Props) {
               <button
                 onClick={handleDetailClick}
                 className="pokemon-detail-btn w-full"
+                data-testid="pokemon-card-detail-btn"
               >
                 View Full Detail →
               </button>

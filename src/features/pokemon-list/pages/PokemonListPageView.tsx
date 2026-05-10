@@ -68,12 +68,14 @@ function PokemonListPageView({
             placeholder="Search Pokémon…"
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
+            data-testid="search-input"
           />
           {isSearching && (
             <button
               onClick={() => onQueryChange('')}
               className="search-clear-btn"
               title="Clear search"
+              data-testid="search-clear-btn"
             >
               ✕
             </button>
@@ -89,6 +91,7 @@ function PokemonListPageView({
             <div
               className="p-8 text-center text-text-muted cursor-default"
               title="No pokemon found"
+              data-testid="search-not-found"
             >
               <p className="text-lg">Not even a nibble...</p>
               <p className="text-sm mt-2">Try searching for something else</p>

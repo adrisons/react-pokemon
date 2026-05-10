@@ -10,6 +10,7 @@ function Pagination({ gotoNextPage, gotoPrevPage }: Props) {
         <button
           onClick={gotoPrevPage}
           className="pokemon-pagination-btn pokemon-pagination-prev"
+          data-testid="pagination-prev-btn"
         >
           <span className="pagination-arrow">←</span>
           <span>Previous</span>
@@ -21,6 +22,7 @@ function Pagination({ gotoNextPage, gotoPrevPage }: Props) {
         <button
           onClick={gotoNextPage}
           className="pokemon-pagination-btn pokemon-pagination-next"
+          data-testid="pagination-next-btn"
         >
           <span>Next</span>
           <span className="pagination-arrow">→</span>

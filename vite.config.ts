@@ -56,10 +56,6 @@ export default defineConfig({
         "src/setupTests.ts",
         "src/**/*.stories.{ts,tsx,js,jsx}"
       ],
-      thresholds: {
-        lines: 80,
-        functions: 80
-      },
       reporter: ["text", "html", "lcov"]
     },
     projects: [{
@@ -68,7 +64,8 @@ export default defineConfig({
         name: "unit",
         environment: "jsdom",
         globals: true,
-        setupFiles: "./src/setupTests.ts"
+        setupFiles: "./src/setupTests.ts",
+        exclude: ["src/__tests__/e2e/**", "node_modules/**"]
       }
     }, {
       extends: true,
