@@ -1,23 +1,18 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 
-vi.mock("@core/api", () => ({ get: vi.fn() }));
-vi.mock("@core/api/httpCache", () => ({
-  cachedFetch: vi.fn(),
-  invalidateHttpCacheKey: vi.fn(),
-}));
+vi.mock("@core/api", () => ({ get: vi.fn(), invalidateGet: vi.fn() }));
 
-import { getPokemonList, getAllPokemons, invalidateAllPokemonsCache, ALL_POKEMON_URL } from "./pokemonListApi";
-import { get } from "@core/api";
-import { cachedFetch, invalidateHttpCacheKey } from "@core/api/httpCache";
+import { getPokemonList, getAllPokemons, invalidateAllPokemonsCache } from "./pokemonListApi";
+import { get, invalidateGet } from "@core/api";
 
 afterEach(() => vi.clearAllMocks());
 
 describe("getPokemonList", () => {
-  it("THEN: calls get with the provided URL", async () => {
-    const url = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=20";
+  it("THEN: calls get with the provided path", async () => {
+    const path = "/pokemon?offset=0&limit=20";
     vi.mocked(get).mockResolvedValue({ results: [], next: null, previous: null });
-    await getPokemonList(url);
-    expect(get).toHaveBeenCalledWith(url);
+    await getPokemonList(path);
+    expect(get).toHaveBeenCalledWith(path);
   });
 
   it("THEN: returns the raw list response", async () => {
@@ -27,31 +22,38 @@ describe("getPokemonList", () => {
       previous: null,
     };
     vi.mocked(get).mockResolvedValue(raw);
-    const result = await getPokemonList("https://pokeapi.co/api/v2/pokemon?offset=0&limit=20");
+    const result = await getPokemonList("/pokemon?offset=0&limit=20");
     expect(result).toEqual(raw);
   });
 
-  it("THEN: passes different URLs correctly", async () => {
-    const url = "https://pokeapi.co/api/v2/pokemon?offset=40&limit=20";
+  it("THEN: passes different paths correctly", async () => {
+    const path = "/pokemon?offset=40&limit=20";
     vi.mocked(get).mockResolvedValue({ results: [], next: null, previous: null });
-    await getPokemonList(url);
-    expect(get).toHaveBeenCalledWith(url);
+    await getPokemonList(path);
+    expect(get).toHaveBeenCalledWith(path);
   });
 });
 
 describe("getAllPokemons", () => {
-  it("THEN: delegates to cachedFetch with ALL_POKEMON_URL", async () => {
-    const pokemons = [{ name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/" }];
-    vi.mocked(cachedFetch).mockResolvedValue(pokemons);
+  it("THEN: delegates to get with the all-pokemon path and a custom TTL", async () => {
+    const raw = {
+      results: [{ name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/" }],
+      next: null,
+      previous: null,
+    };
+    vi.mocked(get).mockResolvedValue(raw);
     const result = await getAllPokemons();
-    expect(cachedFetch).toHaveBeenCalledWith(ALL_POKEMON_URL, expect.any(Function), expect.objectContaining({ ttlMs: expect.any(Number) }));
-    expect(result).toEqual(pokemons);
+    expect(get).toHaveBeenCalledWith(
+      "/pokemon?limit=10000&offset=0",
+      expect.objectContaining({ ttlMs: expect.any(Number) }),
+    );
+    expect(result).toEqual(raw.results);
   });
 });
 
 describe("invalidateAllPokemonsCache", () => {
-  it("THEN: calls invalidateHttpCacheKey with ALL_POKEMON_URL", () => {
+  it("THEN: calls invalidateGet with the all-pokemon path", () => {
     invalidateAllPokemonsCache();
-    expect(invalidateHttpCacheKey).toHaveBeenCalledWith(ALL_POKEMON_URL);
+    expect(invalidateGet).toHaveBeenCalledWith("/pokemon?limit=10000&offset=0");
   });
 });

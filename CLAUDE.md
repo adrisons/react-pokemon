@@ -78,6 +78,14 @@ Flag explicitly if any of the above is intentionally unchanged.
 
 **New or edited UI:** prefer existing shadcn primitive → Tailwind + `cn()` → CVA if variants → lucide for icons.
 
+### API URL ownership
+
+The external API base URL (`https://pokeapi.co/api/v2`) lives **only** in `src/core/api/httpClient.ts`.
+
+- Feature API modules (`src/features/*/api/`) use **relative paths** (e.g. `/pokemon?offset=0&limit=20`) and call `get()` / `invalidateGet()` from `@core/api`.
+- Hooks and components **never** reference raw API URLs — they call feature API functions.
+- If the API host changes, only `httpClient.ts` needs updating.
+
 ---
 
 ## When proposing commands

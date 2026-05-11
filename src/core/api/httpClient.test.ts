@@ -7,7 +7,8 @@ vi.mock("./httpCache", () => ({
   invalidateHttpCacheKey: vi.fn(),
 }));
 
-import { get } from "./httpClient";
+import { get, invalidateGet } from "./httpClient";
+import { invalidateHttpCacheKey } from "./httpCache";
 
 const mockFetch = vi.fn();
 
@@ -58,5 +59,21 @@ describe("get", () => {
       mockFetch.mockResolvedValue(makeResponse(null, false, 404));
       await expect(get("/pokemon/9999")).rejects.toThrow("HTTP error: 404");
     });
+  });
+});
+
+describe("invalidateGet", () => {
+  it("THEN: resolves a relative path and invalidates the cache entry", () => {
+    invalidateGet("/pokemon/25");
+    expect(invalidateHttpCacheKey).toHaveBeenCalledWith(
+      "https://pokeapi.co/api/v2/pokemon/25"
+    );
+  });
+
+  it("THEN: passes an absolute URL as-is", () => {
+    invalidateGet("https://other-host.example/data");
+    expect(invalidateHttpCacheKey).toHaveBeenCalledWith(
+      "https://other-host.example/data"
+    );
   });
 });
