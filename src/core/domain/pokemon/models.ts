@@ -47,4 +47,8 @@ export interface PokemonDetail {
   imageUrl: string | null;
   stats: PokemonStat[];
   abilities: PokemonAbility[];
+  captureRate: number;
+  isLegendary: boolean;
+  isMythical: boolean;
+  isBaby: boolean;
 }

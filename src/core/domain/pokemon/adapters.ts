@@ -1,4 +1,4 @@
-import type { RawPokemonDetail, RawPokemonSummary } from "./api.types";
+import type { RawPokemonDetail, RawPokemonSpecies, RawPokemonSummary } from "./api.types";
 import type { PokemonAbility, PokemonDetail, PokemonSummary, PokemonTypeName } from "./models";
 
 export function getPokemonImageUrl(raw: RawPokemonDetail): string | null {
@@ -20,7 +20,8 @@ export function adaptPokemonSummary(raw: RawPokemonSummary): PokemonSummary {
 
 export function adaptPokemonDetail(
   raw: RawPokemonDetail,
-  abilitiesWithDescriptions: PokemonAbility[]
+  abilitiesWithDescriptions: PokemonAbility[],
+  species?: RawPokemonSpecies
 ): PokemonDetail {
   return {
     id: raw.id,
@@ -33,5 +34,9 @@ export function adaptPokemonDetail(
     imageUrl: getPokemonImageUrl(raw),
     stats: raw.stats.map((s) => ({ name: s.stat.name, value: s.base_stat })),
     abilities: abilitiesWithDescriptions,
+    captureRate: species?.capture_rate ?? 0,
+    isLegendary: species?.is_legendary ?? false,
+    isMythical: species?.is_mythical ?? false,
+    isBaby: species?.is_baby ?? false,
   };
 }

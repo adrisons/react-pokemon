@@ -15,7 +15,7 @@ function PokemonList({ pokemons }: Props) {
           return !!name ? (
             <li
               key={id}
-              className="pokemon-list-item border border-dark-600 flex justify-between items-center cursor-pointer
+              className="group animate-pokemon-entry transition-colors duration-150 border border-dark-600 flex justify-between items-center cursor-pointer
                 hover:bg-dark-700
                 first:rounded-t-lg last:rounded-b-lg only:rounded-lg
                 not-first:border-t-0"
@@ -25,16 +25,16 @@ function PokemonList({ pokemons }: Props) {
                 to={`/react-pokemon/detail/${id}`}
                 className="w-full h-full no-underline text-inherit flex items-center"
               >
-                <div className="pokemon-id border-r border-dark-600 flex items-center justify-end px-3 py-2.5">
+                <div className="font-pixel text-[0.72rem] leading-none w-[5.5rem] min-w-[5.5rem] text-right text-accent-gold tracking-[0.02em] transition-colors duration-150 group-hover:text-text-primary border-r border-dark-600 flex items-center justify-end px-3 py-2.5">
                   #{id}
                 </div>
-                <div className="pokemon-name flex-1 capitalize px-3 py-2.5">{name}</div>
+                <div className="text-sm font-medium tracking-[0.01em] flex-1 capitalize px-3 py-2.5">{name}</div>
               </Link>
             </li>
           ) : null;
         })
       ) : (
-        <div className="p-2 text-sm" style={{ fontFamily: "var(--font-elegant)" }}>
+        <div className="p-2 text-sm">
           No pokemons found
         </div>
       )}

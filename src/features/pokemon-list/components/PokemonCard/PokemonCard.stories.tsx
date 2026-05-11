@@ -24,6 +24,10 @@ const bulbasaur: PokemonDetail = {
     { name: "overgrow", isHidden: false, description: "Powers up Grass-type moves when the Pokémon's HP is low." },
     { name: "chlorophyll", isHidden: true, description: "Boosts the Pokémon's Speed stat in sunshine." },
   ],
+  captureRate: 45,
+  isLegendary: false,
+  isMythical: false,
+  isBaby: false,
 };
 
 const charizard: PokemonDetail = {
@@ -47,6 +51,10 @@ const charizard: PokemonDetail = {
     { name: "blaze", isHidden: false, description: "Powers up Fire-type moves when the Pokémon's HP is low." },
     { name: "solar-power", isHidden: true, description: "Boosts the Sp. Atk stat in sunshine, but HP decreases every turn." },
   ],
+  captureRate: 45,
+  isLegendary: false,
+  isMythical: false,
+  isBaby: false,
 };
 
 const mewtwo: PokemonDetail = {
@@ -67,6 +75,10 @@ const mewtwo: PokemonDetail = {
     { name: "pressure", isHidden: false, description: "The Pokémon raises opposing Pokémon's PP usage." },
     { name: "unnerve", isHidden: true, description: "Unnerves opposing Pokémon and makes them unable to eat Berries." },
   ],
+  captureRate: 3,
+  isLegendary: true,
+  isMythical: false,
+  isBaby: false,
 };
 
 const noImage: PokemonDetail = {
@@ -77,6 +89,10 @@ const noImage: PokemonDetail = {
   imageUrl: null,
   stats: [],
   abilities: [],
+  captureRate: 0,
+  isLegendary: false,
+  isMythical: false,
+  isBaby: false,
 };
 
 const meta: Meta<typeof PokemonCard> = {

@@ -175,7 +175,7 @@ const recentHistory: HistoryEntry[] = [
 function SeedHistory({ entries, children }: { entries: HistoryEntry[]; children: React.ReactNode }) {
   useEffect(() => {
     useHistoryStore.setState({ entries });
-    return () => useHistoryStore.setState({ entries: [] });
+    return () => { useHistoryStore.setState({ entries: [] }); };
   }, [entries]);
   return <>{children}</>;
 }

@@ -125,11 +125,10 @@ function RecentlyViewed() {
 
   return (
     <section className="mb-10" aria-label="Recently viewed Pokémon" data-testid="recently-viewed-carousel">
-      <h2
-        className="text-center mb-4 text-[0.6rem] font-bold tracking-[0.22em] uppercase"
-        style={{ fontFamily: "var(--font-pixel)", color: "var(--color-accent-gold)", opacity: 0.8 }}
-      >
+      <h2 className="flex items-center justify-center gap-2.5 text-[0.85rem] uppercase tracking-[0.14em] text-accent-gold/90 font-pixel mb-5">
+        <span className="inline-block w-4 h-[2px] rounded-full bg-accent-gold/40" aria-hidden="true" />
         Recently Viewed
+        <span className="inline-block w-4 h-[2px] rounded-full bg-accent-gold/40" aria-hidden="true" />
       </h2>
 
       {/*

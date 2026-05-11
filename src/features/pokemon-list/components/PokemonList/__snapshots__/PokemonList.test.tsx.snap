@@ -6,7 +6,6 @@ exports[`GIVEN: PokemonList > WHEN: PokemonList with no pokemons > THEN: should 
 >
   <div
     class="p-2 text-sm"
-    style="font-family: var(--font-elegant);"
   >
     No pokemons found
   </div>
@@ -18,7 +17,7 @@ exports[`GIVEN: PokemonList > WHEN: PokemonList with pokemons > THEN: should mat
   class="list-none m-0 p-0 w-full"
 >
   <li
-    class="pokemon-list-item border border-dark-600 flex justify-between items-center cursor-pointer
+    class="group animate-pokemon-entry transition-colors duration-150 border border-dark-600 flex justify-between items-center cursor-pointer
                 hover:bg-dark-700
                 first:rounded-t-lg last:rounded-b-lg only:rounded-lg
                 not-first:border-t-0"
@@ -29,20 +28,20 @@ exports[`GIVEN: PokemonList > WHEN: PokemonList with pokemons > THEN: should mat
       href="/react-pokemon/detail/1"
     >
       <div
-        class="pokemon-id border-r border-dark-600 flex items-center justify-end px-3 py-2.5"
+        class="font-pixel text-[0.72rem] leading-none w-[5.5rem] min-w-[5.5rem] text-right text-accent-gold tracking-[0.02em] transition-colors duration-150 group-hover:text-text-primary border-r border-dark-600 flex items-center justify-end px-3 py-2.5"
       >
         #
         1
       </div>
       <div
-        class="pokemon-name flex-1 capitalize px-3 py-2.5"
+        class="text-sm font-medium tracking-[0.01em] flex-1 capitalize px-3 py-2.5"
       >
         bulbasaur
       </div>
     </a>
   </li>
   <li
-    class="pokemon-list-item border border-dark-600 flex justify-between items-center cursor-pointer
+    class="group animate-pokemon-entry transition-colors duration-150 border border-dark-600 flex justify-between items-center cursor-pointer
                 hover:bg-dark-700
                 first:rounded-t-lg last:rounded-b-lg only:rounded-lg
                 not-first:border-t-0"
@@ -53,20 +52,20 @@ exports[`GIVEN: PokemonList > WHEN: PokemonList with pokemons > THEN: should mat
       href="/react-pokemon/detail/2"
     >
       <div
-        class="pokemon-id border-r border-dark-600 flex items-center justify-end px-3 py-2.5"
+        class="font-pixel text-[0.72rem] leading-none w-[5.5rem] min-w-[5.5rem] text-right text-accent-gold tracking-[0.02em] transition-colors duration-150 group-hover:text-text-primary border-r border-dark-600 flex items-center justify-end px-3 py-2.5"
       >
         #
         2
       </div>
       <div
-        class="pokemon-name flex-1 capitalize px-3 py-2.5"
+        class="text-sm font-medium tracking-[0.01em] flex-1 capitalize px-3 py-2.5"
       >
         ivysaur
       </div>
     </a>
   </li>
   <li
-    class="pokemon-list-item border border-dark-600 flex justify-between items-center cursor-pointer
+    class="group animate-pokemon-entry transition-colors duration-150 border border-dark-600 flex justify-between items-center cursor-pointer
                 hover:bg-dark-700
                 first:rounded-t-lg last:rounded-b-lg only:rounded-lg
                 not-first:border-t-0"
@@ -77,13 +76,13 @@ exports[`GIVEN: PokemonList > WHEN: PokemonList with pokemons > THEN: should mat
       href="/react-pokemon/detail/3"
     >
       <div
-        class="pokemon-id border-r border-dark-600 flex items-center justify-end px-3 py-2.5"
+        class="font-pixel text-[0.72rem] leading-none w-[5.5rem] min-w-[5.5rem] text-right text-accent-gold tracking-[0.02em] transition-colors duration-150 group-hover:text-text-primary border-r border-dark-600 flex items-center justify-end px-3 py-2.5"
       >
         #
         3
       </div>
       <div
-        class="pokemon-name flex-1 capitalize px-3 py-2.5"
+        class="text-sm font-medium tracking-[0.01em] flex-1 capitalize px-3 py-2.5"
       >
         venusaur
       </div>

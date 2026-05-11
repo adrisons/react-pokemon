@@ -34,7 +34,8 @@
     "storybook:build": "storybook build",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "test:e2e:clean": "rm -rf playwright-report test-results"
+    "test:e2e:clean": "rm -rf playwright-report test-results",
+    "typecheck": "tsc --noEmit"
   },
   "browserslist": {
     "production": [

@@ -6,14 +6,16 @@ exports[`WHEN: Pagination with no prev page link > THEN: should match snapshot 1
 >
   <div />
   <button
-    class="pokemon-pagination-btn pokemon-pagination-next"
+    class="group relative flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300 text-[#13131f] bg-[linear-gradient(135deg,#ffd700_0%,#ffed4e_100%)] border-2 border-[#ffed4e] shadow-[0_6px_20px_rgba(255,215,0,0.35),inset_0_1px_0_rgba(255,255,255,0.3)] uppercase tracking-[0.05em] overflow-hidden hover:shadow-[0_10px_30px_rgba(255,215,0,0.5),inset_0_1px_0_rgba(255,255,255,0.4)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-[0_3px_10px_rgba(255,215,0,0.3),inset_0_2px_4px_rgba(0,0,0,0.2)] before:content-[''] before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent)] before:[transition:left_0.5s_ease] hover:before:left-full"
     data-testid="pagination-next-btn"
   >
-    <span>
+    <span
+      class="relative z-[1]"
+    >
       Next
     </span>
     <span
-      class="pagination-arrow"
+      class="text-[1.1em] font-black relative z-[1]"
     >
       →
     </span>
@@ -26,27 +28,31 @@ exports[`WHEN: Pagination with prev page link > THEN: should match snapshot 1`] 
   class="mt-12 w-full flex justify-between items-center gap-4"
 >
   <button
-    class="pokemon-pagination-btn pokemon-pagination-prev"
+    class="group relative flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300 text-[#13131f] bg-[linear-gradient(135deg,#ffd700_0%,#ffed4e_100%)] border-2 border-[#ffed4e] shadow-[0_6px_20px_rgba(255,215,0,0.35),inset_0_1px_0_rgba(255,255,255,0.3)] uppercase tracking-[0.05em] overflow-hidden hover:shadow-[0_10px_30px_rgba(255,215,0,0.5),inset_0_1px_0_rgba(255,255,255,0.4)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-[0_3px_10px_rgba(255,215,0,0.3),inset_0_2px_4px_rgba(0,0,0,0.2)] before:content-[''] before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent)] before:[transition:left_0.5s_ease] hover:before:left-full flex-row-reverse"
     data-testid="pagination-prev-btn"
   >
     <span
-      class="pagination-arrow"
+      class="text-[1.1em] font-black relative z-[1]"
     >
       ←
     </span>
-    <span>
+    <span
+      class="relative z-[1]"
+    >
       Previous
     </span>
   </button>
   <button
-    class="pokemon-pagination-btn pokemon-pagination-next"
+    class="group relative flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300 text-[#13131f] bg-[linear-gradient(135deg,#ffd700_0%,#ffed4e_100%)] border-2 border-[#ffed4e] shadow-[0_6px_20px_rgba(255,215,0,0.35),inset_0_1px_0_rgba(255,255,255,0.3)] uppercase tracking-[0.05em] overflow-hidden hover:shadow-[0_10px_30px_rgba(255,215,0,0.5),inset_0_1px_0_rgba(255,255,255,0.4)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-[0_3px_10px_rgba(255,215,0,0.3),inset_0_2px_4px_rgba(0,0,0,0.2)] before:content-[''] before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent)] before:[transition:left_0.5s_ease] hover:before:left-full"
     data-testid="pagination-next-btn"
   >
-    <span>
+    <span
+      class="relative z-[1]"
+    >
       Next
     </span>
     <span
-      class="pagination-arrow"
+      class="text-[1.1em] font-black relative z-[1]"
     >
       →
     </span>

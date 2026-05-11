@@ -13,6 +13,10 @@ function makePokemon(id: number): PokemonDetail {
     movesCount: 10,
     stats: [],
     abilities: [],
+    captureRate: 45,
+    isLegendary: false,
+    isMythical: false,
+    isBaby: false,
   };
 }
 

@@ -8,9 +8,9 @@ export class PokemonDetailPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.backButton = page.locator("button.pokemon-back-btn");
-    this.pokemonName = page.locator("h1.detail-pokemon-name");
-    this.pokemonId = page.locator(".detail-pokemon-id");
+    this.backButton = page.locator('[data-testid="back-to-list-btn"]');
+    this.pokemonName = page.locator('[data-testid="detail-pokemon-name"]');
+    this.pokemonId = page.locator('[data-testid="detail-pokemon-id"]');
   }
 
   async getPokemonName() {
@@ -18,12 +18,12 @@ export class PokemonDetailPage extends BasePage {
   }
 
   async getImageSrc() {
-    const img = this.page.locator(".detail-hero-image img");
+    const img = this.page.locator('[data-testid="detail-hero-image"] img');
     return img.getAttribute("src");
   }
 
   getTypesBadges() {
-    return this.page.locator(".detail-hero-left .flex span");
+    return this.page.locator('[data-testid="detail-pokemon-name"] ~ div span');
   }
 
   async clickBack() {

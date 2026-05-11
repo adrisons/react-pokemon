@@ -59,10 +59,10 @@ function PokemonListPageView({
   return (
     <div className="max-w-6xl mx-auto px-6">
       <div className="flex items-baseline justify-center w-full mb-10">
-        <div className="w-full max-w-sm relative search-input-container">
+        <div className="w-full max-w-sm relative">
           <input
             ref={searchInputRef}
-            className="pokemon-search-input w-full"
+            className="peer animate-search-fade text-[0.95rem] bg-dark-800 text-text-primary border-2 border-dark-600 px-4 py-3 rounded-xl transition-all duration-250 shadow-[0_4px_12px_rgba(0,0,0,0.4)] focus:border-accent-gold focus:outline-none focus:shadow-[0_0_0_3px_rgba(255,215,0,0.15),0_8px_24px_rgba(255,215,0,0.2)] placeholder:text-text-muted w-full"
             id="search"
             name="search"
             type="text"
@@ -74,14 +74,14 @@ function PokemonListPageView({
           {isSearching && (
             <button
               onClick={() => onQueryChange('')}
-              className="search-clear-btn"
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 bg-transparent border-none text-text-muted text-xl font-bold p-1 px-2 cursor-pointer transition-all duration-200 flex items-center justify-center hover:[transform:translateY(-50%)_scale(1.15)] active:[transform:translateY(-50%)_scale(0.95)]"
               title="Clear search"
               data-testid="search-clear-btn"
             >
               ✕
             </button>
           )}
-          {!isSearching && <kbd className="search-kbd">⌘K</kbd>}
+          {!isSearching && <kbd className="absolute right-3.5 top-1/2 -translate-y-1/2 bg-dark-700 border border-dark-600 text-text-muted py-[5px] px-2.5 rounded-md text-[0.7rem] font-pixel pointer-events-none font-semibold tracking-[0.08em] shadow-[inset_0_1px_3px_rgba(0,0,0,0.5)] transition-all duration-250 peer-focus:text-accent-gold peer-focus:border-accent-gold peer-focus:bg-dark-800 peer-focus:shadow-[inset_0_1px_3px_rgba(0,0,0,0.5),0_0_8px_rgba(255,215,0,0.2)]">⌘K</kbd>}
         </div>
       </div>
 

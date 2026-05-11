@@ -43,3 +43,10 @@ export interface RawPokemonType {
     name: string;
   };
 }
+
+export interface RawPokemonSpecies {
+  capture_rate: number;
+  is_legendary: boolean;
+  is_mythical: boolean;
+  is_baby: boolean;
+}
