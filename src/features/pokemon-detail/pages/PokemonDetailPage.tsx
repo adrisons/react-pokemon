@@ -9,7 +9,7 @@ import { STAT_COLORS } from "@shared/constants/statColors";
 function PokemonDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { pokemon, loading } = usePokemonDetail(id);
+  const { pokemon, loading } = usePokemonDetail(id, { trackHistory: true });
   const { stages } = useEvolutionChain(id);
 
   if (loading) return <Loading />;

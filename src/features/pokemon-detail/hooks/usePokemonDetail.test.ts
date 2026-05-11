@@ -7,6 +7,12 @@ vi.mock("@features/pokemon-detail/api/pokemonDetailApi", () => ({
 vi.mock("@features/pokemon-detail/api/abilityApi", () => ({
   getAbilityDescription: vi.fn(),
 }));
+const mockAddEntry = vi.fn();
+vi.mock("@features/history/store/historyStore", () => ({
+  useHistoryStore: vi.fn((selector: (s: { addEntry: () => void }) => unknown) =>
+    selector({ addEntry: mockAddEntry })
+  ),
+}));
 
 import { usePokemonDetail } from "./usePokemonDetail";
 import { getPokemonDetail } from "@features/pokemon-detail/api/pokemonDetailApi";
@@ -30,6 +36,7 @@ const rawBulbasaur = {
 beforeEach(() => {
   vi.mocked(getPokemonDetail).mockResolvedValue(rawBulbasaur);
   vi.mocked(getAbilityDescription).mockResolvedValue("Powers up Grass-type moves.");
+  mockAddEntry.mockClear();
 });
 
 afterEach(() => {
@@ -77,6 +84,16 @@ describe("GIVEN: usePokemonDetail", () => {
       await waitFor(() => expect(result.current.loading).toBe(false));
 
       expect(result.current.pokemon?.types).toEqual([{ slot: 1, typeName: "grass" }]);
+    });
+
+    it("THEN: should call addEntry with the adapted pokemon", async () => {
+      const { result } = renderHook(() => usePokemonDetail("1", { trackHistory: true }));
+      await waitFor(() => expect(result.current.loading).toBe(false));
+
+      expect(mockAddEntry).toHaveBeenCalledOnce();
+      expect(mockAddEntry).toHaveBeenCalledWith(
+        expect.objectContaining({ id: 1, name: "bulbasaur" })
+      );
     });
   });
 

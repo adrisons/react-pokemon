@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useEffect } from "react";
 import { MemoryRouter } from "react-router-dom";
 import PokemonListPageView from "./PokemonListPageView";
 import type { PokemonSummary } from "@core/domain/pokemon";
+import { useHistoryStore } from "@features/history/store/historyStore";
+import type { HistoryEntry } from "@features/history/store/historyStore";
 
 const samplePokemons: PokemonSummary[] = [
   { name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/" },
@@ -154,5 +157,57 @@ export const Error: Story = {
     notFound: false,
     gotoNextPage: null,
     gotoPrevPage: null,
+  },
+};
+
+/* ── With recently viewed carousel ─────────────────────── */
+
+const SPRITE = (id: number) =>
+  `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+
+const recentHistory: HistoryEntry[] = [
+  { id: 25, name: "pikachu", imageUrl: SPRITE(25), types: [{ slot: 1, typeName: "electric" }] },
+  { id: 6, name: "charizard", imageUrl: SPRITE(6), types: [{ slot: 1, typeName: "fire" }, { slot: 2, typeName: "flying" }] },
+  { id: 150, name: "mewtwo", imageUrl: SPRITE(150), types: [{ slot: 1, typeName: "psychic" }] },
+  { id: 94, name: "gengar", imageUrl: SPRITE(94), types: [{ slot: 1, typeName: "ghost" }, { slot: 2, typeName: "poison" }] },
+];
+
+function SeedHistory({ entries, children }: { entries: HistoryEntry[]; children: React.ReactNode }) {
+  useEffect(() => {
+    useHistoryStore.setState({ entries });
+    return () => useHistoryStore.setState({ entries: [] });
+  }, [entries]);
+  return <>{children}</>;
+}
+
+export const WithRecentlyViewed: Story = {
+  name: "With recently viewed",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Default list with the RecentlyViewed carousel visible above the grid. Requires seeded Zustand history store.",
+      },
+    },
+  },
+  decorators: [
+    (Story) => (
+      <MemoryRouter initialEntries={["/react-pokemon/"]} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <SeedHistory entries={recentHistory}>
+          <div className="max-w-md mx-auto p-4">
+            <Story />
+          </div>
+        </SeedHistory>
+      </MemoryRouter>
+    ),
+  ],
+  args: {
+    pokemons: samplePokemons,
+    loading: false,
+    error: false,
+    query: "",
+    searchResults: [],
+    searching: false,
+    notFound: false,
   },
 };

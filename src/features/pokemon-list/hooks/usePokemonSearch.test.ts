@@ -3,10 +3,12 @@ import { vi, describe, it, expect, beforeEach, afterEach } from "vitest";
 
 vi.mock("@features/pokemon-list/api/pokemonListApi", () => ({
   getPokemonList: vi.fn(),
+  getAllPokemons: vi.fn(),
+  invalidateAllPokemonsCache: vi.fn(),
 }));
 
 import { usePokemonSearch, _resetCacheForTesting } from "./usePokemonSearch";
-import { getPokemonList } from "@features/pokemon-list/api/pokemonListApi";
+import { getAllPokemons } from "@features/pokemon-list/api/pokemonListApi";
 
 const mockPokemons = [
   { name: "pikachu", url: "https://pokeapi.co/api/v2/pokemon/25/" },
@@ -19,11 +21,7 @@ const mockPokemons = [
 beforeEach(() => {
   vi.useFakeTimers();
   _resetCacheForTesting();
-  vi.mocked(getPokemonList).mockResolvedValue({
-    results: mockPokemons,
-    next: null,
-    previous: null,
-  });
+  vi.mocked(getAllPokemons).mockResolvedValue(mockPokemons);
 });
 
 afterEach(() => {
@@ -48,7 +46,7 @@ describe("GIVEN: usePokemonSearch", () => {
 
       act(() => result.current.search(""));
 
-      expect(getPokemonList).not.toHaveBeenCalled();
+      expect(getAllPokemons).not.toHaveBeenCalled();
     });
   });
 
@@ -67,7 +65,7 @@ describe("GIVEN: usePokemonSearch", () => {
       act(() => result.current.search("pik"));
       act(() => vi.advanceTimersByTime(149));
 
-      expect(getPokemonList).not.toHaveBeenCalled();
+      expect(getAllPokemons).not.toHaveBeenCalled();
     });
 
     it("THEN: should call the API after 150ms", async () => {
@@ -76,7 +74,7 @@ describe("GIVEN: usePokemonSearch", () => {
       act(() => result.current.search("pik"));
       await act(async () => { await vi.advanceTimersByTimeAsync(150); });
 
-      expect(getPokemonList).toHaveBeenCalledTimes(1);
+      expect(getAllPokemons).toHaveBeenCalledTimes(1);
       expect(result.current.searching).toBe(false);
     });
 
@@ -161,8 +159,7 @@ describe("GIVEN: usePokemonSearch", () => {
 
       await act(async () => { await vi.advanceTimersByTimeAsync(150); });
 
-      // Only one API call total (last debounced query "pik")
-      expect(getPokemonList).toHaveBeenCalledTimes(1);
+      expect(getAllPokemons).toHaveBeenCalledTimes(1);
       expect(result.current.results.map((p) => p.name)).toEqual(
         expect.arrayContaining(["pikachu", "pikipek"])
       );
@@ -198,7 +195,7 @@ describe("GIVEN: usePokemonSearch", () => {
 
   describe("WHEN: the API call fails", () => {
     it("THEN: should set notFound to true and clear results", async () => {
-      vi.mocked(getPokemonList).mockRejectedValue(new Error("Network error"));
+      vi.mocked(getAllPokemons).mockRejectedValue(new Error("Network error"));
 
       const { result } = renderHook(() => usePokemonSearch());
 

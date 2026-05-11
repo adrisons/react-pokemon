@@ -67,6 +67,7 @@ export default defineConfig({
       test: {
         name: "unit",
         environment: "jsdom",
+        environmentOptions: { url: "http://localhost" },
         globals: true,
         setupFiles: "./src/setupTests.ts",
         exclude: ["src/__tests__/e2e/**", "node_modules/**"]

@@ -8,6 +8,10 @@ export class PokemonListPage extends BasePage {
   readonly prevPageButton: Locator;
   readonly notFoundMessage: Locator;
 
+  readonly recentlyViewedSection: Locator;
+  readonly carouselPrevBtn: Locator;
+  readonly carouselNextBtn: Locator;
+
   constructor(page: Page) {
     super(page);
     this.searchInput = page.getByTestId("search-input");
@@ -15,6 +19,10 @@ export class PokemonListPage extends BasePage {
     this.nextPageButton = page.getByTestId("pagination-next-btn");
     this.prevPageButton = page.getByTestId("pagination-prev-btn");
     this.notFoundMessage = page.getByTestId("search-not-found");
+
+    this.recentlyViewedSection = page.getByTestId("recently-viewed-carousel");
+    this.carouselPrevBtn = this.recentlyViewedSection.locator('[data-slot="carousel-previous"]');
+    this.carouselNextBtn = this.recentlyViewedSection.locator('[data-slot="carousel-next"]');
   }
 
   private pokemonListResponse() {
@@ -69,5 +77,13 @@ export class PokemonListPage extends BasePage {
     const card = this.getPokemonCards().nth(index);
     await card.hover();
     await card.getByTestId("pokemon-card-detail-btn").click();
+  }
+
+  getCarouselCards() {
+    return this.recentlyViewedSection.locator('[data-testid^="recently-viewed-"]');
+  }
+
+  getCarouselCard(pokemonId: number) {
+    return this.page.getByTestId(`recently-viewed-${pokemonId}`);
   }
 }

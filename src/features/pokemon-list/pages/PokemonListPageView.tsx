@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Loading, Pagination } from "@shared/ui";
 import PokemonCardGrid from "@features/pokemon-list/components/PokemonCardGrid/PokemonCardGrid";
+import RecentlyViewed from "@features/history/components/RecentlyViewed/RecentlyViewed";
 import type { PokemonSummary } from "@core/domain/pokemon";
 
 interface Props {
@@ -103,6 +104,7 @@ function PokemonListPageView({
         </>
       ) : (
         <>
+          <RecentlyViewed />
           <PokemonCardGrid pokemons={pokemons} />
           <div className="mt-8">
             <Pagination gotoNextPage={gotoNextPage} gotoPrevPage={gotoPrevPage} />
