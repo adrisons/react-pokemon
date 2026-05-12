@@ -30,3 +30,5 @@ export const usePokemonListStore = create<PokemonListStore>((set, get) => ({
     invalidateAllPokemonsCache();
   },
 }));
+
+export { useSearchStore } from "./useSearchStore";

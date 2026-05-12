@@ -5,16 +5,18 @@ import { Badge as ShadcnBadge } from "@shared/ui/components/ui/badge";
 
 interface Props {
   name: PokemonTypeName;
+  compact?: boolean;
 }
 
-function Badge({ name }: Props) {
+function Badge({ name, compact }: Props) {
   return (
     <ShadcnBadge
-      variant="type"
+      variant={compact ? "typeDot" : "type"}
       style={{ "--type-color": typeColors[name] } as CSSProperties}
       data-testid={`type-badge-${name}`}
+      aria-label={compact ? name : undefined}
     >
-      {name}
+      {compact ? null : name}
     </ShadcnBadge>
   );
 }

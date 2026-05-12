@@ -38,5 +38,7 @@ export function adaptPokemonDetail(
     isLegendary: species?.is_legendary ?? false,
     isMythical: species?.is_mythical ?? false,
     isBaby: species?.is_baby ?? false,
+    heightDm: raw.height,
+    weightHg: raw.weight,
   };
 }

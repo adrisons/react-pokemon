@@ -11,6 +11,8 @@ import type { PokemonAbility } from "./models";
 const makeRawDetail = (overrides: Partial<RawPokemonDetail> = {}): RawPokemonDetail => ({
   id: 1,
   name: "bulbasaur",
+  height: 7,
+  weight: 69,
   sprites: {
     front_default: "front.png",
     other: {

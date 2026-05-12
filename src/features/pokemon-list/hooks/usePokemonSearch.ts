@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { usePokemonListStore } from "@features/pokemon-list/store";
 import type { PokemonSummary } from "@core/domain/pokemon";
 
@@ -14,7 +14,7 @@ export function usePokemonSearch() {
   const [searching, setSearching] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  function search(query: string) {
+  const search = useCallback((query: string) => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
 
     if (!query.trim()) {
@@ -40,14 +40,14 @@ export function usePokemonSearch() {
         setSearching(false);
       }
     }, DEBOUNCE_MS);
-  }
+  }, []);
 
-  function clear() {
+  const clear = useCallback(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     setResults([]);
     setNotFound(false);
     setSearching(false);
-  }
+  }, []);
 
   return { search, clear, results, notFound, searching };
 }

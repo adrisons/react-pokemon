@@ -33,7 +33,7 @@ const meta: Meta<typeof PokemonListPageView> = {
     ),
   ],
   args: {
-    onQueryChange: () => {},
+    onClearQuery: () => {},
     gotoNextPage: () => {},
     gotoPrevPage: () => {},
   },

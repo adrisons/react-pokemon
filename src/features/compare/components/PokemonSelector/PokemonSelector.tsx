@@ -38,8 +38,17 @@ function PokemonSelector({ label, selectedId, onSelect, onClear, disabled = fals
       try {
         const all = await usePokemonListStore.getState().loadAllPokemons();
         const lower = query.toLowerCase().trim();
+        const idQuery = lower.replace(/^#/, "");
+        const isNumeric = /^\d+$/.test(idQuery);
+        const numericId = isNumeric ? String(Number(idQuery)) : "";
         const filtered = all
-          .filter((p) => p.name.toLowerCase().includes(lower))
+          .filter((p) => {
+            if (isNumeric) {
+              const id = getPokemonIdFromUrl(p.url);
+              return id === numericId || id.startsWith(numericId) || p.name.toLowerCase().includes(lower);
+            }
+            return p.name.toLowerCase().includes(lower);
+          })
           .slice(0, 8);
         setSuggestions(filtered);
         setOpen(filtered.length > 0);

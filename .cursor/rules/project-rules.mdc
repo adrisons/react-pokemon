@@ -1,0 +1,12 @@
+---
+description: Project-wide AI agent rules — delegates to the canonical CLAUDE.md
+alwaysApply: true
+---
+
+# Project Rules
+
+All agent rules for this project live in `CLAUDE.md` at the repository root.
+Read and follow that file as the single source of truth for coding standards,
+stack conventions, validation flow, test expectations, and commit protocol.
+
+Any Cursor-specific overrides can be added below this line.

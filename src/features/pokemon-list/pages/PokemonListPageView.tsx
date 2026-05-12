@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import { Loading, Pagination } from "@shared/ui";
 import PokemonCardGrid from "@features/pokemon-list/components/PokemonCardGrid/PokemonCardGrid";
@@ -12,7 +11,7 @@ interface Props {
   gotoNextPage: (() => void) | null;
   gotoPrevPage: (() => void) | null;
   query: string;
-  onQueryChange: (value: string) => void;
+  onClearQuery: () => void;
   searchResults: PokemonSummary[];
   searching: boolean;
   notFound: boolean;
@@ -25,25 +24,11 @@ function PokemonListPageView({
   gotoNextPage,
   gotoPrevPage,
   query,
-  onQueryChange,
+  onClearQuery,
   searchResults,
   searching,
   notFound,
 }: Props) {
-  const searchInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        searchInputRef.current?.focus();
-      }
-    }
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
   const isSearching = query.trim().length > 0;
 
   return (
@@ -68,33 +53,27 @@ function PokemonListPageView({
         </p>
       </header>
 
-      <search role="search" aria-label="Search Pokémon" className="w-full">
-        <label htmlFor="search" className="sr-only">Search Pokémon</label>
-        <div className="w-full max-w-md relative">
-          <input
-            ref={searchInputRef}
-            className="peer animate-search-fade text-body bg-dark-800 text-text-primary border-2 border-dark-600 px-4 py-3 rounded-xl transition-all duration-200 shadow-[0_4px_12px_rgba(0,0,0,0.4)] focus:border-accent-gold focus:outline-none focus:shadow-[0_0_0_3px_rgba(255,215,0,0.15),0_8px_24px_rgba(255,215,0,0.2)] placeholder:text-text-muted w-full"
-            id="search"
-            name="search"
-            type="text"
-            placeholder="Search Pokémon…"
-            value={query}
-            onChange={(e) => onQueryChange(e.target.value)}
-            data-testid="search-input"
-          />
-          {isSearching && (
-            <button
-              onClick={() => onQueryChange('')}
-              aria-label="Clear search"
-              className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex items-center justify-center size-10 rounded-md bg-transparent text-text-muted transition-colors hover:text-accent-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold focus-visible:ring-offset-2 focus-visible:ring-offset-dark-800"
-              data-testid="search-clear-btn"
-            >
-              <X className="size-4" aria-hidden="true" />
-            </button>
-          )}
-          {!isSearching && <kbd className="absolute right-3 top-1/2 -translate-y-1/2 bg-dark-700 border border-dark-600 text-text-muted py-1 px-2 rounded-md text-caption font-pixel pointer-events-none font-semibold tracking-[0.08em] shadow-[inset_0_1px_3px_rgba(0,0,0,0.5)] transition-all duration-200 peer-focus:text-accent-gold peer-focus:border-accent-gold peer-focus:bg-dark-800 peer-focus:shadow-[inset_0_1px_3px_rgba(0,0,0,0.5),0_0_8px_rgba(255,215,0,0.2)]">⌘K</kbd>}
+      {isSearching && (
+        <div
+          className="flex flex-wrap items-center gap-3 px-4 py-3 rounded-xl border border-dark-600 bg-dark-800/60"
+          data-testid="search-active-banner"
+        >
+          <span className="text-caption uppercase tracking-[0.18em] text-text-muted font-pixel">
+            Filtering
+          </span>
+          <span className="text-body font-medium text-text-primary capitalize">“{query}”</span>
+          <button
+            type="button"
+            onClick={onClearQuery}
+            aria-label="Clear search"
+            className="ml-auto inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-caption text-text-muted hover:text-accent-gold hover:bg-dark-700/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold"
+            data-testid="search-clear-btn"
+          >
+            <X className="size-3.5" aria-hidden="true" />
+            Clear
+          </button>
         </div>
-      </search>
+      )}
 
       {loading && <Loading />}
 

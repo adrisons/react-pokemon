@@ -6,6 +6,10 @@ vi.mock("@features/pokemon-detail/api/pokemonDetailApi", () => ({
   getPokemonSpecies: vi.fn(),
 }));
 
+vi.mock("@core/domain/type", () => ({
+  getEffectivenessMap: vi.fn(() => Promise.resolve({ fire: { grass: 2 } })),
+}));
+
 import { useCompare } from "./useCompare";
 import { getPokemonDetail } from "@features/pokemon-detail/api/pokemonDetailApi";
 import { getPokemonSpecies } from "@features/pokemon-detail/api/pokemonDetailApi";
@@ -13,6 +17,8 @@ import { getPokemonSpecies } from "@features/pokemon-detail/api/pokemonDetailApi
 const rawPikachu = {
   id: 25,
   name: "pikachu",
+  height: 4,
+  weight: 60,
   sprites: { front_default: "pika.png", other: { dream_world: { front_default: null } } },
   types: [{ slot: 1, type: { name: "electric" } }],
   moves: [],
@@ -26,6 +32,8 @@ const rawPikachu = {
 const rawCharizard = {
   id: 6,
   name: "charizard",
+  height: 17,
+  weight: 905,
   sprites: { front_default: "char.png", other: { dream_world: { front_default: null } } },
   types: [{ slot: 1, type: { name: "fire" } }],
   moves: [],
@@ -82,6 +90,12 @@ describe("useCompare", () => {
     expect(result.current.pokemonA?.stats[0].name).toBe("hp");
     expect(result.current.pokemonA?.stats[0].value).toBe(35);
     expect(result.current.pokemonB?.stats[0].value).toBe(78);
+  });
+
+  it("exposes the effectiveness map once loaded", async () => {
+    const { result } = renderHook(() => useCompare("25", "6"));
+    await waitFor(() => expect(result.current.loading).toBe(false));
+    expect(result.current.effectivenessMap).toBeTruthy();
   });
 
   it("sets error on fetch failure", async () => {

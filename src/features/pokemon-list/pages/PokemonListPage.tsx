@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { usePokemonList } from "@features/pokemon-list/hooks/usePokemonList";
 import { usePokemonSearch } from "@features/pokemon-list/hooks/usePokemonSearch";
 import PokemonListPageView from "./PokemonListPageView";
@@ -6,15 +7,21 @@ import PokemonListPageView from "./PokemonListPageView";
 function PokemonListPage() {
   const { pokemons, loading, error, gotoNextPage, gotoPrevPage } = usePokemonList();
   const { search, clear, results, notFound, searching } = usePokemonSearch();
-  const [query, setQuery] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("q") ?? "";
 
-  function handleQueryChange(value: string) {
-    setQuery(value);
-    if (!value.trim()) {
-      clear();
+  useEffect(() => {
+    if (query.trim()) {
+      search(query);
     } else {
-      search(value);
+      clear();
     }
+  }, [query, search, clear]);
+
+  function handleClearQuery() {
+    const next = new URLSearchParams(searchParams);
+    next.delete("q");
+    setSearchParams(next, { replace: true });
   }
 
   return (
@@ -25,7 +32,7 @@ function PokemonListPage() {
       gotoNextPage={gotoNextPage}
       gotoPrevPage={gotoPrevPage}
       query={query}
-      onQueryChange={handleQueryChange}
+      onClearQuery={handleClearQuery}
       searchResults={results}
       searching={searching}
       notFound={notFound}

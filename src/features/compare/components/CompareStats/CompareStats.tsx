@@ -3,6 +3,8 @@ import { cn } from "@shared/lib/utils";
 import { statColorVar } from "@shared/constants/statColors";
 import typeColors from "@shared/constants/typeColors";
 import type { PokemonDetail } from "@core/domain/pokemon";
+import type { EffectivenessMap } from "@core/domain/type";
+import { Badge } from "@shared/ui/components";
 import cardBack from "@shared/assets/pokemon-card-back.svg";
 import {
   Tooltip,
@@ -14,6 +16,7 @@ import CompareInsights from "@features/compare/components/CompareInsights/Compar
 interface Props {
   pokemonA: PokemonDetail;
   pokemonB: PokemonDetail;
+  effectivenessMap: EffectivenessMap;
 }
 
 const STAT_LABELS: Record<string, string> = {
@@ -73,7 +76,7 @@ function StatLabel({ statName, label }: { statName: string; label: string }) {
   );
 }
 
-function CompareStats({ pokemonA, pokemonB }: Props) {
+function CompareStats({ pokemonA, pokemonB, effectivenessMap }: Props) {
   const statsA = Object.fromEntries(pokemonA.stats.map((s) => [s.name, s.value]));
   const statsB = Object.fromEntries(pokemonB.stats.map((s) => [s.name, s.value]));
 
@@ -89,7 +92,7 @@ function CompareStats({ pokemonA, pokemonB }: Props) {
   return (
     <section
       aria-labelledby="compare-stats-heading"
-      className="bg-dark-800 border border-dark-600 rounded-3xl p-8 motion-safe:animate-compare-in"
+      className="bg-dark-800 border border-dark-600 rounded-3xl p-4 sm:p-8 motion-safe:animate-compare-in"
       data-testid="compare-stats"
       style={{
         "--color-a": colorA,
@@ -100,9 +103,9 @@ function CompareStats({ pokemonA, pokemonB }: Props) {
     >
       <h2 id="compare-stats-heading" className="sr-only">Stats comparison</h2>
 
-      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 mb-8 pb-8 border-b border-dark-600">
+      <div className="grid grid-cols-[1fr_1fr] sm:grid-cols-[1fr_auto_1fr] items-center gap-4 mb-8 pb-8 border-b border-dark-600">
         <PokemonHeader pokemon={pokemonA} typeColor={colorA} />
-        <div className="flex items-center justify-center px-2" aria-hidden="true">
+        <div className="hidden sm:flex items-center justify-center px-2" aria-hidden="true">
           <span className="font-pixel text-label tracking-[0.12em] text-text-muted">VS</span>
         </div>
         <PokemonHeader pokemon={pokemonB} typeColor={colorB} />
@@ -121,7 +124,7 @@ function CompareStats({ pokemonA, pokemonB }: Props) {
           return (
             <div
               key={statName}
-              className="grid grid-cols-[2.75rem_1fr_3.5rem_1fr_2.75rem] items-center gap-2 motion-safe:animate-stat-row"
+              className="grid grid-cols-[1.75rem_1fr_2.5rem_1fr_1.75rem] sm:grid-cols-[2.75rem_1fr_3.5rem_1fr_2.75rem] items-center gap-1 sm:gap-2 motion-safe:animate-stat-row"
               style={{ "--stat-color": statColorVar(statName), "--pct-a": `${pctA}%`, "--pct-b": `${pctB}%` } as CSSProperties}
               data-testid={`stat-row-${statName}`}
             >
@@ -174,7 +177,7 @@ function CompareStats({ pokemonA, pokemonB }: Props) {
       </div>
 
       <TotalRow pokemonA={pokemonA} pokemonB={pokemonB} />
-      <CompareInsights pokemonA={pokemonA} pokemonB={pokemonB} />
+      <CompareInsights pokemonA={pokemonA} pokemonB={pokemonB} effectivenessMap={effectivenessMap} />
     </section>
   );
 }
@@ -191,11 +194,11 @@ function PokemonHeader({
       className="group/pokemon flex flex-col items-center gap-1 text-center"
       style={{ "--type-color": typeColor } as CSSProperties}
     >
-      <div className="pkm-compare-avatar-bg w-28 h-28 flex items-center justify-center rounded-full mb-2">
+      <div className="pkm-compare-avatar-bg w-20 h-20 sm:w-28 sm:h-28 flex items-center justify-center rounded-full mb-2">
         <img
           src={pokemon.imageUrl ?? cardBack}
           alt={pokemon.name}
-          className="pkm-compare-avatar-image w-26 h-26 object-contain motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover/pokemon:scale-[1.08]"
+          className="pkm-compare-avatar-image w-18 h-18 sm:w-26 sm:h-26 object-contain motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover/pokemon:scale-[1.08]"
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).src = cardBack;
           }}
@@ -209,13 +212,7 @@ function PokemonHeader({
       </span>
       <div className="flex gap-2 flex-wrap justify-center mt-1">
         {pokemon.types.map((t) => (
-          <span
-            key={t.slot}
-            className="pkm-type-pill text-caption font-semibold tracking-[0.06em] uppercase py-1 px-2 rounded-full border"
-            style={{ "--type-color": typeColors[t.typeName] } as CSSProperties}
-          >
-            {t.typeName}
-          </span>
+          <Badge key={t.slot} name={t.typeName} />
         ))}
       </div>
     </div>
@@ -235,7 +232,7 @@ function TotalRow({
   const bWins = totalB > totalA;
 
   return (
-    <div className="grid grid-cols-[2.75rem_1fr_2.75rem] items-center gap-3 mt-6 pt-6 border-t border-dark-600">
+    <div className="grid grid-cols-[1.75rem_1fr_1.75rem] sm:grid-cols-[2.75rem_1fr_2.75rem] items-center gap-2 sm:gap-3 mt-6 pt-6 border-t border-dark-600">
       <span
         className={cn(
           "font-pixel text-label font-bold transition-colors duration-200 text-right",

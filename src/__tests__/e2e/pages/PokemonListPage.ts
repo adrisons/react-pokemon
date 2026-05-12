@@ -2,8 +2,8 @@ import { expect, type Locator, type Page } from "@playwright/test";
 import { BasePage } from "./BasePage";
 
 export class PokemonListPage extends BasePage {
-  readonly searchInput: Locator;
-  readonly clearSearchButton: Locator;
+  readonly searchTrigger: Locator;
+  readonly searchCommandInput: Locator;
   readonly nextPageButton: Locator;
   readonly prevPageButton: Locator;
   readonly notFoundMessage: Locator;
@@ -14,11 +14,11 @@ export class PokemonListPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.searchInput = page.getByTestId("search-input");
-    this.clearSearchButton = page.getByTestId("search-clear-btn");
+    this.searchTrigger = page.getByTestId("search-trigger");
+    this.searchCommandInput = page.getByTestId("search-command-input");
     this.nextPageButton = page.getByTestId("pagination-next-btn");
     this.prevPageButton = page.getByTestId("pagination-prev-btn");
-    this.notFoundMessage = page.getByTestId("search-not-found");
+    this.notFoundMessage = page.getByTestId("search-command-empty");
 
     this.recentlyViewedSection = page.getByTestId("recently-viewed-carousel");
     this.carouselPrevBtn = this.recentlyViewedSection.locator('[data-slot="carousel-previous"]');
@@ -64,19 +64,17 @@ export class PokemonListPage extends BasePage {
   }
 
   async search(term: string) {
-    await this.searchInput.fill(term);
-    await this.waitForNetworkIdle();
-  }
-
-  async clearSearch() {
-    await this.clearSearchButton.click();
+    await this.searchTrigger.click();
+    await this.searchCommandInput.fill(term);
     await this.waitForNetworkIdle();
   }
 
   async clickPokemonDetail(index: number) {
     const card = this.getPokemonCards().nth(index);
     await card.hover();
-    await card.getByTestId("pokemon-card-detail-btn").click();
+    const btn = card.getByTestId("pokemon-card-detail-btn");
+    await btn.waitFor({ state: "visible" });
+    await btn.click();
   }
 
   getCarouselCards() {

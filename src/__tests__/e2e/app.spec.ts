@@ -9,7 +9,7 @@ test.describe("Pokémon app", () => {
 
     const count = await listPage.getPokemonCount();
     expect(count).toBeGreaterThan(0);
-    await expect(listPage.searchInput).toBeVisible();
+    await expect(listPage.searchTrigger).toBeVisible();
   });
 
   test("user can paginate through results", async ({ page }) => {

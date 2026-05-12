@@ -7,6 +7,7 @@ import { usePokemonDetail } from "@features/pokemon-detail/hooks/usePokemonDetai
 import { useEvolutionChain } from "@features/pokemon-detail/hooks/useEvolutionChain";
 import PokemonPicture from "@features/pokemon-detail/components/PokemonPicture/PokemonPicture";
 import EvolutionChain from "@features/pokemon-detail/components/EvolutionChain/EvolutionChain";
+import PokedexIntel from "@features/pokemon-detail/components/PokedexIntel/PokedexIntel";
 import { statColorVar } from "@shared/constants/statColors";
 
 function PokemonDetailPage() {
@@ -28,15 +29,17 @@ function PokemonDetailPage() {
   if (loading) return <Loading />;
   if (!pokemon) return null;
 
+  const maxStat = Math.max(...pokemon.stats.map((s) => s.value));
+
   return (
     <article
       aria-labelledby="detail-pokemon-name"
-      className="min-h-screen px-6 py-8 pb-16"
+      className="min-h-screen px-4 sm:px-6 py-8 pb-16"
       data-testid="detail-page"
     >
       <div className="max-w-[1100px] mx-auto">
 
-        <div className="flex items-center justify-between mb-8 gap-4">
+        <div className="flex items-center justify-between mb-8 gap-3">
           <Button
             variant="secondary"
             size="md"
@@ -44,13 +47,14 @@ function PokemonDetailPage() {
             data-testid="back-to-list-btn"
           >
             <ArrowLeft aria-hidden="true" />
-            <span>Back to Collection</span>
+            <span className="hidden sm:inline">Back to Collection</span>
+            <span className="sm:hidden">Back</span>
           </Button>
           <Button
             variant="ghost"
             size="md"
             onClick={handleCompare}
-            data-testid="compare-btn"
+            data-testid="detail-compare-btn"
           >
             <Swords aria-hidden="true" />
             <span>Compare</span>
@@ -59,7 +63,7 @@ function PokemonDetailPage() {
 
         <section
           aria-labelledby="detail-pokemon-name"
-          className="flex flex-col gap-8 bg-dark-800 border border-dark-600 rounded-3xl p-8 md:flex-row md:items-start md:px-12 md:py-12 md:gap-12"
+          className="flex flex-col gap-6 bg-dark-800 border border-dark-600 rounded-3xl p-4 sm:p-6 md:flex-row md:items-start md:px-12 md:py-12 md:gap-12"
         >
           <header className="flex flex-col items-start shrink-0 md:min-w-[220px] md:max-w-[260px]">
             <div className="text-label font-bold text-accent-gold tracking-[0.08em] mb-2 opacity-85 font-pixel">
@@ -67,7 +71,7 @@ function PokemonDetailPage() {
             </div>
             <h1
               id="detail-pokemon-name"
-              className="text-display font-bold text-text-primary tracking-[-0.01em] mb-3 capitalize"
+              className="text-h1 sm:text-display font-bold text-text-primary tracking-[-0.01em] mb-3 capitalize"
               data-testid="detail-pokemon-name"
             >
               {pokemon.name}
@@ -80,7 +84,7 @@ function PokemonDetailPage() {
             <div className="text-body mb-6 text-text-muted">
               {pokemon.movesCount} moves
             </div>
-            <div className="w-full max-w-[220px] mt-2 md:max-w-[200px]" data-testid="detail-hero-image">
+            <div className="w-full max-w-[180px] sm:max-w-[220px] mt-2 md:max-w-[200px]" data-testid="detail-hero-image">
               <PokemonPicture imageUrl={pokemon.imageUrl} />
             </div>
           </header>
@@ -98,17 +102,17 @@ function PokemonDetailPage() {
                 {pokemon.stats.map((stat) => (
                   <div
                     key={stat.name}
-                    className="flex items-center gap-4"
-                    style={{ "--stat-color": statColorVar(stat.name), "--bar-w": `${Math.min(100, (stat.value / 255) * 100)}%` } as CSSProperties}
+                    className="flex items-center gap-2 sm:gap-4"
+                    style={{ "--stat-color": statColorVar(stat.name), "--bar-w": `${(stat.value / maxStat) * 100}%` } as CSSProperties}
                     data-testid={`detail-stat-${stat.name}`}
                   >
-                    <span className="text-label w-[8.5rem] min-w-[8.5rem] capitalize text-right text-text-muted">
+                    <span className="text-caption sm:text-label w-16 min-w-16 sm:w-[8.5rem] sm:min-w-[8.5rem] capitalize text-right text-text-muted truncate">
                       {stat.name.replace("-", " ")}
                     </span>
-                    <span className="text-label w-9 min-w-9 text-right font-pixel text-[var(--stat-color)]">
+                    <span className="text-caption sm:text-label w-8 min-w-8 sm:w-9 sm:min-w-9 text-right font-pixel text-[var(--stat-color)]">
                       {stat.value}
                     </span>
-                    <div className="flex-1 h-2 bg-dark-700 rounded-full overflow-hidden">
+                    <div className="flex-1 h-2 bg-dark-700 rounded-full overflow-hidden min-w-12">
                       <div
                         className="h-full rounded-full motion-safe:transition-all motion-safe:duration-700 bg-[var(--stat-color)] shadow-[0_0_8px_color-mix(in_srgb,var(--stat-color)_38%,transparent)] w-[var(--bar-w)]"
                       />
@@ -154,9 +158,11 @@ function PokemonDetailPage() {
           </div>
         </section>
 
+        <PokedexIntel pokemon={pokemon} />
+
         <section
           aria-labelledby="evolution-heading"
-          className="bg-dark-800 border border-dark-600 rounded-3xl px-8 py-8 mt-6"
+          className="bg-dark-800 border border-dark-600 rounded-3xl px-4 sm:px-8 py-6 sm:py-8 mt-6"
         >
           <EvolutionChain stages={stages} currentId={pokemon.id} />
         </section>

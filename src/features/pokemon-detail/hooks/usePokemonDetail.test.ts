@@ -3,6 +3,7 @@ import { vi, describe, it, expect, beforeEach, afterEach } from "vitest";
 
 vi.mock("@features/pokemon-detail/api/pokemonDetailApi", () => ({
   getPokemonDetail: vi.fn(),
+  getPokemonSpecies: vi.fn(),
 }));
 vi.mock("@features/pokemon-detail/api/abilityApi", () => ({
   getAbilityDescription: vi.fn(),
@@ -15,12 +16,14 @@ vi.mock("@features/history/store/historyStore", () => ({
 }));
 
 import { usePokemonDetail } from "./usePokemonDetail";
-import { getPokemonDetail } from "@features/pokemon-detail/api/pokemonDetailApi";
+import { getPokemonDetail, getPokemonSpecies } from "@features/pokemon-detail/api/pokemonDetailApi";
 import { getAbilityDescription } from "@features/pokemon-detail/api/abilityApi";
 
 const rawBulbasaur = {
   id: 1,
   name: "bulbasaur",
+  height: 7,
+  weight: 69,
   sprites: {
     front_default: "front.png",
     other: { dream_world: { front_default: "dream.png" } },
@@ -35,6 +38,12 @@ const rawBulbasaur = {
 
 beforeEach(() => {
   vi.mocked(getPokemonDetail).mockResolvedValue(rawBulbasaur);
+  vi.mocked(getPokemonSpecies).mockResolvedValue({
+    capture_rate: 45,
+    is_legendary: false,
+    is_mythical: false,
+    is_baby: false,
+  });
   vi.mocked(getAbilityDescription).mockResolvedValue("Powers up Grass-type moves.");
   mockAddEntry.mockClear();
 });

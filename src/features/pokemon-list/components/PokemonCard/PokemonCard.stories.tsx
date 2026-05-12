@@ -28,6 +28,8 @@ const bulbasaur: PokemonDetail = {
   isLegendary: false,
   isMythical: false,
   isBaby: false,
+    heightDm: 7,
+    weightHg: 69,
 };
 
 const charizard: PokemonDetail = {
@@ -55,6 +57,8 @@ const charizard: PokemonDetail = {
   isLegendary: false,
   isMythical: false,
   isBaby: false,
+    heightDm: 7,
+    weightHg: 69,
 };
 
 const mewtwo: PokemonDetail = {
@@ -79,6 +83,8 @@ const mewtwo: PokemonDetail = {
   isLegendary: true,
   isMythical: false,
   isBaby: false,
+    heightDm: 7,
+    weightHg: 69,
 };
 
 const noImage: PokemonDetail = {
@@ -93,6 +99,8 @@ const noImage: PokemonDetail = {
   isLegendary: false,
   isMythical: false,
   isBaby: false,
+    heightDm: 7,
+    weightHg: 69,
 };
 
 const meta: Meta<typeof PokemonCard> = {

@@ -17,6 +17,8 @@ function makePokemon(id: number): PokemonDetail {
     isLegendary: false,
     isMythical: false,
     isBaby: false,
+    heightDm: 7,
+    weightHg: 69,
   };
 }
 

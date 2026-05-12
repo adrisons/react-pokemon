@@ -146,12 +146,15 @@ test.describe("Compare flow from PokemonCard", () => {
     const firstCard = listPage.getPokemonCards().first();
     const secondCard = listPage.getPokemonCards().nth(1);
 
+    await firstCard.evaluate(el => el.scrollIntoView({ block: "center" }));
     await firstCard.hover();
-    await firstCard.getByTestId("compare-btn").click();
+    // dispatchEvent bypasses viewport hit-testing that 3D transforms break
+    await firstCard.getByTestId("compare-btn").dispatchEvent("click");
     await expect(firstCard.getByTestId("compare-btn")).toContainText("Selected");
 
+    await secondCard.evaluate(el => el.scrollIntoView({ block: "center" }));
     await secondCard.hover();
-    await secondCard.getByTestId("compare-btn").click();
+    await secondCard.getByTestId("compare-btn").dispatchEvent("click");
 
     await expect(page).toHaveURL(/\/compare\?a=\d+&b=\d+/);
 
@@ -164,14 +167,15 @@ test.describe("Compare flow from PokemonCard", () => {
     await listPage.goto();
 
     const card = listPage.getPokemonCards().first();
+    await card.evaluate(el => el.scrollIntoView({ block: "center" }));
     await card.hover();
 
     const compareBtn = card.getByTestId("compare-btn");
-    await compareBtn.click();
+    await compareBtn.dispatchEvent("click");
     await expect(compareBtn).toContainText("Selected");
 
     await card.hover();
-    await compareBtn.click({ force: true });
+    await compareBtn.dispatchEvent("click");
     await expect(compareBtn).toContainText("Compare");
   });
 });

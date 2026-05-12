@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPokemonDetail } from "@features/pokemon-detail/api/pokemonDetailApi";
+import { getPokemonDetail, getPokemonSpecies } from "@features/pokemon-detail/api/pokemonDetailApi";
 import { getAbilityDescription } from "@features/pokemon-detail/api/abilityApi";
 import { adaptPokemonDetail } from "@core/domain/pokemon";
 import type { PokemonDetail } from "@core/domain/pokemon";
@@ -15,14 +15,17 @@ export function usePokemonDetail(id: string | undefined, { trackHistory = false 
     setLoading(true);
     getPokemonDetail(id)
       .then(async (raw) => {
-        const abilities = await Promise.all(
-          raw.abilities.map(async (a) => ({
-            name: a.ability.name,
-            isHidden: a.is_hidden,
-            description: await getAbilityDescription(a.ability.name),
-          }))
-        );
-        const detail = adaptPokemonDetail(raw, abilities);
+        const [abilities, species] = await Promise.all([
+          Promise.all(
+            raw.abilities.map(async (a) => ({
+              name: a.ability.name,
+              isHidden: a.is_hidden,
+              description: await getAbilityDescription(a.ability.name),
+            }))
+          ),
+          getPokemonSpecies(raw.id).catch(() => undefined),
+        ]);
+        const detail = adaptPokemonDetail(raw, abilities, species);
         setPokemon(detail);
         if (trackHistory) addEntry(detail);
         setLoading(false);

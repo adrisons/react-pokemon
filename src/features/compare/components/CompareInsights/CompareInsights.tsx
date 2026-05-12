@@ -1,10 +1,12 @@
 import { cn } from "@shared/lib/utils";
 import type { PokemonDetail } from "@core/domain/pokemon";
+import type { EffectivenessMap } from "@core/domain/type";
 import { getOffensiveMultiplier, countImmunities } from "@features/compare/utils/typeEffectiveness";
 
 interface Props {
   pokemonA: PokemonDetail;
   pokemonB: PokemonDetail;
+  effectivenessMap: EffectivenessMap;
 }
 
 interface Insight {
@@ -25,7 +27,7 @@ function getStat(p: PokemonDetail, name: string) {
   return p.stats.find((s) => s.name === name)?.value ?? 0;
 }
 
-function buildInsights(a: PokemonDetail, b: PokemonDetail): Insight[] {
+function buildInsights(a: PokemonDetail, b: PokemonDetail, map: EffectivenessMap): Insight[] {
   const insights: Insight[] = [];
 
   const typesA = a.types.map((t) => t.typeName);
@@ -116,8 +118,8 @@ function buildInsights(a: PokemonDetail, b: PokemonDetail): Insight[] {
   }
 
   // --- Type vulnerability cross-check ---
-  const multAvsB = getOffensiveMultiplier(typesA, typesB); // A attacks B
-  const multBvsA = getOffensiveMultiplier(typesB, typesA); // B attacks A
+  const multAvsB = getOffensiveMultiplier(map, typesA, typesB);
+  const multBvsA = getOffensiveMultiplier(map, typesB, typesA);
 
   if (multAvsB >= 2) {
     const label = multAvsB === 4 ? "×4" : multAvsB >= 4 ? `×${multAvsB}` : "×2";
@@ -137,8 +139,8 @@ function buildInsights(a: PokemonDetail, b: PokemonDetail): Insight[] {
   }
 
   // --- Immunities ---
-  const immA = countImmunities(typesA);
-  const immB = countImmunities(typesB);
+  const immA = countImmunities(map, typesA);
+  const immB = countImmunities(map, typesB);
   if (immA !== immB) {
     const more = immA > immB ? a : b;
     const less = immA > immB ? b : a;
@@ -191,8 +193,8 @@ const HIGHLIGHT_CLASSES: Record<string, string> = {
   neutral: "border-l-2 border-l-white/20 pl-3",
 };
 
-export default function CompareInsights({ pokemonA, pokemonB }: Props) {
-  const insights = buildInsights(pokemonA, pokemonB);
+export default function CompareInsights({ pokemonA, pokemonB, effectivenessMap }: Props) {
+  const insights = buildInsights(pokemonA, pokemonB, effectivenessMap);
   if (insights.length === 0) return null;
 
   return (

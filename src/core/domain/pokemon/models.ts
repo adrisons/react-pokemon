@@ -51,4 +51,8 @@ export interface PokemonDetail {
   isLegendary: boolean;
   isMythical: boolean;
   isBaby: boolean;
+  /** Decimetres as returned by the API (1 = 10 cm). */
+  heightDm: number;
+  /** Hectograms as returned by the API (1 = 100 g). */
+  weightHg: number;
 }

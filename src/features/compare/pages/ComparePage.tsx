@@ -25,7 +25,7 @@ function ComparePage() {
   const idA = searchParams.get("a");
   const idB = searchParams.get("b");
 
-  const { pokemonA, pokemonB, loading } = useCompare(idA, idB);
+  const { pokemonA, pokemonB, effectivenessMap, loading } = useCompare(idA, idB);
 
   function handleSelectA(id: string) {
     setSearchParams((prev) => {
@@ -59,12 +59,12 @@ function ComparePage() {
     });
   }
 
-  const bothLoaded = pokemonA && pokemonB;
+  const bothLoaded = pokemonA && pokemonB && effectivenessMap;
 
   return (
     <section
       aria-labelledby="compare-heading"
-      className="min-h-screen px-6 py-8 pb-16"
+      className="min-h-screen px-4 sm:px-6 py-8 pb-16"
       data-testid="compare-page"
     >
       <div className="max-w-[860px] mx-auto">
@@ -98,7 +98,7 @@ function ComparePage() {
 
         <section
           aria-label="Pokémon selectors"
-          className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 mb-12 bg-dark-800 border border-dark-600 rounded-2xl p-6"
+          className="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] items-center gap-4 mb-12 bg-dark-800 border border-dark-600 rounded-2xl p-4 sm:p-6"
         >
           <PokemonSelector
             label="Pokémon A"
@@ -125,7 +125,7 @@ function ComparePage() {
         )}
 
         {!loading && bothLoaded && (
-          <CompareStats pokemonA={pokemonA} pokemonB={pokemonB} />
+          <CompareStats pokemonA={pokemonA} pokemonB={pokemonB} effectivenessMap={effectivenessMap} />
         )}
 
         {!loading && !bothLoaded && (
