@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Loading } from "@shared/ui";
+import { cn } from "@shared/lib/utils";
 import cardBack from "@shared/assets/pokemon-card-back.svg";
 
 interface Props {
@@ -13,13 +14,15 @@ function PokemonPicture({ imageUrl }: Props) {
     <div className="flex justify-center">
       {!loaded && <Loading />}
       <img
-        className="w-full h-auto max-w-80"
+        className={cn(
+          "w-full h-auto max-w-80 transition-opacity duration-300",
+          loaded ? "opacity-100" : "opacity-0"
+        )}
         alt="Pokemon"
         src={imageUrl ?? cardBack}
         decoding="async"
         onLoad={() => setLoaded(true)}
         onError={(e) => { (e.currentTarget as HTMLImageElement).src = cardBack; }}
-        style={{ opacity: loaded ? 1 : 0, transition: "opacity 0.3s ease" }}
       />
     </div>
   );

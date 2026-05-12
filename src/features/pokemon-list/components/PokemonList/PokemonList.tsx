@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { getPokemonIdFromUrl } from "@core/domain/pokemon";
 import type { PokemonSummary } from "@core/domain/pokemon";
@@ -15,26 +16,23 @@ function PokemonList({ pokemons }: Props) {
           return !!name ? (
             <li
               key={id}
-              className="group animate-pokemon-entry transition-colors duration-150 border border-dark-600 flex justify-between items-center cursor-pointer
-                hover:bg-dark-700
-                first:rounded-t-lg last:rounded-b-lg only:rounded-lg
-                not-first:border-t-0"
-              style={{ animationDelay: `${index * 35}ms` }}
+              className="group motion-safe:animate-pokemon-entry [animation-delay:var(--delay)] transition-colors duration-150 border border-dark-600 flex justify-between items-center cursor-pointer hover:bg-dark-700 first:rounded-t-lg last:rounded-b-lg only:rounded-lg not-first:border-t-0"
+              style={{ "--delay": `${index * 35}ms` } as CSSProperties}
             >
               <Link
                 to={`/react-pokemon/detail/${id}`}
-                className="w-full h-full no-underline text-inherit flex items-center"
+                className="w-full h-full no-underline text-inherit flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold focus-visible:ring-offset-2 focus-visible:ring-offset-dark-900"
               >
-                <div className="font-pixel text-[0.72rem] leading-none w-[5.5rem] min-w-[5.5rem] text-right text-accent-gold tracking-[0.02em] transition-colors duration-150 group-hover:text-text-primary border-r border-dark-600 flex items-center justify-end px-3 py-2.5">
+                <div className="font-pixel text-caption leading-none w-24 min-w-24 text-right text-accent-gold tracking-wider transition-colors duration-150 group-hover:text-text-primary border-r border-dark-600 flex items-center justify-end px-3 py-3">
                   #{id}
                 </div>
-                <div className="text-sm font-medium tracking-[0.01em] flex-1 capitalize px-3 py-2.5">{name}</div>
+                <div className="text-body font-medium flex-1 capitalize px-3 py-3">{name}</div>
               </Link>
             </li>
           ) : null;
         })
       ) : (
-        <div className="p-2 text-sm">
+        <div className="p-2 text-body">
           No pokemons found
         </div>
       )}

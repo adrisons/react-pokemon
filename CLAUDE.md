@@ -78,6 +78,8 @@ Flag explicitly if any of the above is intentionally unchanged.
 
 **New or edited UI:** prefer existing shadcn primitive → Tailwind + `cn()` → CVA if variants → lucide for icons.
 
+**Design system:** [`docs/design-guidelines.md`](docs/design-guidelines.md) is the strict, blocking source of truth for tokens, hierarchy, variants, inline-`style` policy, a11y, and the PR checklist. Read it before any UI change.
+
 ### API URL ownership
 
 The external API base URL (`https://pokeapi.co/api/v2`) lives **only** in `src/core/api/httpClient.ts`.

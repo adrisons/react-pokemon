@@ -1,12 +1,11 @@
-import Navbar from "@features/pokemon-list/components/Navbar/Navbar";
+import MainLayout from "@layouts/MainLayout";
 import AppRouter from "./router";
 
 function App() {
   return (
-    <>
-      <Navbar />
+    <MainLayout>
       <AppRouter />
-    </>
+    </MainLayout>
   );
 }
 

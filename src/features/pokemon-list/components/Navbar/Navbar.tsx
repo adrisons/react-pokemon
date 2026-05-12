@@ -2,13 +2,19 @@ import { Link } from "react-router-dom";
 import logo from "@shared/assets/pokemon-logo.png";
 
 const Navbar = () => (
-  <div className="sticky top-0 z-50 w-full flex justify-center py-3 bg-dark-900/90 border-b border-dark-600 backdrop-blur-sm">
-    <Link to="/react-pokemon/" className="h-12 block">
+  <div
+    className="flex items-center py-3"
+    data-testid="primary-nav"
+  >
+    <Link
+      to="/react-pokemon/"
+      aria-label="Go to Pokémon home"
+      className="h-12 block rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold focus-visible:ring-offset-2 focus-visible:ring-offset-dark-900"
+    >
       <img
         src={logo}
-        alt="logo"
-        className="h-full"
-        style={{ filter: "drop-shadow(0 0 10px rgba(255, 215, 0, 0.35))" }}
+        alt="Pokémon"
+        className="h-full drop-shadow-[0_0_10px_rgba(255,215,0,0.35)]"
       />
     </Link>
   </div>

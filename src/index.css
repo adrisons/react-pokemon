@@ -9,39 +9,72 @@
 @import "tailwindcss";
 
 @theme {
-  --color-poke-white: #fff;
-  --color-poke-gray-100: #ccc;
-  --color-poke-gray-500: #333333;
-  --color-poke-yellow: #ffde00;
-  --color-poke-blue: #3b4cca;
-
+  /* ── Surfaces & text ────────────────────────────────────── */
   --color-dark-900: #0d0d14;
   --color-dark-800: #13131f;
   --color-dark-700: #1a1a2e;
   --color-dark-600: #252540;
   --color-text-primary: #e8e8f0;
-  --color-text-muted: #6868aa;
+  --color-text-muted: #8a8acb;        /* bumped from #6868aa for >=4.5:1 on dark-900 */
+  --color-text-subtle: #6868aa;       /* opt-in for non-critical metadata only */
   --color-accent-gold: #ffd700;
+  --color-accent-gold-hi: #ffed4e;
+  --color-text-on-accent: #1a1006;
+  --color-danger: #ef4444;
+  --color-danger-soft: #fca5a5;
 
+  /* ── Typography ────────────────────────────────────────── */
   --font-pixel: "Space Mono", monospace;
   --font-elegant: "Nunito", sans-serif;
 
+  --text-display: 2.8rem;
+  --text-display--line-height: 1.05;
+  --text-h1: 2.1rem;
+  --text-h1--line-height: 1.1;
+  --text-h2: 1.25rem;
+  --text-h2--line-height: 1.2;
+  --text-h3: 0.95rem;
+  --text-h3--line-height: 1.3;
+  --text-body: 0.95rem;
+  --text-body--line-height: 1.5;
+  --text-label: 0.8rem;
+  --text-label--line-height: 1.2;
+  --text-caption: 0.7rem;
+  --text-caption--line-height: 1.3;
+  --text-mono: 0.8rem;
+  --text-mono--line-height: 1.1;
+
+  /* ── Radii ─────────────────────────────────────────────── */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.75rem;
+
+  /* ── Shadows ───────────────────────────────────────────── */
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-card-hover: 0 12px 32px rgba(0, 0, 0, 0.6), 0 6px 16px rgba(255, 215, 0, 0.1);
+  --shadow-gold-soft: 0 4px 14px rgba(255, 215, 0, 0.3);
+  --shadow-gold-hi: 0 8px 24px rgba(255, 215, 0, 0.45);
+
+  /* ── Stat colors (semantic, consumed via Tailwind utilities) ── */
+  --color-stat-hp: #ff5959;
+  --color-stat-attack: #f5ac78;
+  --color-stat-defense: #fae078;
+  --color-stat-special-attack: #9db7f5;
+  --color-stat-special-defense: #a7db8d;
+  --color-stat-speed: #fa92b2;
+
+  /* ── Animations ────────────────────────────────────────── */
   --animate-pokemon-entry: pokemon-entry 0.3s ease both;
   --animate-card-entry: card-entry 0.5s ease both;
   --animate-search-fade: search-fade-in 0.4s ease both;
-  --animate-shimmer: shimmer 1.4s ease infinite;
+  --animate-shimmer: shimmer 1.4s ease-in-out infinite;
   --animate-selector-chosen: selector-chosen-in 0.25s ease both;
   --animate-dropdown: dropdown-in 0.15s ease both;
   --animate-compare-in: compare-stats-in 0.4s ease both;
   --animate-stat-row: stat-row-in 0.3s ease both;
-}
-
-:root {
-  --white: #fff;
-  --gray-100: #ccc;
-  --gray-500: #333333;
-  --yellow: #ffde00;
-  --blue: #3b4cca;
 }
 
 @keyframes pokemon-entry {
@@ -107,19 +140,10 @@
   input:focus {
     @apply outline-none border-accent-gold;
   }
-
-  button {
-    @apply bg-dark-800 text-text-primary border border-dark-600 rounded px-4 py-2 cursor-pointer;
-    font: 0.9rem / 1.5 var(--font-elegant);
-  }
-
-  button:hover {
-    @apply bg-dark-600 text-text-primary border-dark-600;
-  }
 }
 
 @layer components {
-  /* ── Card 3D system (needs CSS: JS-driven custom properties + 3D transforms) ── */
+  /* ── Card 3D system (CSS needed: JS-driven custom properties + 3D transforms) ── */
   .card-tilt {
     transform: rotateX(var(--rot-x, 0deg)) rotateY(var(--rot-y, 0deg));
     transition: transform 0.12s ease-out;
@@ -172,5 +196,106 @@
     );
     mix-blend-mode: screen;
     opacity: var(--holo-opacity, 0);
+  }
+
+  /* Card outer wrappers — gradient border + inner glow driven by --type-color. */
+  .pkm-card-border {
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--type-color) 50%, transparent) 0%,
+      color-mix(in srgb, var(--type-color) 18%, transparent) 25%,
+      color-mix(in srgb, var(--color-accent-gold) 15%, transparent) 50%,
+      color-mix(in srgb, var(--type-color) 12%, transparent) 75%,
+      color-mix(in srgb, var(--type-color) 38%, transparent) 100%
+    );
+  }
+
+  .pkm-card-inner {
+    background:
+      linear-gradient(135deg,
+        color-mix(in srgb, var(--type-color) 8%, transparent) 0%,
+        var(--color-dark-800) 45%,
+        var(--color-dark-900) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 215, 0, 0.15),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  .pkm-card-image-bg {
+    background: radial-gradient(
+      ellipse at 50% 60%,
+      color-mix(in srgb, var(--type-color) 15%, transparent) 0%,
+      transparent 70%
+    );
+  }
+
+  .pkm-card-image {
+    filter: drop-shadow(0 4px 12px color-mix(in srgb, var(--type-color) 32%, transparent));
+  }
+
+  /* History card surface */
+  .pkm-history-card {
+    border-color: color-mix(in srgb, var(--type-color) 25%, transparent);
+    background: linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--type-color) 8%, transparent) 0%,
+      var(--color-dark-800) 60%
+    );
+  }
+
+  .pkm-history-card-glow {
+    background: radial-gradient(
+      ellipse at 50% 0%,
+      color-mix(in srgb, var(--type-color) 19%, transparent) 0%,
+      transparent 70%
+    );
+  }
+
+  .pkm-history-card-image {
+    filter: drop-shadow(0 3px 8px color-mix(in srgb, var(--type-color) 32%, transparent));
+  }
+
+  /* Compare header circle */
+  .pkm-compare-avatar-bg {
+    background: radial-gradient(
+      ellipse at 50% 60%,
+      color-mix(in srgb, var(--type-color) 15%, transparent) 0%,
+      transparent 70%
+    );
+  }
+
+  .pkm-compare-avatar-image {
+    filter: drop-shadow(0 4px 16px color-mix(in srgb, var(--type-color) 38%, transparent));
+  }
+
+  /* Type pill (drives Badge type variant) */
+  .pkm-type-pill {
+    background-color: color-mix(in srgb, var(--type-color) 13%, transparent);
+    color: var(--type-color);
+    border-color: color-mix(in srgb, var(--type-color) 31%, transparent);
+    border-left-color: var(--type-color);
+  }
+
+  /* Evolution card states */
+  .pkm-evo-card {
+    border: 2px solid var(--color-dark-600);
+    background: var(--color-dark-800);
+  }
+
+  .pkm-evo-card-current {
+    border-color: var(--color-accent-gold);
+    background: linear-gradient(145deg, var(--color-dark-700), var(--color-dark-800));
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.25), inset 0 1px 0 rgba(255, 215, 0, 0.1);
+  }
+
+  /* Shimmer skeleton for card grid */
+  .pkm-card-skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--color-dark-800) 25%,
+      var(--color-dark-700) 50%,
+      var(--color-dark-800) 75%
+    );
+    background-size: 400px 100%;
   }
 }

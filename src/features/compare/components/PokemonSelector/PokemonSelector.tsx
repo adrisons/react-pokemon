@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { X } from "lucide-react";
 import { usePokemonListStore } from "@features/pokemon-list/store";
 import type { PokemonSummary } from "@core/domain/pokemon";
 import { getPokemonIdFromUrl } from "@core/domain/pokemon";
@@ -87,22 +88,23 @@ function PokemonSelector({ label, selectedId, onSelect, onClear, disabled = fals
 
   return (
     <div className="relative flex flex-col gap-2" data-testid="pokemon-selector">
-      <label className="text-[0.6rem] tracking-[0.15em] uppercase text-text-muted font-pixel">
+      <label className="text-caption tracking-[0.15em] uppercase text-text-muted font-pixel">
         {label}
       </label>
 
       {isSelected ? (
-        <div className="flex items-center justify-between bg-accent-gold/7 border border-accent-gold/30 rounded-[0.6rem] py-[0.55rem] px-3.5 gap-2 animate-selector-chosen">
-          <span className="text-[0.8rem] font-bold text-accent-gold tracking-[0.06em] font-pixel">
+        <div className="flex items-center justify-between bg-accent-gold/7 border border-accent-gold/30 rounded-lg py-2 px-4 gap-2 motion-safe:animate-selector-chosen">
+          <span className="text-label font-bold text-accent-gold tracking-[0.06em] font-pixel">
             #{String(selectedId).padStart(3, "0")}
           </span>
           <button
-            className="bg-transparent border-none text-text-muted text-xs p-[2px] px-1.5 cursor-pointer rounded transition-colors duration-150 leading-none hover:text-text-primary hover:bg-white/5"
+            type="button"
+            className="inline-flex items-center justify-center size-6 rounded text-text-muted transition-colors duration-150 hover:text-text-primary hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold"
             onClick={onClear}
-            title="Remove"
+            aria-label="Remove selection"
             data-testid="selector-clear-btn"
           >
-            ✕
+            <X className="size-3" aria-hidden="true" />
           </button>
         </div>
       ) : (
@@ -110,7 +112,7 @@ function PokemonSelector({ label, selectedId, onSelect, onClear, disabled = fals
           <input
             ref={inputRef}
             type="text"
-            className="w-full bg-dark-700 border border-dark-600 rounded-[0.6rem] py-[0.55rem] px-3.5 text-sm text-text-primary transition-all duration-200 focus:outline-none focus:border-accent-gold focus:shadow-[0_0_0_2px_rgba(255,215,0,0.12)] disabled:opacity-40 disabled:cursor-not-allowed placeholder:text-text-muted placeholder:text-[0.8rem]"
+            className="w-full bg-dark-700 border border-dark-600 rounded-lg py-2 px-4 text-body text-text-primary transition-all duration-200 focus:outline-none focus:border-accent-gold focus:ring-2 focus:ring-accent-gold/15 disabled:opacity-40 disabled:cursor-not-allowed placeholder:text-text-muted placeholder:text-label"
             placeholder={disabled ? "Select the other Pokémon first" : "Name or #ID…"}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -120,14 +122,14 @@ function PokemonSelector({ label, selectedId, onSelect, onClear, disabled = fals
             data-testid="selector-input"
             autoComplete="off"
           />
-          {searching && <span className="absolute right-3 w-3.5 h-3.5 border-2 border-dark-600 border-t-accent-gold rounded-full animate-spin" />}
+          {searching && <span className="absolute right-3 size-4 border-2 border-dark-600 border-t-accent-gold rounded-full motion-safe:animate-spin" />}
         </div>
       )}
 
       {open && (
         <ul
           ref={listRef}
-          className="absolute top-[calc(100%+4px)] left-0 right-0 bg-dark-800 border border-dark-600 rounded-xl p-1.5 list-none m-0 z-50 shadow-[0_12px_32px_rgba(0,0,0,0.6)] animate-dropdown"
+          className="absolute top-[calc(100%+4px)] left-0 right-0 bg-dark-800 border border-dark-600 rounded-xl p-2 list-none m-0 z-50 shadow-[0_12px_32px_rgba(0,0,0,0.6)] motion-safe:animate-dropdown"
           role="listbox"
           data-testid="selector-dropdown"
         >
@@ -139,15 +141,15 @@ function PokemonSelector({ label, selectedId, onSelect, onClear, disabled = fals
                 role="option"
                 aria-selected={i === activeIndex}
                 className={cn(
-                  "flex items-center gap-2.5 py-[0.45rem] px-2.5 rounded-lg cursor-pointer transition-colors duration-100 hover:bg-dark-700",
+                  "flex items-center gap-3 py-2 px-3 rounded-lg cursor-pointer transition-colors duration-100 hover:bg-dark-700",
                   i === activeIndex && "bg-dark-700"
                 )}
                 onMouseDown={() => handleSelect(p)}
               >
-                <span className="text-[0.65rem] text-accent-gold tracking-[0.04em] w-10 shrink-0 font-pixel">
+                <span className="text-caption text-accent-gold tracking-wider w-12 shrink-0 font-pixel">
                   #{String(id).padStart(3, "0")}
                 </span>
-                <span className="text-[0.8rem] text-text-primary capitalize">{p.name}</span>
+                <span className="text-label text-text-primary capitalize">{p.name}</span>
               </li>
             );
           })}

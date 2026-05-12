@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type CSSProperties } from "react";
 import { useNavigate } from "react-router-dom";
 import typeColors from "@shared/constants/typeColors";
 import cardBack from "@shared/assets/pokemon-card-back.svg";
@@ -15,35 +15,26 @@ import {
 
 function HistoryCard({ entry, onClick }: { entry: HistoryEntry; onClick: () => void }) {
   const primaryType = entry.types[0]?.typeName;
-  const typeColor = primaryType ? typeColors[primaryType] : "#6868aa";
+  const typeColor = primaryType ? typeColors[primaryType] : "var(--color-text-muted)";
 
   return (
     <button
+      type="button"
       onClick={onClick}
       data-testid={`recently-viewed-${entry.id}`}
-      className="group relative h-32 w-28 flex flex-col items-center rounded-xl overflow-hidden border cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:scale-[1.03] active:scale-[1.01]"
-      style={{
-        borderColor: `${typeColor}40`,
-        background: `linear-gradient(160deg, ${typeColor}15 0%, var(--color-dark-800, #13131f) 60%)`,
-        boxShadow: `0 2px 12px rgba(0,0,0,0.4)`,
-      }}
+      style={{ "--type-color": typeColor } as CSSProperties}
+      className="group pkm-history-card relative h-32 w-28 flex flex-col items-center rounded-xl overflow-hidden border shadow-[0_2px_12px_rgba(0,0,0,0.4)] cursor-pointer transition-all duration-200 motion-safe:hover:-translate-y-1 motion-safe:hover:scale-[1.03] motion-safe:active:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold focus-visible:ring-offset-2 focus-visible:ring-offset-dark-900"
     >
-      {/* Type glow */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{
-          background: `radial-gradient(ellipse at 50% 0%, ${typeColor}30 0%, transparent 70%)`,
-          boxShadow: `0 0 20px ${typeColor}20`,
-        }}
+        className="pkm-history-card-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        aria-hidden="true"
       />
 
-      {/* Image */}
       <div className="relative z-10 w-full flex-1 flex items-center justify-center pt-2">
         <img
           src={entry.imageUrl ?? cardBack}
           alt={entry.name}
-          className="w-14 h-14 object-contain transition-transform duration-200 group-hover:scale-110 group-hover:-translate-y-0.5"
-          style={{ filter: `drop-shadow(0 3px 8px ${typeColor}50)` }}
+          className="pkm-history-card-image w-14 h-14 object-contain transition-transform duration-200 motion-safe:group-hover:scale-110"
           loading="lazy"
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).src = cardBack;
@@ -51,18 +42,11 @@ function HistoryCard({ entry, onClick }: { entry: HistoryEntry; onClick: () => v
         />
       </div>
 
-      {/* Info */}
-      <div className="relative z-10 w-full flex flex-col items-center gap-0.5 px-2 pb-2">
-        <span
-          className="text-[0.52rem] font-bold tracking-wider leading-none"
-          style={{ fontFamily: "var(--font-pixel)", color: "var(--color-accent-gold)", opacity: 0.75 }}
-        >
+      <div className="relative z-10 w-full flex flex-col items-center gap-1 px-2 pb-2">
+        <span className="font-pixel text-caption font-bold tracking-[0.12em] text-accent-gold/75">
           #{String(entry.id).padStart(3, "0")}
         </span>
-        <span
-          className="capitalize text-[0.72rem] font-semibold text-center leading-tight max-w-full truncate w-full"
-          style={{ fontFamily: "var(--font-elegant)", color: "var(--color-text-primary)" }}
-        >
+        <span className="capitalize text-label font-semibold text-text-primary text-center leading-tight max-w-full truncate w-full">
           {entry.name}
         </span>
       </div>
@@ -93,7 +77,6 @@ function RecentlyViewed() {
       engine.target.set(clamped);
       engine.location.set(clamped);
       engine.scrollBody.useDuration(0).useFriction(0);
-      // Sync the active snap index to the closest snap so arrow state stays correct.
       const snaps = engine.scrollSnaps;
       const closest = snaps.reduce((best, snap, i) =>
         Math.abs(snap - clamped) < Math.abs(snaps[best] - clamped) ? i : best, 0);
@@ -106,7 +89,6 @@ function RecentlyViewed() {
     return () => node.removeEventListener("wheel", listener);
   }, [api]);
 
-  // Scroll by (visible cards − 1) when clicking the arrows.
   const scrollByPage = useCallback(
     (direction: 1 | -1) => {
       if (!api) return;
@@ -124,18 +106,16 @@ function RecentlyViewed() {
   if (entries.length === 0) return null;
 
   return (
-    <section className="mb-10" aria-label="Recently viewed Pokémon" data-testid="recently-viewed-carousel">
-      <h2 className="flex items-center justify-center gap-2.5 text-[0.85rem] uppercase tracking-[0.14em] text-accent-gold/90 font-pixel mb-5">
-        <span className="inline-block w-4 h-[2px] rounded-full bg-accent-gold/40" aria-hidden="true" />
+    <section aria-labelledby="recently-viewed-heading" data-testid="recently-viewed-carousel">
+      <h2
+        id="recently-viewed-heading"
+        className="flex items-center justify-center gap-3 text-h3 uppercase tracking-[0.16em] text-accent-gold font-pixel mb-6"
+      >
+        <span className="inline-block w-3 h-0.5 rounded-full bg-accent-gold/40" aria-hidden="true" />
         Recently Viewed
-        <span className="inline-block w-4 h-[2px] rounded-full bg-accent-gold/40" aria-hidden="true" />
+        <span className="inline-block w-3 h-0.5 rounded-full bg-accent-gold/40" aria-hidden="true" />
       </h2>
 
-      {/*
-        No horizontal padding on the Carousel wrapper so it aligns with the grid.
-        The arrows are overlaid inside the viewport with a semi-transparent backdrop.
-        py-2 + overflow-visible so the hover scale on cards isn't clipped.
-      */}
       <Carousel
         opts={{ align: "start", dragFree: true }}
         setApi={setApi}
@@ -152,12 +132,6 @@ function RecentlyViewed() {
           ))}
         </CarouselContent>
 
-        {/*
-          Full-height blocking overlays: cover the entire left/right edge so cards
-          behind the arrow zone are never reachable (z-10 cards + transform hover
-          can leak outside the arrow button's rounded bounds).
-          The arrow button sits on top of the overlay (z-30 > z-20).
-        */}
         <div className="absolute left-0 top-0 h-full w-10 z-20 pointer-events-auto" aria-hidden="true" />
         <div className="absolute right-0 top-0 h-full w-10 z-20 pointer-events-auto" aria-hidden="true" />
 

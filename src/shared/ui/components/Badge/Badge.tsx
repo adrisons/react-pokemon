@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { PokemonTypeName } from "@core/domain/pokemon";
 import typeColors from "@shared/constants/typeColors";
 import { Badge as ShadcnBadge } from "@shared/ui/components/ui/badge";
@@ -7,17 +8,11 @@ interface Props {
 }
 
 function Badge({ name }: Props) {
-  const color = typeColors[name];
   return (
     <ShadcnBadge
-      variant="outline"
-      className="uppercase font-bold tracking-wider rounded-r-xl rounded-l-none text-xs"
-      style={{
-        borderColor: color,
-        borderLeftWidth: "9px",
-        borderLeftColor: color,
-        color: color,
-      }}
+      variant="type"
+      style={{ "--type-color": typeColors[name] } as CSSProperties}
+      data-testid={`type-badge-${name}`}
     >
       {name}
     </ShadcnBadge>

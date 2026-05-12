@@ -2,17 +2,18 @@
 
 exports[`WHEN: Navbar > THEN: should match snapshot 1`] = `
 <div
-  class="sticky top-0 z-50 w-full flex justify-center py-3 bg-dark-900/90 border-b border-dark-600 backdrop-blur-sm"
+  class="flex items-center py-3"
+  data-testid="primary-nav"
 >
   <a
-    class="h-12 block"
+    aria-label="Go to Pokémon home"
+    class="h-12 block rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold focus-visible:ring-offset-2 focus-visible:ring-offset-dark-900"
     href="/react-pokemon/"
   >
     <img
-      alt="logo"
-      class="h-full"
+      alt="Pokémon"
+      class="h-full drop-shadow-[0_0_10px_rgba(255,215,0,0.35)]"
       src="/react-pokemon/src/shared/assets/pokemon-logo.png"
-      style="filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.35));"
     />
   </a>
 </div>

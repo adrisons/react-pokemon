@@ -170,7 +170,8 @@ test.describe("Compare flow from PokemonCard", () => {
     await compareBtn.click();
     await expect(compareBtn).toContainText("Selected");
 
-    await compareBtn.click();
+    await card.hover();
+    await compareBtn.click({ force: true });
     await expect(compareBtn).toContainText("Compare");
   });
 });

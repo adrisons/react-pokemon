@@ -2,60 +2,110 @@
 
 exports[`WHEN: Pagination with no prev page link > THEN: should match snapshot 1`] = `
 <div
-  class="mt-12 w-full flex justify-between items-center gap-4"
+  class="w-full flex justify-between items-center gap-4"
+  data-testid="pagination"
 >
   <div />
   <button
-    class="group relative flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300 text-[#13131f] bg-[linear-gradient(135deg,#ffd700_0%,#ffed4e_100%)] border-2 border-[#ffed4e] shadow-[0_6px_20px_rgba(255,215,0,0.35),inset_0_1px_0_rgba(255,255,255,0.3)] uppercase tracking-[0.05em] overflow-hidden hover:shadow-[0_10px_30px_rgba(255,215,0,0.5),inset_0_1px_0_rgba(255,255,255,0.4)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-[0_3px_10px_rgba(255,215,0,0.3),inset_0_2px_4px_rgba(0,0,0,0.2)] before:content-[''] before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent)] before:[transition:left_0.5s_ease] hover:before:left-full"
+    class="group/button inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap font-semibold transition-all outline-none select-none border rounded-lg focus-visible:ring-2 focus-visible:ring-accent-gold focus-visible:ring-offset-2 focus-visible:ring-offset-dark-900 disabled:opacity-50 disabled:pointer-events-none motion-safe:active:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [color:var(--color-text-on-accent)] uppercase tracking-[0.08em] bg-[linear-gradient(135deg,var(--color-accent-gold)_0%,var(--color-accent-gold-hi)_100%)] border-accent-gold-hi shadow-gold-soft motion-safe:hover:enabled:-translate-y-px hover:enabled:shadow-gold-hi h-10 min-h-10 px-4 text-label"
+    data-slot="button"
     data-testid="pagination-next-btn"
+    tabindex="0"
+    type="button"
   >
-    <span
-      class="relative z-[1]"
-    >
+    <span>
       Next
     </span>
-    <span
-      class="text-[1.1em] font-black relative z-[1]"
+    <svg
+      aria-hidden="true"
+      class="lucide lucide-arrow-right"
+      fill="none"
+      height="24"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      →
-    </span>
+      <path
+        d="M5 12h14"
+      />
+      <path
+        d="m12 5 7 7-7 7"
+      />
+    </svg>
   </button>
 </div>
 `;
 
 exports[`WHEN: Pagination with prev page link > THEN: should match snapshot 1`] = `
 <div
-  class="mt-12 w-full flex justify-between items-center gap-4"
+  class="w-full flex justify-between items-center gap-4"
+  data-testid="pagination"
 >
   <button
-    class="group relative flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300 text-[#13131f] bg-[linear-gradient(135deg,#ffd700_0%,#ffed4e_100%)] border-2 border-[#ffed4e] shadow-[0_6px_20px_rgba(255,215,0,0.35),inset_0_1px_0_rgba(255,255,255,0.3)] uppercase tracking-[0.05em] overflow-hidden hover:shadow-[0_10px_30px_rgba(255,215,0,0.5),inset_0_1px_0_rgba(255,255,255,0.4)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-[0_3px_10px_rgba(255,215,0,0.3),inset_0_2px_4px_rgba(0,0,0,0.2)] before:content-[''] before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent)] before:[transition:left_0.5s_ease] hover:before:left-full flex-row-reverse"
+    class="group/button inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap font-semibold transition-all outline-none select-none border rounded-lg focus-visible:ring-2 focus-visible:ring-accent-gold focus-visible:ring-offset-2 focus-visible:ring-offset-dark-900 disabled:opacity-50 disabled:pointer-events-none motion-safe:active:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [color:var(--color-text-on-accent)] uppercase tracking-[0.08em] bg-[linear-gradient(135deg,var(--color-accent-gold)_0%,var(--color-accent-gold-hi)_100%)] border-accent-gold-hi shadow-gold-soft motion-safe:hover:enabled:-translate-y-px hover:enabled:shadow-gold-hi h-10 min-h-10 px-4 text-label"
+    data-slot="button"
     data-testid="pagination-prev-btn"
+    tabindex="0"
+    type="button"
   >
-    <span
-      class="text-[1.1em] font-black relative z-[1]"
+    <svg
+      aria-hidden="true"
+      class="lucide lucide-arrow-left"
+      fill="none"
+      height="24"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      ←
-    </span>
-    <span
-      class="relative z-[1]"
-    >
+      <path
+        d="m12 19-7-7 7-7"
+      />
+      <path
+        d="M19 12H5"
+      />
+    </svg>
+    <span>
       Previous
     </span>
   </button>
   <button
-    class="group relative flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300 text-[#13131f] bg-[linear-gradient(135deg,#ffd700_0%,#ffed4e_100%)] border-2 border-[#ffed4e] shadow-[0_6px_20px_rgba(255,215,0,0.35),inset_0_1px_0_rgba(255,255,255,0.3)] uppercase tracking-[0.05em] overflow-hidden hover:shadow-[0_10px_30px_rgba(255,215,0,0.5),inset_0_1px_0_rgba(255,255,255,0.4)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-[0_3px_10px_rgba(255,215,0,0.3),inset_0_2px_4px_rgba(0,0,0,0.2)] before:content-[''] before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent)] before:[transition:left_0.5s_ease] hover:before:left-full"
+    class="group/button inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap font-semibold transition-all outline-none select-none border rounded-lg focus-visible:ring-2 focus-visible:ring-accent-gold focus-visible:ring-offset-2 focus-visible:ring-offset-dark-900 disabled:opacity-50 disabled:pointer-events-none motion-safe:active:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [color:var(--color-text-on-accent)] uppercase tracking-[0.08em] bg-[linear-gradient(135deg,var(--color-accent-gold)_0%,var(--color-accent-gold-hi)_100%)] border-accent-gold-hi shadow-gold-soft motion-safe:hover:enabled:-translate-y-px hover:enabled:shadow-gold-hi h-10 min-h-10 px-4 text-label"
+    data-slot="button"
     data-testid="pagination-next-btn"
+    tabindex="0"
+    type="button"
   >
-    <span
-      class="relative z-[1]"
-    >
+    <span>
       Next
     </span>
-    <span
-      class="text-[1.1em] font-black relative z-[1]"
+    <svg
+      aria-hidden="true"
+      class="lucide lucide-arrow-right"
+      fill="none"
+      height="24"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      →
-    </span>
+      <path
+        d="M5 12h14"
+      />
+      <path
+        d="m12 5 7 7-7 7"
+      />
+    </svg>
   </button>
 </div>
 `;

@@ -196,25 +196,32 @@ export default function CompareInsights({ pokemonA, pokemonB }: Props) {
   if (insights.length === 0) return null;
 
   return (
-    <div className="mt-7 pt-6 border-t border-dark-600 animate-compare-in [animation-duration:0.5s] [animation-delay:150ms]" data-testid="compare-insights">
-      <h3 className="flex items-center gap-2.5 text-[0.85rem] uppercase tracking-[0.14em] text-accent-gold/90 font-pixel mb-5">
-        <span className="inline-block w-4 h-[2px] rounded-full bg-accent-gold/50" aria-hidden="true" />
+    <section
+      aria-labelledby="compare-insights-heading"
+      className="mt-8 pt-6 border-t border-dark-600 motion-safe:animate-compare-in [animation-duration:0.5s] [animation-delay:150ms]"
+      data-testid="compare-insights"
+    >
+      <h2
+        id="compare-insights-heading"
+        className="flex items-center gap-3 text-h3 uppercase tracking-[0.16em] text-accent-gold font-pixel mb-6"
+      >
+        <span className="inline-block w-3 h-0.5 rounded-full bg-accent-gold/40" aria-hidden="true" />
         Insights
-      </h3>
-      <ul className="list-none p-0 m-0 flex flex-col gap-2.5">
+      </h2>
+      <ul className="list-none p-0 m-0 flex flex-col gap-3">
         {insights.map((ins, i) => (
           <li
             key={i}
             className={cn(
-              "flex items-start gap-2.5 py-2.5 px-3 bg-dark-700 rounded-[0.625rem] transition-colors duration-150 hover:bg-dark-600",
+              "flex items-start gap-3 py-3 px-3 bg-dark-700 rounded-lg transition-colors duration-150 hover:bg-dark-600",
               ins.highlight ? HIGHLIGHT_CLASSES[ins.highlight] : ""
             )}
           >
-            <span className="text-[1.05rem] leading-[1.4] shrink-0">{ins.icon}</span>
-            <span className="text-[0.82rem] leading-relaxed text-text-primary">{ins.text}</span>
+            <span className="text-body leading-[1.4] shrink-0">{ins.icon}</span>
+            <span className="text-body leading-relaxed text-text-primary">{ins.text}</span>
           </li>
         ))}
       </ul>
-    </div>
+    </section>
   );
 }

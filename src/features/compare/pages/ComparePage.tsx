@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams, useNavigationType } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import { Loading } from "@shared/ui";
+import { Button } from "@shared/ui/components/ui/button";
 import { useCompare } from "@features/compare/hooks/useCompare";
 import { useCompareStore } from "@features/compare/store/compareStore";
 import CompareStats from "@features/compare/components/CompareStats/CompareStats";
@@ -60,35 +62,51 @@ function ComparePage() {
   const bothLoaded = pokemonA && pokemonB;
 
   return (
-    <div className="min-h-screen px-6 py-8 pb-16">
+    <section
+      aria-labelledby="compare-heading"
+      className="min-h-screen px-6 py-8 pb-16"
+      data-testid="compare-page"
+    >
       <div className="max-w-[860px] mx-auto">
 
-        <button
+        <Button
+          variant="secondary"
+          size="md"
           onClick={() => navigate("/react-pokemon/")}
-          className="relative px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center gap-2 text-accent-gold border-2 border-dark-600 bg-transparent tracking-[0.02em] hover:border-accent-gold hover:bg-accent-gold/5 hover:shadow-[0_4px_12px_rgba(255,215,0,0.15)] active:bg-accent-gold/10 mb-8"
+          className="mb-8"
           data-testid="compare-back-btn"
         >
-          <span>←</span>
+          <ArrowLeft aria-hidden="true" />
           <span>Back to Collection</span>
-        </button>
+        </Button>
 
-        <div className="mb-8 text-center">
-          <h1 className="text-[clamp(1.6rem,4vw,2.4rem)] font-bold tracking-[0.1em] text-accent-gold leading-none mb-2 font-pixel">
+        <header className="mb-12 text-center">
+          <h1
+            id="compare-heading"
+            className="text-display font-bold tracking-[0.06em] text-accent-gold font-pixel drop-shadow-[0_0_20px_rgba(255,215,0,0.15)]"
+            data-testid="compare-page-title"
+          >
             Compare
           </h1>
-          <p className="text-sm text-text-muted">
-            Select two Pokémon to see how their stats stack up
+          <p className="font-pixel text-caption tracking-[0.22em] uppercase text-text-muted mt-4">
+            Two enter · one wins
           </p>
-        </div>
+          <p className="text-body text-text-muted mt-3 max-w-sm mx-auto leading-relaxed">
+            Select two Pokémon to see how their stats stack up.
+          </p>
+        </header>
 
-        <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 mb-10 bg-dark-800 border border-dark-600 rounded-[1.25rem] p-6">
+        <section
+          aria-label="Pokémon selectors"
+          className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 mb-12 bg-dark-800 border border-dark-600 rounded-2xl p-6"
+        >
           <PokemonSelector
             label="Pokémon A"
             selectedId={idA}
             onSelect={handleSelectA}
             onClear={handleClearA}
           />
-          <div className="text-[0.9rem] font-bold tracking-[0.12em] text-text-muted text-center px-2 font-pixel">
+          <div className="text-label font-bold tracking-[0.12em] text-text-muted text-center px-2 font-pixel">
             VS
           </div>
           <PokemonSelector
@@ -98,37 +116,41 @@ function ComparePage() {
             onClear={handleClearB}
             disabled={!idA}
           />
-        </div>
+        </section>
 
-        <div className="mt-2">
-          {loading && (
-            <div className="py-16">
-              <Loading />
+        {loading && (
+          <div className="py-16">
+            <Loading />
+          </div>
+        )}
+
+        {!loading && bothLoaded && (
+          <CompareStats pokemonA={pokemonA} pokemonB={pokemonB} />
+        )}
+
+        {!loading && !bothLoaded && (
+          <div
+            className="flex flex-col items-center justify-center gap-3 px-8 py-16 text-center"
+            data-testid="compare-empty"
+          >
+            <div className="text-2xl opacity-40" aria-hidden="true">
+              {idA && !idB ? "⚔" : "✦"}
             </div>
-          )}
-
-          {!loading && bothLoaded && (
-            <CompareStats pokemonA={pokemonA} pokemonB={pokemonB} />
-          )}
-
-          {!loading && !bothLoaded && (
-            <div className="flex items-center justify-center px-8 py-16">
-              {!idA && !idB && (
-                <p className="text-[0.9rem] text-text-muted text-center">
-                  Search for two Pokémon to begin comparing
-                </p>
-              )}
-              {idA && !idB && (
-                <p className="text-[0.9rem] text-text-muted text-center">
-                  Now pick a second Pokémon to challenge
-                </p>
-              )}
-            </div>
-          )}
-        </div>
+            {!idA && !idB && (
+              <p className="text-body text-text-muted max-w-xs leading-relaxed">
+                Search for two Pokémon to begin comparing.
+              </p>
+            )}
+            {idA && !idB && (
+              <p className="text-body text-text-muted max-w-xs leading-relaxed">
+                Now pick a second Pokémon to challenge.
+              </p>
+            )}
+          </div>
+        )}
 
       </div>
-    </div>
+    </section>
   );
 }
 
