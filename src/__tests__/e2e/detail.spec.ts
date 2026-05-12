@@ -9,9 +9,7 @@ test.describe("Pokémon detail — stats & abilities", () => {
     for (const stat of detail.getStatNames()) {
       const row = detail.getStatRow(stat);
       await expect(row).toBeVisible();
-
-      const text = await row.textContent();
-      expect(text).toMatch(/\d+/);
+      await expect(row).toContainText(/\d+/);
     }
   });
 
@@ -20,9 +18,7 @@ test.describe("Pokémon detail — stats & abilities", () => {
     await detail.goto(1);
 
     const abilities = detail.getAbilities();
-    const count = await abilities.count();
-    expect(count).toBeGreaterThanOrEqual(1);
-
+    await expect(abilities.first()).toBeVisible();
     await expect(abilities.first()).toContainText(/.+/);
   });
 
@@ -30,18 +26,7 @@ test.describe("Pokémon detail — stats & abilities", () => {
     const detail = new PokemonDetailPage(page);
     await detail.goto(1);
 
-    const abilities = detail.getAbilities();
-    const count = await abilities.count();
-
-    let foundHidden = false;
-    for (let i = 0; i < count; i++) {
-      const text = await abilities.nth(i).textContent();
-      if (text?.toLowerCase().includes("hidden")) {
-        foundHidden = true;
-        break;
-      }
-    }
-    expect(foundHidden).toBe(true);
+    await expect(detail.getHiddenAbilityBadges().first()).toBeVisible();
   });
 });
 
@@ -71,9 +56,9 @@ test.describe("Pokémon detail — Pokédex Intel", () => {
     const detail = new PokemonDetailPage(page);
     await detail.goto(1);
 
-    const text = await detail.getIntelTile("density").textContent();
-    expect(text).toMatch(/\d/);
-    expect(text).toMatch(/kg\/m²/);
+    const tile = detail.getIntelTile("density");
+    await expect(tile).toContainText(/\d/);
+    await expect(tile).toContainText("kg/m²");
   });
 
   test("weaknesses tile shows type badges", async ({ page }) => {
@@ -83,9 +68,8 @@ test.describe("Pokémon detail — Pokédex Intel", () => {
     const tile = detail.getIntelTile("weaknesses");
     await expect(tile).toBeVisible();
 
-    const badges = tile.locator('[data-testid^="weakness-"]');
-    const count = await badges.count();
-    expect(count).toBeGreaterThan(0);
+    const firstBadge = tile.locator('[data-testid^="weakness-"]').first();
+    await expect(firstBadge).toBeVisible();
   });
 });
 

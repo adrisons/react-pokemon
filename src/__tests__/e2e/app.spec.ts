@@ -39,8 +39,7 @@ test.describe("Pokémon app", () => {
     await listPage.clickPokemonDetail(0);
     await detailPage.isLoaded();
 
-    const name = await detailPage.getPokemonName();
-    expect(name?.trim().length).toBeGreaterThan(0);
+    await expect(detailPage.pokemonName).not.toBeEmpty();
 
     const src = await detailPage.getImageSrc();
     expect(src).toBeTruthy();

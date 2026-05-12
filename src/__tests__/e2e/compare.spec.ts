@@ -69,10 +69,8 @@ test.describe("Compare page", () => {
 
     for (const stat of STAT_NAMES) {
       await expect(comparePage.getStatRow(stat)).toBeVisible();
-      const valA = await comparePage.getStatA(stat).textContent();
-      const valB = await comparePage.getStatB(stat).textContent();
-      expect(Number(valA)).toBeGreaterThan(0);
-      expect(Number(valB)).toBeGreaterThan(0);
+      await expect(comparePage.getStatA(stat)).toContainText(/[1-9]/);
+      await expect(comparePage.getStatB(stat)).toContainText(/[1-9]/);
     }
   });
 
@@ -80,10 +78,8 @@ test.describe("Compare page", () => {
     const comparePage = new ComparePage(page);
     await comparePage.gotoWithBoth("1", "4");
 
-    const totalA = await comparePage.getTotalA().textContent();
-    const totalB = await comparePage.getTotalB().textContent();
-    expect(Number(totalA)).toBeGreaterThan(0);
-    expect(Number(totalB)).toBeGreaterThan(0);
+    await expect(comparePage.getTotalA()).toContainText(/[1-9]/);
+    await expect(comparePage.getTotalB()).toContainText(/[1-9]/);
   });
 
   test("clearing Pokémon A returns to empty state", async ({ page }) => {

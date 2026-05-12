@@ -24,11 +24,7 @@ test.describe("Search Command Dialog", () => {
     await listPage.goto();
 
     await listPage.search("pika");
-    const items = listPage.getSearchCommandItems();
-    await expect(items.first()).toBeVisible();
-
-    const count = await items.count();
-    expect(count).toBeGreaterThan(0);
+    await expect(listPage.getSearchCommandItems().first()).toBeVisible();
   });
 
   test("clicking a suggestion navigates to detail", async ({ page }) => {
@@ -101,11 +97,7 @@ test.describe("Search query param filtering (?q=)", () => {
 
     await expect(listPage.searchActiveBanner).toBeVisible();
     await expect(listPage.searchActiveBanner).toContainText("bulbasaur");
-
-    const cards = listPage.getPokemonCards();
-    await expect(cards.first()).toBeVisible();
-    const count = await cards.count();
-    expect(count).toBeGreaterThan(0);
+    await expect(listPage.getPokemonCards().first()).toBeVisible();
   });
 
   test("clearing the banner removes the filter", async ({ page }) => {

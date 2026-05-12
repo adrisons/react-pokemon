@@ -203,13 +203,17 @@ function PokemonDetailPage() {
                   <div
                     key={ability.name}
                     className="border border-dark-600 rounded-2xl px-4 py-4 bg-dark-700 transition-colors duration-200 hover:border-dark-600/70"
+                    data-testid="ability-item"
                   >
                     <div className="flex items-center gap-2 mb-1">
                       <span className="capitalize font-semibold text-body text-text-primary">
                         {ability.name.replace("-", " ")}
                       </span>
                       {ability.isHidden && (
-                        <span className="text-caption px-2 py-0.5 rounded border border-dark-600 text-text-muted uppercase tracking-wide">
+                        <span
+                          className="text-caption px-2 py-0.5 rounded border border-dark-600 text-text-muted uppercase tracking-wide"
+                          data-testid="hidden-ability-badge"
+                        >
                           hidden
                         </span>
                       )}

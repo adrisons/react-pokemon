@@ -81,6 +81,8 @@ export class PokemonListPage extends BasePage {
     await card.hover();
     const btn = card.getByTestId("pokemon-card-detail-btn");
     await btn.waitFor({ state: "visible" });
+    // dispatchEvent bypasses Chromium hit-testing that fails with CSS 3D transforms
+    // even though pointer-events: none is correctly set on the hidden card face.
     await btn.dispatchEvent("click");
   }
 
