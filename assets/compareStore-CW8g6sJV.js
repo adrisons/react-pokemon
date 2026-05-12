@@ -1,2 +1,0 @@
-import{i as s}from"./index-Dm67Jff7.js";const u=s((t,r)=>({slotA:null,slotB:null,setSlotA:l=>t({slotA:l}),setSlotB:l=>t({slotB:l}),selectPokemon:l=>{const{slotA:o,slotB:n}=r();return o===l||n===l?null:o?n?null:(t({slotB:l}),"b"):(t({slotA:l}),"a")},removePokemon:l=>t(o=>({slotA:o.slotA===l?null:o.slotA,slotB:o.slotB===l?null:o.slotB})),clear:()=>t({slotA:null,slotB:null})}));export{u};
-//# sourceMappingURL=compareStore-CW8g6sJV.js.map
