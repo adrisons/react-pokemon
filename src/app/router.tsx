@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Loading } from "@shared/ui";
 import { TooltipProvider } from "@shared/ui/components/ui/tooltip";
+import ScrollToTop from "@shared/ui/components/ScrollToTop/ScrollToTop";
 
 const PokemonListPage = lazy(
   () => import("@features/pokemon-list/pages/PokemonListPage")
@@ -16,6 +17,7 @@ const ComparePage = lazy(
 function AppRouter() {
   return (
     <TooltipProvider delay={300}>
+    <ScrollToTop />
     <Suspense fallback={<Loading />}>
       <Routes>
         <Route path="/react-pokemon/" element={<PokemonListPage />} />

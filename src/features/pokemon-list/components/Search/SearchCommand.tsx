@@ -1,3 +1,4 @@
+import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Command,
@@ -8,6 +9,7 @@ import {
   CommandItem,
   CommandList,
 } from "@shared/ui/components/ui/command";
+import { cn } from "@shared/lib/utils";
 import { useSearchStore } from "@features/pokemon-list/store";
 import { getPokemonIdFromUrl } from "@core/domain/pokemon";
 
@@ -17,10 +19,19 @@ const spriteUrl = (id: string) =>
 function SearchCommand() {
   const navigate = useNavigate();
   const { isOpen, close, query, setQuery, results, searching, notFound, reset } = useSearchStore();
+  const [highlightIdx, setHighlightIdx] = useState<number | null>(null);
 
   function handleOpenChange(open: boolean) {
     if (!open) close();
   }
+
+  const handleSetQuery = useCallback(
+    (value: string) => {
+      setHighlightIdx(null);
+      setQuery(value);
+    },
+    [setQuery],
+  );
 
   function goToDetail(id: string) {
     close();
@@ -35,9 +46,35 @@ function SearchCommand() {
   }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (results.length === 0) return;
+      setHighlightIdx((prev) =>
+        prev === null ? 0 : Math.min(prev + 1, results.length - 1),
+      );
+      return;
+    }
+
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setHighlightIdx((prev) =>
+        prev === null || prev === 0 ? null : prev - 1,
+      );
+      return;
+    }
+
     if (e.key !== "Enter") return;
     const trimmed = query.trim().toLowerCase();
     if (!trimmed) return;
+
+    e.preventDefault();
+
+    if (highlightIdx !== null) {
+      const p = results[highlightIdx];
+      if (p) goToDetail(getPokemonIdFromUrl(p.url));
+      return;
+    }
+
     const exact = results.find((p) => p.name.toLowerCase() === trimmed);
     if (exact) {
       goToDetail(getPokemonIdFromUrl(exact.url));
@@ -57,7 +94,7 @@ function SearchCommand() {
       <Command shouldFilter={false} className="bg-transparent">
       <CommandInput
         value={query}
-        onValueChange={setQuery}
+        onValueChange={handleSetQuery}
         onKeyDown={handleKeyDown}
         placeholder="Search Pokémon by name…"
         data-testid="search-command-input"
@@ -79,14 +116,17 @@ function SearchCommand() {
 
         {!searching && !notFound && results.length > 0 && (
           <CommandGroup heading="Suggestions">
-            {results.map((p) => {
+            {results.map((p, idx) => {
               const id = getPokemonIdFromUrl(p.url);
               return (
                 <CommandItem
                   key={id}
                   value={`${p.name}-${id}`}
                   onSelect={() => goToDetail(id)}
-                  className="flex items-center gap-3 px-3 py-2 cursor-pointer"
+                  className={cn(
+                    "flex items-center gap-3 px-3 py-2 cursor-pointer",
+                    highlightIdx === idx && "bg-accent-gold/10 text-text-primary",
+                  )}
                   data-testid="search-command-item"
                 >
                   <img

@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState, type CSSProperties } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Check, Swords } from "lucide-react";
+import { ArrowRight, Baby, Check, Crown, Skull, Sparkles, Swords } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import type { PokemonDetail } from "@core/domain/pokemon";
 import Badge from "@shared/ui/components/Badge/Badge";
 import { Button } from "@shared/ui/components/ui/button";
@@ -8,6 +9,7 @@ import { statColorVar } from "@shared/constants/statColors";
 import typeColors from "@shared/constants/typeColors";
 import cardBack from "@shared/assets/pokemon-card-back.svg";
 import { useCompareStore } from "@features/compare/store/compareStore";
+import { getRarityStatus, type RarityKind } from "@features/pokemon-detail/lib/insights";
 import { cn } from "@shared/lib/utils";
 
 const STAT_SHORT: Record<string, string> = {
@@ -17,6 +19,33 @@ const STAT_SHORT: Record<string, string> = {
   "special-attack": "SP.A",
   "special-defense": "SP.D",
   speed: "SPD",
+};
+
+const RARITY_ICON: Record<RarityKind, LucideIcon> = {
+  legendary: Crown,
+  mythical: Sparkles,
+  baby: Baby,
+  common: Skull,
+};
+
+const RARITY_VAR: Record<RarityKind, string> = {
+  legendary: "var(--color-accent-gold)",
+  mythical: "var(--color-intel-mythical)",
+  baby: "var(--color-intel-baby)",
+  common: "var(--color-text-subtle)",
+};
+
+const RARITY_TEXT_CLS: Record<RarityKind, string> = {
+  legendary: "text-accent-gold",
+  mythical: "text-intel-mythical",
+  baby: "text-intel-baby",
+  common: "text-text-subtle",
+};
+
+const RARITY_DESC: Partial<Record<RarityKind, string>> = {
+  legendary: "One of a kind",
+  mythical: "Event exclusive",
+  baby: "Pre-evolution form",
 };
 
 const CARD_RADIUS = "rounded-xl sm:rounded-2xl";
@@ -41,6 +70,9 @@ function PokemonCard({ pokemon }: Props) {
   const maxBackStat = Math.max(...backStats.map((s) => s.value));
   const primaryType = pokemon.types[0]?.typeName;
   const typeColor = primaryType ? typeColors[primaryType] : "var(--color-text-muted)";
+
+  const rarity = getRarityStatus(pokemon);
+  const RarityIcon = RARITY_ICON[rarity.kind];
 
   const handleCardTap = useCallback(() => {
     if (!isHovering.current) setIsFlipped((prev) => !prev);
@@ -79,6 +111,18 @@ function PokemonCard({ pokemon }: Props) {
           {/* ── FRONT ─────────────────────────────────── */}
           <div className={cn("card-face pkm-card-border absolute inset-0 overflow-hidden p-[2px] flex flex-col", CARD_RADIUS)}>
             <div className={cn("pkm-card-inner flex-1 overflow-hidden relative flex flex-col", CARD_INNER_RADIUS)}>
+
+              {rarity.kind !== "common" && (
+                <span
+                  className={cn(
+                    "absolute top-2 right-2 sm:top-3 sm:right-3 z-10 pkm-rarity-glow",
+                    RARITY_TEXT_CLS[rarity.kind]
+                  )}
+                  aria-hidden="true"
+                >
+                  <RarityIcon className="size-4 sm:size-5" />
+                </span>
+              )}
 
               <div className="flex items-center justify-center relative flex-1 min-h-0">
                 <img
@@ -132,6 +176,34 @@ function PokemonCard({ pokemon }: Props) {
                   #{String(pokemon.id).padStart(3, "0")}
                 </span>
               </div>
+
+              {rarity.kind !== "common" && (
+                <div
+                  className="pkm-rarity-row flex items-center gap-1 sm:gap-2 rounded-md sm:rounded-lg px-1 sm:px-2 py-1 sm:py-2"
+                  style={{ "--tone-color": RARITY_VAR[rarity.kind] } as CSSProperties}
+                >
+                  <RarityIcon
+                    className={cn("size-3 sm:hidden shrink-0 pkm-rarity-glow", RARITY_TEXT_CLS[rarity.kind])}
+                    aria-hidden="true"
+                  />
+                  <span
+                    className="intel-tone-tint hidden sm:inline-flex size-6 items-center justify-center rounded-md border shrink-0"
+                    aria-hidden="true"
+                  >
+                    <RarityIcon className="size-4" />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <span className={cn("font-pixel text-tag sm:text-caption uppercase tracking-wide sm:tracking-wider leading-none truncate block", RARITY_TEXT_CLS[rarity.kind])}>
+                      {rarity.label}
+                    </span>
+                    {RARITY_DESC[rarity.kind] && (
+                      <p className="hidden sm:block text-caption text-text-muted leading-tight mt-1 truncate">
+                        {RARITY_DESC[rarity.kind]}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
 
               <div className="flex flex-col gap-2 flex-1 justify-center">
                 {backStats.map((stat) => (

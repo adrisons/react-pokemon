@@ -15,10 +15,7 @@ function EvolutionChain({ stages, currentId }: Props) {
   if (stages.length <= 1) return null;
 
   function handleNavigate(pokemonId: number) {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    setTimeout(() => {
-      navigate(`/react-pokemon/detail/${pokemonId}`);
-    }, 350);
+    navigate(`/react-pokemon/detail/${pokemonId}`);
   }
 
   return (
