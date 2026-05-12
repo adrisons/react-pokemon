@@ -164,28 +164,3 @@ jobs:
         with:
           branch: gh-pages
           folder: dist
-
-  notify-failure:
-    if: failure() && github.ref == 'refs/heads/master'
-    needs: [typecheck, unit-tests, storybook-tests, e2e, build, deploy]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Send failure notification
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
-          subject: "CI Failed: ${{ github.repository }} — ${{ github.workflow }}"
-          to: ${{ secrets.MAIL_TO }}
-          from: GitHub Actions <${{ secrets.MAIL_USERNAME }}>
-          body: |
-            Workflow "${{ github.workflow }}" failed on ${{ github.repository }}.
-
-            Branch: ${{ github.ref_name }}
-            Commit: ${{ github.sha }}
-            Author: ${{ github.actor }}
-            Message: ${{ github.event.head_commit.message }}
-
-            View run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

@@ -192,13 +192,9 @@ export const WithRecentlyViewed: Story = {
   },
   decorators: [
     (Story) => (
-      <MemoryRouter initialEntries={["/react-pokemon/"]} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-        <SeedHistory entries={recentHistory}>
-          <div className="max-w-md mx-auto p-4">
-            <Story />
-          </div>
-        </SeedHistory>
-      </MemoryRouter>
+      <SeedHistory entries={recentHistory}>
+        <Story />
+      </SeedHistory>
     ),
   ],
   args: {

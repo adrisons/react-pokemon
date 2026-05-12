@@ -45,7 +45,7 @@ export default defineConfig({
         "src/shared/ui/components/ui/**",
         // Legacy .jsx files being migrated to .tsx
         "src/**/*.jsx",
-        // View layer: pages and display components (tested via snapshots only)
+        // View layer: pages and display components
         "src/app/App.tsx",
         "src/**/pages/**",
         "src/features/**/components/**",
