@@ -7,6 +7,9 @@ export class PokemonListPage extends BasePage {
   readonly nextPageButton: Locator;
   readonly prevPageButton: Locator;
   readonly notFoundMessage: Locator;
+  readonly searchActiveBanner: Locator;
+  readonly searchClearBtn: Locator;
+  readonly searchNotFound: Locator;
 
   readonly recentlyViewedSection: Locator;
   readonly carouselPrevBtn: Locator;
@@ -19,6 +22,9 @@ export class PokemonListPage extends BasePage {
     this.nextPageButton = page.getByTestId("pagination-next-btn");
     this.prevPageButton = page.getByTestId("pagination-prev-btn");
     this.notFoundMessage = page.getByTestId("search-command-empty");
+    this.searchActiveBanner = page.getByTestId("search-active-banner");
+    this.searchClearBtn = page.getByTestId("search-clear-btn");
+    this.searchNotFound = page.getByTestId("search-not-found");
 
     this.recentlyViewedSection = page.getByTestId("recently-viewed-carousel");
     this.carouselPrevBtn = this.recentlyViewedSection.locator('[data-slot="carousel-previous"]');
@@ -71,10 +77,11 @@ export class PokemonListPage extends BasePage {
 
   async clickPokemonDetail(index: number) {
     const card = this.getPokemonCards().nth(index);
+    await card.evaluate(el => el.scrollIntoView({ block: "center" }));
     await card.hover();
     const btn = card.getByTestId("pokemon-card-detail-btn");
     await btn.waitFor({ state: "visible" });
-    await btn.click();
+    await btn.dispatchEvent("click");
   }
 
   getCarouselCards() {
@@ -83,5 +90,14 @@ export class PokemonListPage extends BasePage {
 
   getCarouselCard(pokemonId: number) {
     return this.page.getByTestId(`recently-viewed-${pokemonId}`);
+  }
+
+  getSearchCommandItems() {
+    return this.page.getByTestId("search-command-item");
+  }
+
+  async gotoWithQuery(query: string) {
+    await this.navigate(`?q=${encodeURIComponent(query)}`);
+    await this.waitForNetworkIdle();
   }
 }
